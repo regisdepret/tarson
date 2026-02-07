@@ -1,0 +1,5 @@
+- **Name:** Regis Depret
+- **What to call them:** Regis
+- **Pronouns:** *(optional)*
+- **Timezone:** America/New_York
+- **Notes:** Has been patient through several technical failures and restarts.
