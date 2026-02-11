@@ -2,6 +2,13 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## TTS Comparison (TODO)
+- **Current:** OpenClaw built-in TTS (configured with `pt-BR-FranciscaNeural`)
+- **Evaluate:** Edge TTS (`edge-tts` Python package) — free, high-quality, many voices
+  - Install: `pip install edge-tts`
+  - CLI: `edge-tts --text "Hello" --voice en-US-AriaNeural --write-media out.mp3`
+  - List voices: `edge-tts --list-voices`
+
 ## Hardware & Acceleration
 
 - **GPU:** Intel Corporation Alder Lake-N [UHD Graphics] (Integrated)

@@ -8,7 +8,7 @@ This file contains the foundational principles, established systems, and key lea
 - **Vibe:** Competent, direct, mission-focused, incorporating humor and sarcasm where appropriate without sacrificing clarity.
 
 ## Communication Protocol
-- **Language Matching:** I will always match my response language to the primary language of the user's message (Portuguese, English, or Spanish).
+- **Language:** ALWAYS respond in English, regardless of input language. Even if Regis messages in Portuguese or Spanish, I reply in English.
 - **TTS Workflow (Telegram):**
     1.  Receive voice message.
     2.  Provide a text transcription of the user's message.
@@ -22,13 +22,17 @@ This file contains the foundational principles, established systems, and key lea
 - **"Green Light" Protocol:** I must always wait for explicit confirmation from the user before acting on suggestions or examples, to prevent premature execution.
 
 ## Inbox Zero Workflow (Complete)
-- **Core Principle: Smart Auto-Delete:** Auto-delete rules are NOT blind. I always analyze the email first. If the context is unclear or the email doesn't match the expected pattern, I bring it to the user's attention.
+- **Core Principle: NO AUTO-ACTIONS.** Present EVERY email to user with buttons. User decides, I execute. Even "obvious" spam gets presented — I don't decide what's important.
 - **Email Sources:** Gmail (regis.depret@gmail.com) and iCloud (regis.depret@me.com)
 - **Interaction Flow:**
-  1. Present email with summary + inline buttons (Telegram)
-  2. On button click: execute action, delete message, present next
-  3. NO confirmation messages between emails - keep flow smooth
+  1. Fetch email and extract useful summary (amounts, dates, action items)
+  2. Present email with summary + inline buttons (Telegram)
+  3. On button click: execute action
+  4. **Delete the Telegram button message** to keep flow clean
+  5. Present next email
+  6. NO confirmation messages between emails - keep flow smooth
 - **Data Extraction:** Always decode HTML to extract amounts, due dates, account numbers
+- **Trigger:** System cron (external crontab) at :30 every hour calls `openclaw system event --mode now`
 - **Gmail Commands:**
   - Track: `gog gmail thread modify <id> --add Label_81 --remove UNREAD --remove INBOX --force`
   - Delete: `gog gmail batch modify <id> --add TRASH --force`
@@ -52,7 +56,26 @@ This file contains the foundational principles, established systems, and key lea
 - **Task title format:** `[CATEGORY] Brief description`
 - **Categories:** BILL, ACTION, TAX, WORK, WEBSITE, WATCHING, EVENT
 - **Source linking:** `gmail:<thread_id>` or `icloud:uid:<uid>`
-- **Separate from Inbox Zero:** Inbox Zero = processing incoming, Tracking = monitoring flagged items
+- **Resolution workflow:** Before completing: add RESOLVED date + Resolution description to notes, create `memory/resolutions/` doc if detailed
+
+## Track = Task (Tight Integration)
+- **Every tracked email creates a Google Task** — no orphan tracking labels
+- **Task = source of truth** — all context, amounts, dates live in task notes
+- **Task notes include source link** — `gmail:<thread_id>` or `icloud:uid:<uid>`
+- **Completing task → MUST clean up email** — remove Tracking label (Label_81) when task is completed
+- **Full lifecycle:** Email → Track → Task → Complete → Remove Tracking label
+- This replaces the old loose coupling where some tracked emails had no tasks
+- **IMPORTANT:** Don't leave orphan emails in Tracking after task completion!
+
+## Fragment Capture Workflow
+- **List:** TARSON - Fragments (ID: R0NIanRDd3NpbFNZSFVzRA)
+- **Purpose:** Staging area for incomplete/unclear information
+- **Flow:**
+  1. User sends fragment (screenshot, quick note, voice clip)
+  2. I create task in Fragments with raw capture + timestamp
+  3. Next opportunity → ping user for details
+  4. User clarifies → move to proper list (Tracking/Orders) with full context
+- **Benefits:** Main list stays clean, nothing lost, forces clarification before action
 
 ## Automated Systems
 - **Workspace Backup:** My core "brain" files (`SOUL.md`, `IDENTITY.md`, `USER.md`, `TOOLS.md`, `AGENTS.md`, and the `memory/` directory) are backed up to the private `tarson` GitHub repository.
@@ -62,9 +85,47 @@ This file contains the foundational principles, established systems, and key lea
     - **Function:** It verifies the status of the automated backup and reports its findings to me.
     - **My Role:** I am to analyze this report and provide a consolidated summary to the user.
 
+## Quote Control System
+**Purpose:** Track supplier quotes for job materials (replaces lack of this feature in Jobber)
+
+**Resources:**
+- **Quote Sheet:** `1rwU_zPwOdeOQnkqgWeydxLrmGjAEG3c8S-gr7eLuaM4` (TucanoQuoteControl)
+- **Contacts Sheet:** `1nUQ1RahVD5vRxsGNqIA0QIHUDVv3ucCF1ij55RW0kTk` (TucanoContacts)
+- **Tasks List:** `YTFXWENrb28xeUg0UTdEcw` (TARSON - Quote Control)
+
+**Workflow:**
+1. Fragment received → Create `[JOB]` master task + `[QUOTE]` subtasks per supplier
+2. Quote received → Update task title to "Received", add prices to sheet
+3. Winner chosen → Mark losers completed, winner stays open
+4. Job done → Complete master task
+
+**Two-Way Contact Sync:** Cross-reference Google Contacts; authorized to update if I have better info.
+
+**Key Suppliers:**
+- Bentley's Stone Yard (Matt Santoro) - Norcross
+- Luxury Landscape Supplies (Paul King) - Lawrenceville
+- Heritage / Superior Supplies (Marc Teitelman)
+- GLM (Clinton Higginbotham) - Alpharetta/Milton
+- Stone Center / OLS (Brooks)
+
 ## Active Tasks
 - Honda payment reminder check on March 7 at 9:00 AM EST
-- Research: Email tracking solution for follow-up items (sub-agent working on it)
+
+## Gmail Track Workflow (Fixed)
+**Adding labels:** Use `thread modify`
+```
+gog gmail thread modify <id> --add Label_81 --force
+```
+
+**Removing INBOX:** Use `batch modify` (thread modify silently fails for label removal)
+```
+gog gmail batch modify <id> --remove INBOX --account regis.depret@gmail.com --force
+```
+
+**Key learning (2026-02-10):** `thread modify --remove INBOX` reports success but doesn't actually remove the label. Always use `batch modify` for removing labels.
+
+## Fragment/Screenshot Handling
+When user sends screenshots or conversation fragments: analyze and create Google Task automatically. Don't wait for explicit instruction — capture it, discard later if not needed.
 
 ## Business Context
 - **Tucano Stones and Pavers LLC** — Family business (Leo Moreira involved)
@@ -76,3 +137,11 @@ This file contains the foundational principles, established systems, and key lea
 ## Known System Limitations
 - **Whisper GPU Acceleration:** The local `whisper` CLI tool for transcription cannot utilize the integrated Intel UHD Graphics GPU on this system. All transcription tasks will run on the CPU.
 - **Web Search:** The `web_search` tool is currently non-functional due to a missing API key.
+- **OpenClaw Internal Cron:** Main-session cron jobs (`sessionTarget: main`) are unreliable due to heartbeat empty-file check bug. Use system crontab instead for scheduled tasks.
+- **Isolated Sessions:** NEVER use `sessionTarget: isolated` for cron jobs — caused session state interference in the past. Always use main session.
+- **iCloud Delete Script:** Currently uses EXPUNGE (permanent delete). TODO: Fix to use Trash folder for recoverability.
+
+## Reminders & Scheduling Rules
+- **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
+- **Internal automation only:** OpenClaw cron acceptable for inbox checks, backups, health checks
+- **Google Tasks = disaster recovery** — user can see tasks even if TARSON is down

@@ -4,17 +4,68 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 
 ## INTERACTION BEHAVIOR
 
-### Flow
-1. Present email with summary + inline buttons
-2. Wait for button click
-3. On click: execute action silently, delete the message, present next email
-4. NO confirmation messages between emails - keep the flow smooth
+### Flow (STRICT: One-by-One)
+1. Fetch all unread emails from both Gmail and iCloud
+2. Present **ONE email** with summary + inline buttons
+3. **STOP AND WAIT** for user's button click
+4. On callback: execute action silently
+5. Present the **NEXT email** (one only)
+6. **STOP AND WAIT** again
+7. Repeat until all emails processed
+8. Send brief "✅ Inbox zero" when done
+
+**NEVER send multiple email messages in a row.** Always wait for user action between each email. This is not optional — bulk sending defeats the purpose of interactive triage.
+
+**NO ACKNOWLEDGMENT MESSAGES.** Don't reply "🗑️" or "Done" or "Tracked". Just execute the action silently, delete the button message, and present the next email. Only the email cards matter.
 
 ### Presenting Emails
+- **ONE EMAIL PER MESSAGE** — never batch/bulk multiple emails together
 - Extract ALL available data (amount, due date, account number, etc.)
 - For HTML-only emails, decode and parse the HTML to get details
 - Never say "details not available" if they're extractable
-- One email = one message with inline buttons
+- Keep summaries concise but complete
+
+### Telegram Inline Buttons (CRITICAL)
+**ALWAYS use the `buttons` parameter in the message tool**, NOT slash commands as text.
+
+Example correct usage:
+```json
+{
+  "action": "send",
+  "channel": "telegram", 
+  "to": "98960672",
+  "message": "📧 **Sender Name**\n**Subject Line**\n\nSummary of content here",
+  "buttons": [[
+    {"text": "🗑️ Delete", "callback_data": "del_THREADID"},
+    {"text": "📁 Archive", "callback_data": "arc_THREADID"}
+  ]]
+}
+```
+
+**NEVER** write buttons as text like:
+```
+🗑️ /del_abc123
+📁 /arc_abc123
+```
+This is broken UX — the user can't tap these.
+
+### Button Callback Handling
+When receiving a callback like `del_19c479888cdfe50a`:
+- Parse the action prefix (del/arc/trk/idel/iarc)
+- Extract the ID
+- Execute the appropriate command
+- **Delete the button message** using the Telegram messageId I saved when sending
+
+### Message ID Tracking (CRITICAL)
+When sending an email with buttons, the response includes `messageId` (e.g., "711").
+I MUST remember this ID so I can delete the message after the user clicks.
+
+Store mapping: `email_thread_id → telegram_message_id`
+
+When callback arrives, look up the telegram_message_id and delete it:
+```json
+{"action": "delete", "channel": "telegram", "messageId": "711"}
+```
 
 ### Tracking Behavior
 - Emails that will become threads (replies expected) → Track in Gmail label
@@ -22,10 +73,13 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 - Track = Mark Read + Remove INBOX + Add Tracking label
 
 ### Button Actions
-- Delete: Move to trash, delete message, next email
-- Track: Add label + remove inbox + mark read, delete message, next email  
-- Archive: Remove inbox only, delete message, next email
-- Skip: Delete message, next email
+- **del_ID** (Gmail): Move to trash via `gog gmail batch modify ID --add TRASH --force`
+- **arc_ID** (Gmail): Archive via `gog gmail thread modify ID --remove INBOX --force`
+- **trk_ID** (Gmail): Track via two commands:
+  1. `gog gmail thread modify ID --add Label_81 --force`
+  2. `gog gmail thread modify ID --remove INBOX --remove UNREAD --force`
+- **idel_UID** (iCloud): Delete via `bash scripts/icloud_action.sh delete UID`
+- **iarc_UID** (iCloud): Archive via `bash scripts/icloud_action.sh archive UID`
 
 ## CORE PRINCIPLE: Smart Auto-Delete
 Auto-delete rules are NOT blind. I always analyze the email first.
@@ -70,6 +124,16 @@ When tracking an email (adding to Tracking label/folder):
 - Also remove from inbox (remove INBOX label)
 - Tracking means it's been triaged and moved — not visible in inbox anymore
 - The email lives in "Tracking" view only until resolved
+
+## CORE PRINCIPLE: Track = Create Task (Source of Truth)
+Every tracked email MUST have a corresponding Google Task:
+- Task title: `[CATEGORY] Brief description`
+- Task notes MUST include source link: `gmail:<thread_id>` or `icloud:uid:<uid>`
+- Include relevant details: amounts, due dates, context, action needed
+- Set due date if applicable
+- **Task is the source of truth** — richer info lives here, not in email labels
+- When task is completed → check for source email → offer to archive/delete it
+- This creates a full lifecycle: Email → Track → Task → Complete → Clean up email
 
 ## Rule Format
 Rules are processed from top to bottom. The first rule that matches an email is the one that is applied.
@@ -118,7 +182,16 @@ FROM: no-reply@mailmais.com.br -> ACTION: DELETE
 
 # OneDrive Memories
 # Story: These are heartwarming and should be experienced, not managed.
-# Rule: Extract images, display them in chat, then await confirmation to delete both the chat messages and the original email.
+# Rule: Extract thumbnail URLs with tempauth tokens from email HTML, download via curl, display in chat.
+#       Then await confirmation to delete email + chat photos + local files.
+# 
+# METHOD (proven working 2026-02-09 and 2026-02-10):
+# 1. Get email JSON: gog gmail thread get <id> --json
+# 2. Extract all base64 data: jq -r '.. | .data? // empty'
+# 3. Decode and find thumbnail URLs: tr '_-' '/+' | base64 -d | grep microsoftpersonalcontent
+# 4. Download thumbnails with curl (tempauth tokens are time-limited but valid for ~24h)
+# 5. Send photos to Telegram
+# 6. On delete callback: trash email, delete Telegram messages, rm local files
 FROM: photos@onedrive.com -> ACTION: SHOW_MEMORIES
 
 # USPS Informed Delivery
