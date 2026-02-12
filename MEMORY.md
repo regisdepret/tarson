@@ -145,3 +145,21 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
 - **Internal automation only:** OpenClaw cron acceptable for inbox checks, backups, health checks
 - **Google Tasks = disaster recovery** — user can see tasks even if TARSON is down
+
+## Inbox Zero Workflow v2 (Feb 2026 Update)
+**Key improvement:** ONE email at a time, full context summaries.
+
+**Flow:**
+1. Announce count: "You have X emails"
+2. Wait for "go ahead"
+3. Present ONE email with full summary + buttons
+4. Wait for action → present next
+5. Never flood multiple emails at once
+
+**Summary format must answer:**
+- What type of email is this?
+- What's the key content (amounts, dates, names)?
+- Is action needed?
+- My verdict (delete/archive/track)
+
+Goal: User decides WITHOUT opening the email.
