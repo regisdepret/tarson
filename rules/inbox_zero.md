@@ -183,15 +183,19 @@ FROM: no-reply@mailmais.com.br -> ACTION: DELETE
 # OneDrive Memories
 # Story: These are heartwarming and should be experienced, not managed.
 # Rule: Extract thumbnail URLs with tempauth tokens from email HTML, download via curl, display in chat.
-#       Then await confirmation to delete email + chat photos + local files.
+#       Then await confirmation to delete email + button message + local files.
 # 
-# METHOD (proven working 2026-02-09 and 2026-02-10):
-# 1. Get email JSON: gog gmail thread get <id> --json
-# 2. Extract all base64 data: jq -r '.. | .data? // empty'
-# 3. Decode and find thumbnail URLs: tr '_-' '/+' | base64 -d | grep microsoftpersonalcontent
-# 4. Download thumbnails with curl (tempauth tokens are time-limited but valid for ~24h)
-# 5. Send photos to Telegram
-# 6. On delete callback: trash email, delete Telegram messages, rm local files
+# METHOD (proven working 2026-02-09, 2026-02-10, 2026-02-13):
+# 1. Get email as JSON: GOG_KEYRING_PASSWORD=1234 gog gmail thread get <id> --account regis.depret@gmail.com --json
+# 2. Extract HTML body: jq -r '.thread.messages[0].payload.parts[] | select(.mimeType == "text/html") | .body.data'
+# 3. Decode base64 (URL-safe): tr '_-' '/+' | base64 -d > email.html
+# 4. Extract photo URLs: grep -oP 'https://my\.microsoftpersonalcontent\.com/[^"<>\s]+' email.html
+# 5. Download with curl: curl -sL "$url" -H "User-Agent: Mozilla/5.0" -o "memory_$num.jpg"
+# 6. Send photos to Telegram using message tool with media parameter
+# 7. On delete: trash email, delete button message, rm -rf local directory
+#
+# Note: The microsoftpersonalcontent URLs contain tempauth tokens valid for ~30 days.
+#       Always send images FIRST, then present summary with buttons.
 FROM: photos@onedrive.com -> ACTION: SHOW_MEMORIES
 
 # USPS Informed Delivery
