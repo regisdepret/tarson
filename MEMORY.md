@@ -22,7 +22,9 @@ This file contains the foundational principles, established systems, and key lea
 - **"Green Light" Protocol:** I must always wait for explicit confirmation from the user before acting on suggestions or examples, to prevent premature execution.
 
 ## Inbox Zero Workflow (Complete)
-- **Core Principle: NO AUTO-ACTIONS.** Present EVERY email to user with buttons. User decides, I execute. Even "obvious" spam gets presented — I don't decide what's important.
+- **🚨 CORE PRINCIPLE: ZERO AUTO-ACTIONS 🚨** Present EVERY email to user with buttons. User decides, I execute. Even "obvious" spam gets presented — I don't decide what's important.
+- **I AM NOT THE DECISION-MAKER.** I am the executor. User chooses, I act. ALWAYS.
+- **USPS Informed Delivery:** Extract tracking numbers from HTML, parse sender/status, create task in TARSON - Orders with tracking link
 - **Email Sources:** Gmail (regis.depret@gmail.com) and iCloud (regis.depret@me.com)
 - **Interaction Flow:**
   1. Fetch email and extract useful summary (amounts, dates, action items)
@@ -108,6 +110,17 @@ This file contains the foundational principles, established systems, and key lea
 - GLM (Clinton Higginbotham) - Alpharetta/Milton
 - Stone Center / OLS (Brooks)
 
+## Windows Node Setup (2026-02-14) ✅ COMPLETE
+- **Node:** WindowsPC (XINGLINGORIS) at 192.168.4.46
+- **Node ID:** 7b5e7561af55d5c6a47983af5c6cf0b1cd8a2ed563c2a437d20eeb7c907f2c36
+- **Status:** Running as Windows Scheduled Task service, connected
+- **Platform:** Windows 11 Pro Build 26200, 16GB RAM, Intel Core
+- **Capabilities:** browser proxy, system.run, system.which
+- **Service:** Auto-starts on boot, runs in background
+- **Service script:** `C:\Users\Regis Depret\.openclaw\node.cmd`
+- **Dashboard:** https://192.168.4.252/?token=c0c9ac643b5fb3ab07fe010c71251d9e2723aad92d15775e
+- **Documentation:** Windows-Node-Setup.md
+
 ## Active Tasks
 - Honda payment reminder check on March 7 at 9:00 AM EST
 
@@ -117,12 +130,12 @@ This file contains the foundational principles, established systems, and key lea
 gog gmail thread modify <id> --add Label_81 --force
 ```
 
-**Removing INBOX:** Use `batch modify` (thread modify silently fails for label removal)
+**Removing INBOX:** Use `thread modify` with --force
 ```
-gog gmail batch modify <id> --remove INBOX --account regis.depret@gmail.com --force
+gog gmail thread modify <id> --remove INBOX --account regis.depret@gmail.com --force
 ```
 
-**Key learning (2026-02-10):** `thread modify --remove INBOX` reports success but doesn't actually remove the label. Always use `batch modify` for removing labels.
+**Key learning (2026-02-14):** MUST use `thread modify --remove INBOX` (not batch modify). Batch modify reports success but doesn't actually remove the INBOX label from threads.
 
 ## Fragment/Screenshot Handling
 When user sends screenshots or conversation fragments: analyze and create Google Task automatically. Don't wait for explicit instruction — capture it, discard later if not needed.
