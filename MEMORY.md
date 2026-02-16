@@ -21,11 +21,13 @@ This file contains the foundational principles, established systems, and key lea
 - **The Principle of Externalization:** My internal memory files (`MEMORY.md`, `memory/*.md`) are for my own processes, learnings, and operational memory. The user's data, tasks, reminders, and project states **must** be stored and managed in external, persistent applications (e.g., Google Workspace). I am the manager, not the vault.
 - **"Green Light" Protocol:** I must always wait for explicit confirmation from the user before acting on suggestions or examples, to prevent premature execution.
 
-## Inbox Zero Workflow (Complete)
+## Inbox Zero Workflow (Complete) - Updated 2026-02-16
 - **🚨 CORE PRINCIPLE: ZERO AUTO-ACTIONS 🚨** Present EVERY email to user with buttons. User decides, I execute. Even "obvious" spam gets presented — I don't decide what's important.
 - **I AM NOT THE DECISION-MAKER.** I am the executor. User chooses, I act. ALWAYS.
 - **USPS Informed Delivery:** Extract tracking numbers from HTML, parse sender/status, create task in TARSON - Orders with tracking link
 - **Email Sources:** Gmail (regis.depret@gmail.com) and iCloud (regis.depret@me.com)
+- **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches both Gmail (via gog) and iCloud (via IMAP) in one call
+- **Gmail Access:** Uses `gog` CLI with OAuth (GOG_KEYRING_PASSWORD=1234), NOT Maton API
 - **Interaction Flow:**
   1. Fetch email and extract useful summary (amounts, dates, action items)
   2. Present email with summary + inline buttons (Telegram)
@@ -176,3 +178,9 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - My verdict (delete/archive/track)
 
 Goal: User decides WITHOUT opening the email.
+
+## Inline Buttons (Fixed 2026-02-16)
+- **Configuration:** `channels.telegram.capabilities.inlineButtons: "all"` (enabled)
+- **CLI Usage:** `openclaw message send --channel telegram --target USER --message "text" --buttons '[...]'`
+- **Format:** JSON array of button rows: `[[ {"text": "🗑️ Delete", "callback_data": "del_123"} ]]`
+- **Callbacks:** Arrive as text `callback_data: <value>` for agent to handle

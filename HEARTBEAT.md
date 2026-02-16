@@ -1,5 +1,14 @@
 # HEARTBEAT.md
 
+## Inbox Check
+
+Hourly inbox checks now use the unified script:
+```bash
+bash scripts/inbox_fetch_all.sh
+```
+
+This checks **both** Gmail (via gog) and iCloud (via IMAP).
+
 ## Tracking System Check
 
 On each heartbeat, check TARSON-Tracking list for:
