@@ -21,11 +21,19 @@ This file contains the foundational principles, established systems, and key lea
 - **The Principle of Externalization:** My internal memory files (`MEMORY.md`, `memory/*.md`) are for my own processes, learnings, and operational memory. The user's data, tasks, reminders, and project states **must** be stored and managed in external, persistent applications (e.g., Google Workspace). I am the manager, not the vault.
 - **"Green Light" Protocol:** I must always wait for explicit confirmation from the user before acting on suggestions or examples, to prevent premature execution.
 
-## Inbox Zero Workflow (Complete) - Updated 2026-02-16
-- **🚨 CORE PRINCIPLE: ZERO AUTO-ACTIONS 🚨** Present EVERY email to user with buttons. User decides, I execute. Even "obvious" spam gets presented — I don't decide what's important.
-- **I AM NOT THE DECISION-MAKER.** I am the executor. User chooses, I act. ALWAYS.
+## Inbox Zero Workflow (Complete) - Updated 2026-02-17
+- **🚨 MANDATORY FIRST STEP: READ rules/inbox_zero.md BEFORE PROCESSING 🚨**
+- Check rules for sender/subject patterns BEFORE presenting emails
+- Apply rule-based actions (AUTO_DELETE, BATCH_DELETE, etc.) when matches found
+- **Maisfy emails**: AUTO_DELETE per rule (FROM: no-reply@mailmais.com.br -> ACTION: DELETE)
+- **OneDrive memories**: Extract photos from HTML, display them, THEN offer delete button
 - **USPS Informed Delivery:** Extract tracking numbers from HTML, parse sender/status, create task in TARSON - Orders with tracking link
 - **Email Sources:** Gmail (regis.depret@gmail.com) and iCloud (regis.depret@me.com)
+- **🔴 CRITICAL MISTAKES I KEEP MAKING:**
+  1. Not reading rules/inbox_zero.md FIRST before processing
+  2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
+  3. Presenting emails that should be auto-deleted per rules
+  4. Not extracting OneDrive memory photos before deletion
 - **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches both Gmail (via gog) and iCloud (via IMAP) in one call
 - **Gmail Access:** Uses `gog` CLI with OAuth (GOG_KEYRING_PASSWORD=1234), NOT Maton API
 - **Interaction Flow:**
