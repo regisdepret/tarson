@@ -2,6 +2,19 @@
 
 Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
 
+## 🔧 Helper Scripts (CHECK FIRST!)
+
+**Before manually constructing complex commands, check `SCRIPTS.md` for existing helper scripts.**
+
+Common scripts:
+- `bash scripts/gmail_search.sh "<query>"` - Search Gmail
+- `bash scripts/email_from_sender.sh <name>` - Find emails from sender
+- `bash scripts/quote_lookup.sh <job>` - Search Quote Control
+- `bash scripts/tracking_check.sh` - Check tracking tasks
+- `bash scripts/gmail_thread_details.sh <id>` - Get thread details
+
+See `SCRIPTS.md` for full list.
+
 ## TTS Comparison (TODO)
 - **Current:** OpenClaw built-in TTS (configured with `pt-BR-FranciscaNeural`)
 - **Evaluate:** Edge TTS (`edge-tts` Python package) — free, high-quality, many voices
