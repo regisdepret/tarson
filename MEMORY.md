@@ -52,7 +52,7 @@ This file contains the foundational principles, established systems, and key lea
   - **Critical:** Use `thread modify` for threads with multiple messages
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
-- **Track = Mark Read + Add Label_81 — KEEP IN INBOX** (user wants tracked items visible in inbox, changed 2026-02-21)
+- **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)
 - **Bills with due dates:** Create Google Task in Tars-Personal
 - **Rules file:** `rules/inbox_zero.md`
 - **UX Principles:**
@@ -75,7 +75,7 @@ This file contains the foundational principles, established systems, and key lea
 - **Task = source of truth** — all context, amounts, dates live in task notes
 - **Task notes include source link** — `gmail:<thread_id>` or `icloud:uid:<uid>`
 - **Completing task → MUST clean up email** — remove Tracking label (Label_81) when task is completed
-- **Full lifecycle:** Email → Track → Task → Complete → Remove Tracking label
+- **Full lifecycle:** Email → Track (Label_81 + INBOX) → Task → Complete → Remove Label_81 + Remove INBOX
 - This replaces the old loose coupling where some tracked emails had no tasks
 - **IMPORTANT:** Don't leave orphan emails in Tracking after task completion!
 

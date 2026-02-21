@@ -154,12 +154,13 @@ For emails that could be tracked (customer issues, business matters):
 - Archive keeps history accessible; delete loses it forever
 - Only suggest delete for true noise (marketing, spam, duplicates)
 
-## CORE PRINCIPLE: Track = Mark as Read + Stay in Inbox
-When tracking an email (adding to Tracking label/folder):
-- Mark the email as read (remove UNREAD label)
-- **Keep in inbox (do NOT remove INBOX label)**
-- User wants tracked items visible in inbox for quick visual reference
-- The email lives in both Inbox and Tracking label until resolved
+## CORE PRINCIPLE: INBOX is the Source of Truth
+**Every tracked email MUST be in INBOX. No exceptions.**
+- Track = `--add Label_81 --remove UNREAD` + email stays in INBOX
+- If an email has Label_81 but is NOT in INBOX → immediately restore it: `--add INBOX`
+- INBOX is what Regis sees daily. If it's not there, it doesn't exist for him.
+- The email lives in both Inbox AND Tracking label until the task is resolved/completed
+- When completing a task → THEN remove INBOX + Label_81 (clean up the email)
 
 ## CORE PRINCIPLE: Track = Native Task (Source of Truth)
 Every tracked email MUST create a task via `scripts/track_email.sh` (NOT via `gog tasks add`):
