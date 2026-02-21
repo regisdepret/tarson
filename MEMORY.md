@@ -212,6 +212,13 @@ When user sends screenshots or conversation fragments: analyze and create Google
 
 Goal: User decides WITHOUT opening the email.
 
+## 🔴 HARDCODED: Delete Button Message on Every Callback
+On ANY callback (inbox zero, zero tracking, audit, any flow):
+1. Execute the action
+2. IMMEDIATELY delete the button message: `message(action=delete, messageId=<id>, channel=telegram, target=98960672)`
+3. Present the next item
+Never leave dead buttons in the chat. No exceptions.
+
 ## Inline Buttons (Fixed 2026-02-16)
 - **Configuration:** `channels.telegram.capabilities.inlineButtons: "all"` (enabled)
 - **CLI Usage:** `openclaw message send --channel telegram --target USER --message "text" --buttons '[...]'`

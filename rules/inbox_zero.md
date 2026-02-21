@@ -16,7 +16,13 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 
 **NEVER send multiple email messages in a row.** Always wait for user action between each email. This is not optional — bulk sending defeats the purpose of interactive triage.
 
-**NO ACKNOWLEDGMENT MESSAGES.** Don't reply "🗑️" or "Done" or "Tracked". Just execute the action silently, delete the button message, and present the next email. Only the email cards matter.
+**NO ACKNOWLEDGMENT MESSAGES.** Don't reply "🗑️" or "Done" or "Tracked". Just execute the action silently, delete the button message, and present the next item. Only the cards matter.
+
+**🔴 HARDCODED — DELETE BUTTON MESSAGE ON EVERY CALLBACK.** This applies to ALL interactive flows (inbox zero, zero tracking, audit review, any button session). When a callback arrives:
+1. Execute the action
+2. `message(action=delete, messageId=<the button message id>, channel=telegram, target=98960672)` — ALWAYS, no exceptions
+3. Present the next item (if in a session)
+Never leave a dead button message in the chat.
 
 ### Presenting Emails
 - **ONE EMAIL PER MESSAGE** — never batch/bulk multiple emails together
