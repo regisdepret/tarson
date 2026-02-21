@@ -168,6 +168,7 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - Jobber onboarding session available — waiting to gather more usage issues first
 - **JMJ Immigration Services** — Handling family EB3 visa application (HIGH PRIORITY)
 - **Websites (Regis manages):** pressurewashingatlanta.com, apluspowercleaning.com, tucanostones.com
+- **⚠️ leo@tucanostones.com BROKEN (as of 2026-02-20):** Google Workspace account doesn't exist (550 bounce). Emails to Leo are failing silently. Needs to be fixed — either recreate the account or redirect to a working address. User chose not to track for now but it's a live issue.
 
 ## Known System Limitations
 - **Whisper GPU Acceleration:** The local `whisper` CLI tool for transcription cannot utilize the integrated Intel UHD Graphics GPU on this system. All transcription tasks will run on the CPU.
@@ -176,7 +177,7 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - **Isolated Sessions:** NEVER use `sessionTarget: isolated` for cron jobs — caused session state interference in the past. Always use main session.
 - **iCloud Delete Script:** Currently uses EXPUNGE (permanent delete). TODO: Fix to use Trash folder for recoverability.
 - **Gateway Restart = Cron Disruption:** Restarting the gateway (e.g. config changes) disrupts the hourly inbox cron. Emails can pile up undetected. Always check inbox manually after a gateway restart.
-- **MacMini Node (post-2026-02-20):** Gateway restart introduced WS plaintext security check. MacMini node (ws://192.168.4.252:18789) can no longer connect. Fix: enable TLS on gateway or adjust security config. 2 tasks pending sync to Apple Reminders.
+- **MacMini Node (post-2026-02-20):** Gateway restart introduced WS plaintext security check. MacMini node (ws://192.168.4.252:18789) can no longer connect. Fix: enable TLS on gateway or adjust security config. **20 tasks now pending sync to Apple Reminders** (last check: 2026-02-21 04:14 EST). Tasks accumulating in all lists (Tracking, Orders, Fragments, Quote Control) — sync state NOT updated so they'll be picked up when MacMini is back.
 
 ## Reminders & Scheduling Rules
 - **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
