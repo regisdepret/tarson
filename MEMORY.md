@@ -131,6 +131,18 @@ This file contains the foundational principles, established systems, and key lea
 - **Dashboard:** https://192.168.4.252/?token=c0c9ac643b5fb3ab07fe010c71251d9e2723aad92d15775e
 - **Documentation:** Windows-Node-Setup.md
 
+## Model & Runtime
+- **Current primary model:** `anthropic/claude-sonnet-4-6` (upgraded 2026-02-20)
+- Fallback chain: claude-sonnet-4-5 → claude-haiku-4-5 → claude-opus-4-5 → gemini-2.5-pro → gemini-2.0-flash → glm-5 → glm-4.7
+- Anthropic provider explicitly defined in `models.providers` section of openclaw.json
+
+## Apple Reminders Sync
+- **MacMini list name:** "TARSON" (NOT "TARSON-Tracking" — that list doesn't exist)
+- **Sync state file:** `memory/apple_reminders_sync_state.json`
+- **Sync trigger:** Scheduled cron every 15 min
+- **Process:** Fetch Google Tasks → compare with sync state → create new reminders on MacMini → update sync state
+- **AppleScript target:** `tell list "TARSON"` inside `tell application "Reminders"`
+
 ## Active Tasks
 - Honda payment reminder check on March 7 at 9:00 AM EST
 
@@ -163,6 +175,8 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - **OpenClaw Internal Cron:** Main-session cron jobs (`sessionTarget: main`) are unreliable due to heartbeat empty-file check bug. Use system crontab instead for scheduled tasks.
 - **Isolated Sessions:** NEVER use `sessionTarget: isolated` for cron jobs — caused session state interference in the past. Always use main session.
 - **iCloud Delete Script:** Currently uses EXPUNGE (permanent delete). TODO: Fix to use Trash folder for recoverability.
+- **Gateway Restart = Cron Disruption:** Restarting the gateway (e.g. config changes) disrupts the hourly inbox cron. Emails can pile up undetected. Always check inbox manually after a gateway restart.
+- **MacMini Node (post-2026-02-20):** Gateway restart introduced WS plaintext security check. MacMini node (ws://192.168.4.252:18789) can no longer connect. Fix: enable TLS on gateway or adjust security config. 2 tasks pending sync to Apple Reminders.
 
 ## Reminders & Scheduling Rules
 - **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
