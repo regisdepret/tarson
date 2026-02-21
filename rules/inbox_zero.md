@@ -70,16 +70,18 @@ When callback arrives, look up the telegram_message_id and delete it:
 ### Tracking Behavior
 - Emails that will become threads (replies expected) → Track in Gmail label
 - Tasks with due dates → Also create Google Task
-- Track = Mark Read + Remove INBOX + Add Tracking label
+- Track = Mark Read + Add Tracking label — **KEEP IN INBOX** (do NOT remove INBOX label)
+- Rationale: User prefers to see tracked items in inbox for visual reference
 
 ### Button Actions
 - **del_ID** (Gmail): Move to trash via `gog gmail batch modify ID --add TRASH --force`
 - **arc_ID** (Gmail): Archive via `gog gmail thread modify ID --remove INBOX --force`
 - **trk_ID** (Gmail): Track via two commands:
   1. `gog gmail thread modify ID --add Label_81 --force`
-  2. `gog gmail thread modify ID --remove INBOX --remove UNREAD --force`
-- **idel_UID** (iCloud): Delete via `bash scripts/icloud_action.sh delete UID`
-- **iarc_UID** (iCloud): Archive via `bash scripts/icloud_action.sh archive UID`
+  2. `gog gmail thread modify ID --remove UNREAD --force`
+  *(Keep in INBOX — do NOT remove INBOX label)*
+- **idel_UID** (iCloud): Delete via `bash scripts/icloud_action.sh delete UID` *(legacy — iCloud now forwards to Gmail)*
+- **iarc_UID** (iCloud): Archive via `bash scripts/icloud_action.sh archive UID` *(legacy)*
 
 ## CORE PRINCIPLE: Smart Auto-Delete
 Auto-delete rules are NOT blind. I always analyze the email first.
@@ -118,12 +120,12 @@ For emails that could be tracked (customer issues, business matters):
 - Archive keeps history accessible; delete loses it forever
 - Only suggest delete for true noise (marketing, spam, duplicates)
 
-## CORE PRINCIPLE: Track = Mark as Read + Remove from Inbox
+## CORE PRINCIPLE: Track = Mark as Read + Stay in Inbox
 When tracking an email (adding to Tracking label/folder):
-- Also mark the email as read (remove UNREAD label)
-- Also remove from inbox (remove INBOX label)
-- Tracking means it's been triaged and moved — not visible in inbox anymore
-- The email lives in "Tracking" view only until resolved
+- Mark the email as read (remove UNREAD label)
+- **Keep in inbox (do NOT remove INBOX label)**
+- User wants tracked items visible in inbox for quick visual reference
+- The email lives in both Inbox and Tracking label until resolved
 
 ## CORE PRINCIPLE: Track = Create Task (Source of Truth)
 Every tracked email MUST have a corresponding Google Task:

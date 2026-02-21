@@ -28,7 +28,7 @@ This file contains the foundational principles, established systems, and key lea
 - **Maisfy emails**: AUTO_DELETE per rule (FROM: no-reply@mailmais.com.br -> ACTION: DELETE)
 - **OneDrive memories**: Extract photos from HTML, display them, THEN offer delete button
 - **USPS Informed Delivery:** Extract tracking numbers from HTML, parse sender/status, create task in TARSON - Orders with tracking link
-- **Email Sources:** Gmail (regis.depret@gmail.com) and iCloud (regis.depret@me.com)
+- **Email Sources:** Gmail only (regis.depret@gmail.com) — iCloud now forwards to Gmail (changed 2026-02-21, no more separate iCloud checks)
 - **🔴 CRITICAL MISTAKES I KEEP MAKING:**
   1. Not reading rules/inbox_zero.md FIRST before processing
   2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
@@ -46,13 +46,13 @@ This file contains the foundational principles, established systems, and key lea
 - **Data Extraction:** Always decode HTML to extract amounts, due dates, account numbers
 - **Trigger:** System cron (external crontab) at :30 every hour calls `openclaw system event --mode now`
 - **Gmail Commands:**
-  - Track: `gog gmail thread modify <id> --add Label_81 --remove UNREAD --remove INBOX --force`
+  - Track: `gog gmail thread modify <id> --add Label_81 --remove UNREAD --force` *(KEEP IN INBOX — changed 2026-02-21)*
   - Delete: `gog gmail batch modify <id> --add TRASH --force`
   - Archive: `gog gmail thread modify <id> --remove INBOX --force`
   - **Critical:** Use `thread modify` for threads with multiple messages
-- **iCloud Commands:** `bash scripts/icloud_action.sh delete|track <uid>`
-- **Tracking Label:** Gmail = Label_81, iCloud = "Tracking" folder
-- **Track = Mark Read + Remove INBOX + Add Tracking label**
+- **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
+- **Tracking Label:** Gmail = Label_81
+- **Track = Mark Read + Add Label_81 — KEEP IN INBOX** (user wants tracked items visible in inbox, changed 2026-02-21)
 - **Bills with due dates:** Create Google Task in Tars-Personal
 - **Rules file:** `rules/inbox_zero.md`
 - **UX Principles:**
@@ -138,6 +138,8 @@ This file contains the foundational principles, established systems, and key lea
 
 ## Apple Reminders Sync
 - **MacMini list name:** "TARSON" (NOT "TARSON-Tracking" — that list doesn't exist)
+- **MacMini IP:** 192.168.5.31 — SSH works: `ssh regis@192.168.5.31`. Use SSH+osascript as fallback when nodes tool fails.
+- **MacMini nodes tool:** After `node install --force`, new node ID gets assigned. Nodes tool may show "unknown node" even though CLI shows connected. Use SSH instead for osascript tasks.
 - **Sync state file:** `memory/apple_reminders_sync_state.json`
 - **Sync trigger:** Scheduled cron every 15 min
 - **Process:** Fetch Google Tasks → compare with sync state → create new reminders on MacMini → update sync state
@@ -152,12 +154,8 @@ This file contains the foundational principles, established systems, and key lea
 gog gmail thread modify <id> --add Label_81 --force
 ```
 
-**Removing INBOX:** Use `thread modify` with --force
-```
-gog gmail thread modify <id> --remove INBOX --account regis.depret@gmail.com --force
-```
-
-**Key learning (2026-02-14):** MUST use `thread modify --remove INBOX` (not batch modify). Batch modify reports success but doesn't actually remove the INBOX label from threads.
+**Key learning (2026-02-14):** MUST use `thread modify` (not batch modify) for label operations on threads. Batch modify reports success but only affects one message.
+**Key learning (2026-02-21):** Track no longer removes INBOX label — user wants tracked items to stay visible in inbox.
 
 ## Fragment/Screenshot Handling
 When user sends screenshots or conversation fragments: analyze and create Google Task automatically. Don't wait for explicit instruction — capture it, discard later if not needed.
@@ -177,7 +175,8 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - **Isolated Sessions:** NEVER use `sessionTarget: isolated` for cron jobs — caused session state interference in the past. Always use main session.
 - **iCloud Delete Script:** Currently uses EXPUNGE (permanent delete). TODO: Fix to use Trash folder for recoverability.
 - **Gateway Restart = Cron Disruption:** Restarting the gateway (e.g. config changes) disrupts the hourly inbox cron. Emails can pile up undetected. Always check inbox manually after a gateway restart.
-- **MacMini Node (post-2026-02-20):** Gateway restart introduced WS plaintext security check. MacMini node (ws://192.168.4.252:18789) can no longer connect. Fix: enable TLS on gateway or adjust security config. **20 tasks now pending sync to Apple Reminders** (last check: 2026-02-21 04:14 EST). Tasks accumulating in all lists (Tracking, Orders, Fragments, Quote Control) — sync state NOT updated so they'll be picked up when MacMini is back.
+- **MacMini Node (fixed 2026-02-21):** Gateway now runs TLS+LAN (wss://192.168.4.252:18789). MacMini reconnected via `openclaw node install --force --tls --tls-fingerprint`. MacMini IP: 192.168.5.31. SSH also works: `ssh regis@192.168.5.31`. All pending reminders synced (36 total in sync state).
+- **Crontab fix:** Inbox cron now uses `NODE_TLS_REJECT_UNAUTHORIZED=0` prefix to accept self-signed cert.
 
 ## Reminders & Scheduling Rules
 - **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
