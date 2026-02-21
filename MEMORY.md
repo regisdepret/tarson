@@ -168,6 +168,17 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - **Websites (Regis manages):** pressurewashingatlanta.com, apluspowercleaning.com, tucanostones.com
 - **⚠️ leo@tucanostones.com BROKEN (as of 2026-02-20):** Google Workspace account doesn't exist (550 bounce). Emails to Leo are failing silently. Needs to be fixed — either recreate the account or redirect to a working address. User chose not to track for now but it's a live issue.
 
+## Gmail → Native Tasks Automation (2026-02-21) ✅ COMPLETE
+- **Purpose:** When tracking/snoozing an email, use browser automation to click Gmail's "Add to Tasks" button, creating a task with a native Gmail deep-link baked in.
+- **Auth:** One-time setup via `gmail_auth_setup.js` → saves `memory/gmail_auth_state.json` (50 Google cookies). Re-run if session expires.
+- **Method:** Playwright headless Chrome → `More email options` menu → click `Add to Tasks` → task appears in My Tasks with native link → copy to TARSON-Tracking → delete from My Tasks.
+- **Key scripts:** `scripts/gmail_add_to_tasks.js`, `scripts/track_email.sh`, `scripts/zero_tracking.sh`
+- **Labels:** Track=Label_81, Snooze=Label_3397993892725869791 (Tracking/Snooze)
+- **Hardcoded constants:** Chrome bin `/usr/bin/google-chrome`, NODE_PATH `/home/regis/.nvm/versions/node/v22.22.0/lib/node_modules`
+- **Playwright install:** `playwright` npm global, uses `node-edge-tts` for TTS. Chrome headless confirmed working.
+- **Auth setup quirks:** Must use `--disable-blink-features=AutomationControlled` + `ignoreDefaultArgs: ['--enable-automation']` to prevent Google from blocking login. Navigate to `https://mail.google.com` directly (NOT a custom signin URL).
+- **Zero Tracking review:** `bash scripts/zero_tracking.sh` — outputs tasks sorted by priority for review sessions.
+
 ## Known System Limitations
 - **Whisper GPU Acceleration:** The local `whisper` CLI tool for transcription cannot utilize the integrated Intel UHD Graphics GPU on this system. All transcription tasks will run on the CPU.
 - **Web Search:** The `web_search` tool is currently non-functional due to a missing API key.

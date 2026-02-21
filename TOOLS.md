@@ -15,6 +15,15 @@ Common scripts:
 
 See `SCRIPTS.md` for full list.
 
+## TTS - Text-to-Speech
+
+- **Engine:** `edge-tts` (installed via pipx)
+- **Preferred Voice:** `en-US-EricNeural` (selected by user 2026-02-21)
+
+### Old Config (for reference)
+- **Previous Engine:** OpenClaw built-in
+- **Previous Voice:** `pt-BR-FranciscaNeural`
+
 ## TTS Comparison (TODO)
 - **Current:** OpenClaw built-in TTS (configured with `pt-BR-FranciscaNeural`)
 - **Evaluate:** Edge TTS (`edge-tts` Python package) — free, high-quality, many voices

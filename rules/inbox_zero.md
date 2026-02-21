@@ -76,12 +76,46 @@ When callback arrives, look up the telegram_message_id and delete it:
 ### Button Actions
 - **del_ID** (Gmail): Move to trash via `gog gmail batch modify ID --add TRASH --force`
 - **arc_ID** (Gmail): Archive via `gog gmail thread modify ID --remove INBOX --force`
-- **trk_ID** (Gmail): Track via two commands:
-  1. `gog gmail thread modify ID --add Label_81 --force`
-  2. `gog gmail thread modify ID --remove UNREAD --force`
-  *(Keep in INBOX — do NOT remove INBOX label)*
-- **idel_UID** (iCloud): Delete via `bash scripts/icloud_action.sh delete UID` *(legacy — iCloud now forwards to Gmail)*
-- **iarc_UID** (iCloud): Archive via `bash scripts/icloud_action.sh archive UID` *(legacy)*
+- **trk_ID** (Gmail): **USE NATIVE TASK AUTOMATION** — call `track_email.sh`:
+  ```bash
+  export GOG_KEYRING_PASSWORD=1234
+  export NODE_PATH=/home/regis/.nvm/versions/node/v22.22.0/lib/node_modules
+  bash scripts/track_email.sh track <thread_id> <CATEGORY> "<title>"
+  ```
+  Auto-determine CATEGORY and title from email content (see Auto-Category Logic below).
+  This creates a natively-linked Google Task in TARSON-Tracking + applies Label_81.
+
+- **snz_ID** (Gmail): **USE NATIVE TASK AUTOMATION** — call `track_email.sh` with snooze:
+  When user clicks Snooze, first present snooze date buttons:
+  ```
+  [Tomorrow] [In 3 days] [Next week] [Pick date]
+  ```
+  Then call:
+  ```bash
+  bash scripts/track_email.sh snooze <thread_id> <CATEGORY> "<title>" <YYYY-MM-DD>
+  ```
+  Applies Tracking/Snooze label (Label_3397993892725869791). Email stays in inbox.
+
+- **idel_UID** (iCloud): Legacy — iCloud now forwards to Gmail, should not appear
+- **iarc_UID** (iCloud): Legacy — iCloud now forwards to Gmail, should not appear
+
+### Auto-Category Logic (for track_email.sh calls)
+Determine CATEGORY from email content using these rules (first match wins):
+
+| CATEGORY  | Signals |
+|-----------|---------|
+| BILL      | Subject/body: invoice, payment, statement, due, balance, amount due; From: utility, bank, insurance, subscription service |
+| TAX       | Subject: 1099, W-2, W2, tax document, giving statement, IRPF, fiscal |
+| ORDER     | Subject: order confirmed, shipped, tracking, delivery; From: Amazon, UPS, FedEx, USPS |
+| QUOTE     | Subject: quote, estimate, proposal; From: supplier, vendor |
+| WORK      | Business emails, client issues, supplier follow-ups, job-related |
+| EVENT     | Subject: invitation, register, ticket, event, webinar |
+| WAITING   | Emails awaiting a reply or confirmation from someone else |
+| ACTION    | Requires a specific action but doesn't fit other categories |
+| WATCHING  | No immediate action needed — monitoring only |
+
+**Title format:** Strip email junk (Re:, Fwd:, [EXTERNAL], etc.), keep the core subject + key detail (amount, name, date).
+Example: "Sawnee EMC — $201.27 due Feb 20" not "RE: [EXTERNAL] Your February Statement is Ready"
 
 ## CORE PRINCIPLE: Smart Auto-Delete
 Auto-delete rules are NOT blind. I always analyze the email first.
@@ -127,15 +161,16 @@ When tracking an email (adding to Tracking label/folder):
 - User wants tracked items visible in inbox for quick visual reference
 - The email lives in both Inbox and Tracking label until resolved
 
-## CORE PRINCIPLE: Track = Create Task (Source of Truth)
-Every tracked email MUST have a corresponding Google Task:
-- Task title: `[CATEGORY] Brief description`
-- Task notes MUST include source link: `gmail:<thread_id>` or `icloud:uid:<uid>`
-- Include relevant details: amounts, due dates, context, action needed
-- Set due date if applicable
+## CORE PRINCIPLE: Track = Native Task (Source of Truth)
+Every tracked email MUST create a task via `scripts/track_email.sh` (NOT via `gog tasks add`):
+- Uses Playwright to click Gmail's native "Add to Tasks" → task gets a real Gmail deep-link
+- Task title: `[CATEGORY] Brief description` (auto-enriched by script)
+- Task notes include: `source: gmail:<thread_id>`, `link: https://mail.google.com/mail/u/0/#all/<thread_id>`
+- Set due date if applicable (required for snooze)
 - **Task is the source of truth** — richer info lives here, not in email labels
-- When task is completed → check for source email → offer to archive/delete it
-- This creates a full lifecycle: Email → Track → Task → Complete → Clean up email
+- When task is completed → use gmail link from notes to archive/delete the source email
+- This creates a full lifecycle: Email → Track (native task) → Task → Complete → Clean up email
+- Auth required: `memory/gmail_auth_state.json` must exist (run `gmail_auth_setup.js` if expired)
 
 ## Rule Format
 Rules are processed from top to bottom. The first rule that matches an email is the one that is applied.
