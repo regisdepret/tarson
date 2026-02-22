@@ -60,7 +60,7 @@ These are laws, not suggestions.
   2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
   3. Presenting emails that should be auto-deleted per rules
   4. Not extracting OneDrive memory photos before deletion
-- **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches both Gmail (via gog) and iCloud (via IMAP) in one call
+- **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches Gmail inbox, filters out Tracking label client-side, uses `--max=50` to avoid pagination cutoff. Returns only emails that need treatment.
 - **Gmail Access:** Uses `gog` CLI with OAuth (GOG_KEYRING_PASSWORD=1234), NOT Maton API
 - **Interaction Flow:**
   1. Fetch email and extract useful summary (amounts, dates, action items)
@@ -79,6 +79,8 @@ These are laws, not suggestions.
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
 - **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)
+- **Email linked to an active task = Tracking label STAYS.** If an email is the source for any open task (in Tracking, QC, or elsewhere), it must keep Label_81 and remain in INBOX until the task is closed. Never remove the Tracking label while a linked task is still open. (rule added 2026-02-22)
+- **Inbox zero = two states only:** In INBOX emails are either (1) have Tracking label → already treated, skip, or (2) no Tracking label → must be treated. Fetch script uses `in:inbox --max=50` + client-side filter to match Regis's view exactly.
 - **Bills with due dates:** Create Google Task in Tars-Personal
 - **Rules file:** `rules/inbox_zero.md`
 - **UX Principles:**
@@ -177,6 +179,29 @@ These are laws, not suggestions.
 - **Sync trigger:** Scheduled cron every 15 min
 - **Process:** Fetch Google Tasks → compare with sync state → create new reminders on MacMini → update sync state
 - **AppleScript target:** `tell list "TARSON"` inside `tell application "Reminders"`
+
+## gog OAuth Re-auth Process (2026-02-22)
+If `gog` returns `invalid_grant` (token expired/revoked):
+1. Run: `GOG_KEYRING_PASSWORD=1234 gog auth add regis.depret@gmail.com --services gmail,tasks,sheets,drive,contacts --manual`
+2. Open the printed URL in any browser (phone works) — sign in, click Allow
+3. Browser will try to load `localhost:1` and fail — that's expected
+4. Copy the full URL from address bar (`http://localhost:1/?code=...`) and paste into the terminal
+5. gog saves the token automatically
+
+**If state mismatch error** (pasted URL from wrong session):
+```bash
+# Exchange code manually via curl
+curl -s -X POST https://oauth2.googleapis.com/token \
+  -d "code=<CODE_FROM_URL>" \
+  -d "client_id=367109143866-cdm8t7c0m7lberp99cduhu4rtk0ck1gc.apps.googleusercontent.com" \
+  -d "client_secret=$(python3 -c "import json; print(json.load(open('/home/regis/.config/gogcli/credentials.json'))['client_secret'])")" \
+  -d "redirect_uri=<REDIRECT_URI_FROM_ORIGINAL_URL>" \
+  -d "grant_type=authorization_code" > /tmp/tok.json
+# Then import:
+python3 -c "import json; d=json.load(open('/tmp/tok.json')); json.dump({'access_token':d['access_token'],'token_type':'Bearer','refresh_token':d['refresh_token'],'email':'regis.depret@gmail.com'},open('/tmp/gog_import.json','w'))"
+GOG_KEYRING_PASSWORD=1234 gog auth tokens import /tmp/gog_import.json
+rm /tmp/tok.json /tmp/gog_import.json
+```
 
 ## Gmail Track Workflow (Fixed)
 **Adding labels:** Use `thread modify`
