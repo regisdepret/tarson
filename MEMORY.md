@@ -250,6 +250,9 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - Root cause: The cron job used `--system-event` which fires into main session — if the session is already busy, it may queue and re-fire, or the `ok` status is misleading.
 - **TODO:** Re-add only after the main cron loop issue is understood. For now, sync is manual/on-demand.
 
+## 🔴 SECURITY RULE: Never Log API Keys/Hints in Memory Files
+Memory files (`memory/*.md`, `MEMORY.md`) are backed up to the **public** `regisdepret/tarson` GitHub repo via the backup script. NEVER write API key values, key hints, or any secrets to these files. If logging a security event involving a key, use `[REDACTED]` immediately. Backup script (as of 2026-02-23) now also scrubs `sk-ant-*` and iCloud app password patterns as a safety net.
+
 ## Known System Limitations
 - **Whisper GPU Acceleration:** The local `whisper` CLI tool for transcription cannot utilize the integrated Intel UHD Graphics GPU on this system. All transcription tasks will run on the CPU.
 - **Web Search:** The `web_search` tool is currently non-functional due to a missing API key.
