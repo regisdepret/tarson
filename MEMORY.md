@@ -73,8 +73,9 @@ These are laws, not suggestions.
 - **Trigger:** System cron (external crontab) at :30 every hour calls `openclaw system event --mode now`
 - **Gmail Commands:**
   - Track: `gog gmail thread modify <id> --add Label_81 --remove UNREAD --force` *(KEEP IN INBOX — changed 2026-02-21)*
-  - Delete: `gog gmail batch modify <id> --add TRASH --force`
+  - Delete: `gog gmail thread modify <id> --add TRASH --remove INBOX --force` *(must use thread modify — batch modify only hits one message in multi-message threads)*
   - Archive: `gog gmail thread modify <id> --remove INBOX --force`
+  - **NEVER use `batch modify` for delete/archive** — only use `thread modify`
   - **Critical:** Use `thread modify` for threads with multiple messages
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
@@ -268,11 +269,11 @@ When user sends screenshots or conversation fragments: analyze and create Google
 **Key improvement:** ONE email at a time, full context summaries.
 
 **Flow:**
-1. Announce count: "You have X emails"
-2. Wait for "go ahead"
-3. Present ONE email with full summary + buttons
-4. Wait for action → present next
-5. Never flood multiple emails at once
+1. Announce count: "You have X emails" + immediately present email 1 with buttons — NO "want to proceed?" question
+2. Present ONE email with full summary + buttons (Delete / Archive / Track / Next round)
+3. Wait for action → present next
+4. Never flood multiple emails at once
+5. **"Next round" button** = snooze to next heartbeat; do nothing to the email
 
 **Summary format must answer:**
 - What type of email is this?
