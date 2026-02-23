@@ -6,6 +6,8 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 
 ### Flow (STRICT: One-by-One)
 1. Fetch all unread emails from both Gmail and iCloud
+- Present a introductory message saying that you have emails pending. asking if the user is ready to proceed, if you want to alert about the urgency of some found email, inform. the button must have two inline buttons, Proceed and Snooze (until the next round)
+- if teh last message in the conversation is the introducotry message from last execution, delete the last and present the updated.
 2. Present **ONE email** with summary + inline buttons
 3. **STOP AND WAIT** for user's button click
 4. On callback: execute action silently
@@ -308,6 +310,7 @@ FROM: businessprofile-noreply@google.com -> ACTION: SUMMARIZE_WEEKLY_DELETE
 # Coinbase - Recurring Buy Confirmations
 # Story: These are handled by another robot. Don't touch them.
 # Rule: IGNORE completely (don't delete, don't mark as read).
+- Only ignore the ones who have the exact Subject string below, other must be treated as regular
 #       BUT if more than 4 pile up, alert user that the other robot may be stuck.
 FROM: no-reply@info.coinbase.com, SUBJECT: "Your recurring buy for" -> ACTION: IGNORE_UNLESS_PILING_UP, THRESHOLD: 4
 
