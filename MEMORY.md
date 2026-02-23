@@ -268,15 +268,22 @@ Memory files (`memory/*.md`, `MEMORY.md`) are backed up to the **public** `regis
 - **Internal automation only:** OpenClaw cron acceptable for inbox checks, backups, health checks
 - **Google Tasks = disaster recovery** — user can see tasks even if TARSON is down
 
-## Inbox Zero Workflow v2 (Feb 2026 Update)
-**Key improvement:** ONE email at a time, full context summaries.
+## Inbox Zero Workflow v3 (Updated 2026-02-23)
+**Key improvement:** Intro gate before any email cards.
 
 **Flow:**
-1. Announce count: "You have X emails" + immediately present email 1 with buttons — NO "want to proceed?" question
-2. Present ONE email with full summary + buttons (Delete / Archive / Track / Next round)
-3. Wait for action → present next
-4. Never flood multiple emails at once
-5. **"Next round" button** = snooze to next heartbeat; do nothing to the email
+1. Fetch inbox + scan for urgency
+2. Send **intro message**: "You have X emails" + brief summary of what's in queue, flag anything urgent → buttons: [▶️ Proceed] [⏭️ Snooze]
+   - **If prior intro still sitting unread**: delete it, send fresh updated one (don't stack)
+3. On **Proceed**: delete intro, present email 1 with full summary + action buttons
+4. On **Snooze**: do nothing, email stays for next round
+5. Present ONE email at a time — wait for action between each
+6. **"Next round" / Snooze** = leave email untouched until next heartbeat
+7. ✅ Inbox zero message when all done
+
+**Coinbase IGNORE rule (tightened 2026-02-23):**
+- IGNORE only applies to exact subject: `"Your recurring buy for"`
+- Any other Coinbase subject (e.g. "You bought $300.00 of USDC") → normal triage
 
 **Summary format must answer:**
 - What type of email is this?
