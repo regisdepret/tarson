@@ -1,17 +1,16 @@
 {
   "lastChecks": {
-    "email": 1771963380,
+    "email": 1771990204,
     "calendar": null,
     "weather": null
   },
   "inbox_session": {
-    "intro_msg_id": "2716",
+    "current_card_msg_id": "2744",
     "queue": [
-      {"id": "19c90efb2597b5fb", "from": "gov.br", "subject": "Alerta de segurança: acesso em novo dispositivo", "source": "gmail", "urgent": true},
-      {"id": "19c90ef611043657", "from": "Walmart.com", "subject": "Delivered: Super Tech DEF 2.5 Gal", "source": "gmail"},
-      {"id": "19c90e0904c61c3a", "from": "Walmart.com", "subject": "Your delivery should arrive by 1:27pm", "source": "gmail"},
-      {"id": "19c90ce8e2f4dc25", "from": "Google Local Services", "subject": "New call from a potential customer (12:59pm)", "source": "gmail"},
-      {"id": "19c90c955f93c844", "from": "Manus Team", "subject": "Telegram Binding Initialization processing", "source": "gmail"}
+      {"id": "19c91b22fc9ea91e", "from": "Google Local Services", "subject": "New call 5:08pm", "source": "gmail"},
+      {"id": "19c91c49b777790b", "from": "Leo <leo@tucanostones.com>", "subject": "Testing", "source": "gmail", "group": "tucano_test"},
+      {"id": "19c91ac2b318de08", "from": "admin@tucanostones.com", "subject": "Testing", "source": "gmail", "group": "tucano_test"},
+      {"id": "19c919b7f7804cbb", "from": "Leo <leo@tucanostones.com>", "subject": "Re: teste", "source": "gmail", "group": "tucano_test"}
     ],
     "current_index": 0
   }
