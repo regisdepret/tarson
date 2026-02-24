@@ -9,6 +9,7 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 - Present a introductory message saying that you have emails pending. asking if the user is ready to proceed, if you want to alert about the urgency of some found email, inform. the button must have two inline buttons, Proceed and Snooze (until the next round)
 - if teh last message in the conversation is the introducotry message from last execution, delete the last and present the updated.
 2. Present **ONE email** with summary + inline buttons
+- every email must have at least Delete, Archive, Track inline buttons
 3. **STOP AND WAIT** for user's button click
 4. On callback: execute action silently
 5. Present the **NEXT email** (one only)

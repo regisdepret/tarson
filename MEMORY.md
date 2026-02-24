@@ -285,6 +285,8 @@ Memory files (`memory/*.md`, `MEMORY.md`) are backed up to the **public** `regis
 - IGNORE only applies to exact subject: `"Your recurring buy for"`
 - Any other Coinbase subject (e.g. "You bought $300.00 of USDC") → normal triage
 
+**Every email card MUST have minimum 3 buttons: 🗑️ Delete | 📁 Archive | 🔖 Track** — no exceptions, even for obvious spam. Regis may want to track anything ("sometimes I see something I want to look at later"). His call, not mine. (rule confirmed 2026-02-23)
+
 **Summary format must answer:**
 - What type of email is this?
 - What's the key content (amounts, dates, names)?
