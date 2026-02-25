@@ -267,6 +267,7 @@ Memory files (`memory/*.md`, `MEMORY.md`) are backed up to the **public** `regis
 - **User-facing reminders:** ALWAYS use Google Tasks — never OpenClaw internal cron
 - **Internal automation only:** OpenClaw cron acceptable for inbox checks, backups, health checks
 - **Google Tasks = disaster recovery** — user can see tasks even if TARSON is down
+- **Quiet hours (updated 2026-02-25):** Mon–Sat: 21:00–06:00 | Sunday: 21:00–09:00. Regis wakes ~6:30 AM on weekdays — inbox zero should fire at 6:30 cron. Updated in AGENTS.md.
 
 ## Inbox Zero Workflow v3 (Updated 2026-02-23)
 **Key improvement:** Intro gate before any email cards.
