@@ -222,7 +222,7 @@ When user sends screenshots or conversation fragments: analyze and create Google
 - Jobber onboarding session available — waiting to gather more usage issues first
 - **JMJ Immigration Services** — Handling family EB3 visa application (HIGH PRIORITY)
 - **Websites (Regis manages):** pressurewashingatlanta.com, apluspowercleaning.com, tucanostones.com
-- **⚠️ leo@tucanostones.com BROKEN (as of 2026-02-20):** Google Workspace account doesn't exist (550 bounce). Emails to Leo are failing silently. Needs to be fixed — either recreate the account or redirect to a working address. User chose not to track for now but it's a live issue.
+- **✅ leo@tucanostones.com FIXED (confirmed 2026-02-24):** Email testing confirmed both leo@tucanostones.com and admin@tucanostones.com are working. Leo sent several test emails and replies today. (Was broken as of 2026-02-20, now resolved.)
 
 ## Gmail → Native Tasks Automation (2026-02-21) ✅ COMPLETE
 - **Purpose:** When tracking/snoozing an email, use browser automation to click Gmail's "Add to Tasks" button, creating a task with a native Gmail deep-link baked in.
@@ -314,3 +314,20 @@ Never leave dead buttons in the chat. No exceptions.
 - **CLI Usage:** `openclaw message send --channel telegram --target USER --message "text" --buttons '[...]'`
 - **Format:** JSON array of button rows: `[[ {"text": "🗑️ Delete", "callback_data": "del_123"} ]]`
 - **Callbacks:** Arrive as text `callback_data: <value>` for agent to handle
+
+## Home / Apartment Info
+- **Complex:** Champions Green (Venterra Living)
+- **Address:** 1001 Champions Green Parkway, Alpharetta, GA 30022
+- **Management email:** championsgreen@venterraliving.com
+- **Phone:** (770) 642-6221
+- **Emergency maintenance:** 770-642-6221, option #3
+- **Billing contact (new as of Feb 25, 2026):** "Lennox" — handles rent reminders, late notices, promise-to-pay confirmations only
+
+## Google LSA (Local Services Ads)
+- **Active as of Feb 24, 2026** — generating real leads
+- **LSA phone:** 570-897-5121
+- **Feb 24 activity:** 3 lead calls (9:39 AM, 12:59 PM, 5:08 PM) — Regis deleted all notifications (views leads in LSA dashboard directly)
+- **Note:** LSA email notifications go to inbox but Regis manages leads via dashboard, not email
+
+## Tools & Apps
+- **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
