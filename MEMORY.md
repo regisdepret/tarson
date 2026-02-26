@@ -137,26 +137,42 @@ These are laws, not suggestions.
 - **Tasks List:** `YTFXWENrb28xeUg0UTdEcw` (TARSON - Quote Control)
 
 **Workflow:**
-1. Fragment received → Create `[JOB]` master task + `[QUOTE]` subtasks per supplier
-2. Quote received → Update task title to "Received", add prices to sheet
-3. Winner chosen → Mark losers completed, winner stays open → Create `[ORDER]` task in TARSON-Tracking
-4. Job done → Complete master task
+1. Regis sends quote request from tucanostones.com alias — all suppliers in BCC
+2. I create `[JOB]` master task + `[QUOTE]` subtasks (one per supplier, status "⏳ Waiting")
+3. Quote reply comes in → merge into main thread (see Email Structure below) → update subtask title to "✅ Received — $X"
+4. Winner chosen → Mark losers completed, winner stays open → Create `[ORDER]` task in TARSON-Tracking
+5. Job done → Complete master task
 
-**Critical rules (learned 2026-02-22):**
+**Email Structure (confirmed 2026-02-26):**
+- **Main thread** = the triggering quote request email (sent by Regis/TARSON)
+- **Supplier replies** → summarize and forward into main thread using `--thread-id` on `gog gmail send`; archive secondary reply thread after merge
+- Main thread stays in INBOX with Tracking label (Label_81) as the job anchor
+- Title format: `Quote - <Job Name>` (e.g., `Quote - 1242 Crown Terrace`)
+
+**Task Structure (confirmed 2026-02-26):**
+- `[JOB] <Job Name>` — master task; notes include materials, pickup date, supplier list, source gmail thread
+- `[QUOTE] <Supplier> (<Company>) — ⏳ Waiting` → becomes `✅ Received — $X.XX` when quote arrives
+- Subtasks created under master using `--parent <JOB_TASK_ID>`; then call Tasks API `move` endpoint to ensure web UI renders correctly
+- track_email.sh takes extra args: `bash track_email.sh track <thread_id> <CATEGORY> "<title>" [due]`
+- **Incoming supplier reply → UPDATE existing ⏳ subtask** (title + notes) — do NOT create a new task
+- **Google Tasks web UI subtask display bug (2026-02-26):** Parent set correctly via API but web UI sometimes fails to render indentation. Verified via direct API listing. Mobile app renders correctly. No fix on our end — data is solid, it's a Google frontend issue.
+
+**Critical rules (learned 2026-02-22/26):**
 - Quote tasks BELONG IN QC LIST, not TARSON-Tracking. If a quote email gets tracked and lands in Tracking, move/delete it once it's in QC.
 - `[ORDER]` tasks go in TARSON-Tracking (not QC) — the order is an active thing to watch.
 - When closing a job: rename winner task to `WINNER - #<quote_num>`, complete all loser tasks, update `[JOB]` notes with winner + total, update sheet.
 - Attach PDF details when reading: `gog gmail attachment <msgId> <attId> --out <file>` then `pdftotext`
 - Sheet uses side-by-side job layout (Lomax cols A-H, Highview cols I+); data not always in clean columns.
+- Paul King (Luxury Landscape) quotes come from `sales@luxurylandscape.com` (no personal email in contacts)
 
 **Two-Way Contact Sync:** Cross-reference Google Contacts; authorized to update if I have better info.
 
 **Key Suppliers:**
 - Bentley's Stone Yard (Matt Santoro) - Norcross
-- Luxury Landscape Supplies (Paul King) - Lawrenceville
-- Heritage / Superior Supplies (Marc Teitelman)
-- GLM (Clinton Higginbotham) - Alpharetta/Milton
-- Stone Center / OLS (Brooks)
+- Luxury Landscape Supplies (Paul King) - `sales@luxurylandscape.com` - Lawrenceville
+- Heritage / Superior Supplies (Marc Teitelman) - `Marc.teitelman@heritagelsg.com`
+- GLM (Clinton Higginbotham) - `chigginbotham@glmlandscapesupply.com` - Alpharetta/Milton
+- Stone Center / OLS (Brooks Yadon) - `BYadon@outdoorlivingsupply.net`
 
 ## Windows Node Setup (2026-02-14) ✅ COMPLETE
 - **Node:** WindowsPC (XINGLINGORIS) at 192.168.4.46
