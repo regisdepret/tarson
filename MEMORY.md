@@ -83,6 +83,7 @@ These are laws, not suggestions.
 - **Email linked to an active task = Tracking label STAYS.** If an email is the source for any open task (in Tracking, QC, or elsewhere), it must keep Label_81 and remain in INBOX until the task is closed. Never remove the Tracking label while a linked task is still open. (rule added 2026-02-22)
 - **Inbox zero = two states only:** In INBOX emails are either (1) have Tracking label → already treated, skip, or (2) no Tracking label → must be treated. Fetch script uses `in:inbox --max=50` + client-side filter to match Regis's view exactly.
 - **Bills with due dates:** Create Google Task in Tars-Personal
+- **Thread Merge Procedure (default behavior, added 2026-02-26):** When related emails are split across multiple threads, use the "Forward and Reply" method to consolidate: forward the latest message of each secondary thread to yourself with the exact subject of the main thread → Gmail groups them. Then consolidate tasks: move notes to main task, complete duplicate tasks, clean up secondary email labels. Procedure documented at `procedures/thread_merge.md`.
 - **Rules file:** `rules/inbox_zero.md`
 - **UX Principles:**
   - Every suggestion needs an actionable button
@@ -98,6 +99,7 @@ These are laws, not suggestions.
 - **Categories:** BILL, ACTION, TAX, WORK, WEBSITE, WATCHING, EVENT
 - **Source linking:** `gmail:<thread_id>` or `icloud:uid:<uid>`
 - **Resolution workflow:** Before completing: add RESOLVED date + Resolution description to notes, create `memory/resolutions/` doc if detailed
+- **Due Date vs Deadline (decided 2026-02-26):** Always use `--due` (Due Date field), NEVER the Deadline field. Regis sorts by "Date" not "Deadline." Due Date turns red when overdue = the "this is a problem" signal. Deadline is a newer Google field with spotty tooling support (gog doesn't support it). Every task with a date must have `--due` set.
 
 ## Track = Task (Tight Integration)
 - **Every tracked email creates a Google Task** — no orphan tracking labels
@@ -181,33 +183,53 @@ These are laws, not suggestions.
 - **Process:** Fetch Google Tasks → compare with sync state → create new reminders on MacMini → update sync state
 - **AppleScript target:** `tell list "TARSON"` inside `tell application "Reminders"`
 
-## gog OAuth Re-auth Process (2026-02-22)
-If `gog` returns `invalid_grant` (token expired/revoked):
-1. Run: `GOG_KEYRING_PASSWORD=1234 gog auth add regis.depret@gmail.com --services gmail,tasks,sheets,drive,contacts --manual`
-2. Open the printed URL in any browser (phone works) — sign in, click Allow
-3. Browser will try to load `localhost:1` and fail — that's expected
-4. Copy the full URL from address bar (`http://localhost:1/?code=...`) and paste into the terminal
-5. gog saves the token automatically
+## gog OAuth Setup (Updated 2026-02-26)
+**TARSON uses its own OAuth client** — Google Cloud project `tarson-488614`.
+- **Client ID:** `632719506752-430p5l8fscjbkiiesk0j2a5h4iampskg.apps.googleusercontent.com`
+- **Credentials file:** `/home/regis/.config/gogcli/credentials-tarson.json`
+- **All gog commands use:** `--client tarson`
+- **Token expiry:** Long-lived (app published to production 2026-02-26) — no periodic re-auth needed unless manually revoked
+- **Background:** Old client (`367109413866-...`) was deleted in Google's Feb 2026 OpenClaw ban wave
 
-**If state mismatch error** (pasted URL from wrong session):
+**Re-auth when token expires (every ~7 days):**
+1. Start PTY session: `GOG_KEYRING_PASSWORD=1234 gog auth add regis.depret@gmail.com --client tarson --manual --services gmail,tasks,sheets,drive,contacts`
+2. Open the printed URL in any browser — sign in with regis.depret@gmail.com, click Allow
+3. Browser tries to load `localhost:1` and fails — that's expected
+4. Copy the full URL from address bar (`http://localhost:1/?code=...`) and paste to TARSON
+5. **If PTY times out** — exchange code manually:
 ```bash
-# Exchange code manually via curl
 curl -s -X POST https://oauth2.googleapis.com/token \
-  -d "code=<CODE_FROM_URL>" \
-  -d "client_id=367109143866-cdm8t7c0m7lberp99cduhu4rtk0ck1gc.apps.googleusercontent.com" \
-  -d "client_secret=$(python3 -c "import json; print(json.load(open('/home/regis/.config/gogcli/credentials.json'))['client_secret'])")" \
-  -d "redirect_uri=<REDIRECT_URI_FROM_ORIGINAL_URL>" \
+  -d "code=<CODE>" \
+  -d "client_id=632719506752-430p5l8fscjbkiiesk0j2a5h4iampskg.apps.googleusercontent.com" \
+  -d "client_secret=$(python3 -c "import json; print(json.load(open('/home/regis/.config/gogcli/credentials-tarson.json'))['client_secret'])")" \
+  -d "redirect_uri=http://localhost:1" \
   -d "grant_type=authorization_code" > /tmp/tok.json
-# Then import:
 python3 -c "import json; d=json.load(open('/tmp/tok.json')); json.dump({'access_token':d['access_token'],'token_type':'Bearer','refresh_token':d['refresh_token'],'email':'regis.depret@gmail.com'},open('/tmp/gog_import.json','w'))"
-GOG_KEYRING_PASSWORD=1234 gog auth tokens import /tmp/gog_import.json
+GOG_KEYRING_PASSWORD=1234 gog auth tokens import /tmp/gog_import.json --client tarson
 rm /tmp/tok.json /tmp/gog_import.json
 ```
 
-## Gmail Track Workflow (Fixed)
-**Adding labels:** Use `thread modify`
+**App published to production 2026-02-26** — tokens are now long-lived.
+- **Refresh token:** stored in gog keyring (`--client tarson`) — do NOT store raw token here
+- **Get fresh access token (for direct Gmail API calls):**
+  ```bash
+  curl -s -X POST https://oauth2.googleapis.com/token \
+    -d "client_id=632719506752-430p5l8fscjbkiiesk0j2a5h4iampskg.apps.googleusercontent.com" \
+    -d "client_secret=$(python3 -c "import json; print(json.load(open('/home/regis/.config/gogcli/credentials-tarson.json'))['client_secret'])")" \
+    -d "refresh_token=$(GOG_KEYRING_PASSWORD=1234 gog auth tokens show --client tarson --json 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('refresh_token',''))")" \
+    -d "grant_type=refresh_token" | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])"
+  ```
+- **Note:** gog `thread modify --remove INBOX` is unreliable for archiving — always use the direct Gmail API `messages.modify` endpoint instead.
+
+**If state mismatch error** (pasted URL from wrong session):
+```bash
 ```
-gog gmail thread modify <id> --add Label_81 --force
+(See updated re-auth process above — now uses --client tarson)
+
+## Gmail Track Workflow (Fixed)
+**Adding labels:** Use `thread modify` with `--client tarson`
+```
+gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --add Label_81 --force
 ```
 
 **Key learning (2026-02-14):** MUST use `thread modify` (not batch modify) for label operations on threads. Batch modify reports success but only affects one message.
@@ -329,6 +351,10 @@ Never leave dead buttons in the chat. No exceptions.
 - **Emergency maintenance:** 770-642-6221, option #3
 - **Billing contact (new as of Feb 25, 2026):** "Lennox" — handles rent reminders, late notices, promise-to-pay confirmations only
 
+## X (Twitter) Account Security
+- **2FA enabled:** 2026-02-26 ~10:23 AM — Regis reset password and enabled two-factor authentication
+- Password reset + new login from ChromeDesktop on Linux was Regis (confirmed by subsequent 2FA setup)
+
 ## Google LSA (Local Services Ads)
 - **Active as of Feb 24, 2026** — generating real leads
 - **LSA phone:** 570-897-5121
@@ -337,3 +363,12 @@ Never leave dead buttons in the chat. No exceptions.
 
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
+
+## Open Items to Follow Up (added 2026-02-26)
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Feb 27 — Regis said handled manually but never clicked Complete. Next session: ask Regis to confirm so task can be closed.
+- **GA Annual Registration — Lucid Services LLC**: Due Apr 1. Email deleted (Regis's choice) without creating a task. No tracking task exists as of Feb 26. Should surface again ~Mar 15 as a proactive reminder.
+
+## GA Annual Registration Rule Behavior (2026-02-26)
+- Rule `CHECK_THEN_CREATE_TASK` was not followed — Regis chose Delete instead of Archive+Task
+- Going forward: if no task exists, suggest "Delete + remind later" button in addition to "Archive + Create Task"
+- The state of Georgia SOS filing can be done at sos.ga.gov for ~$50; do NOT use GA Filing Services (third-party paid service)
