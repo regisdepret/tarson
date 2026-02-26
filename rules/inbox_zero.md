@@ -27,6 +27,49 @@ This file contains the rules TARSON uses to triage and process incoming emails.
 3. Present the next item (if in a session)
 Never leave a dead button message in the chat.
 
+### Thread Context Check (MANDATORY on every email)
+Before presenting each email, check if it belongs to an existing tracked thread.
+
+**How to check:**
+1. Search inbox for threads from the same sender domain OR with a similar subject:
+   ```bash
+   GOG_KEYRING_PASSWORD=1234 gog gmail search "from:<sender_email> in:inbox" \
+     --client tarson --account regis.depret@gmail.com --max=5 --json
+   ```
+2. Also check TARSON-Tracking tasks for any with notes referencing the same sender
+3. If a related tracked thread is found → surface a **🔗 Merge** button alongside the standard buttons
+
+**Merge button format:**
+```json
+{"text": "🔗 Merge into [thread subject]", "callback_data": "mrg_NEWTHREADID_MAINTHREADID"}
+```
+
+**On mrg_ callback:**
+1. Delete the button message
+2. Forward new thread content into main thread via:
+   ```bash
+   gog gmail send --client tarson --account regis.depret@gmail.com \
+     --to regis.depret@gmail.com \
+     --subject "<exact subject of main thread>" \
+     --thread-id <MAINTHREADID> \
+     --body-file /tmp/fwd_body.txt --force
+   ```
+3. Archive new thread using Gmail API directly (gog thread modify --remove INBOX is unreliable):
+   ```bash
+   curl -s -X POST "https://gmail.googleapis.com/gmail/v1/users/me/messages/<msgId>/modify" \
+     -H "Authorization: Bearer <TOKEN>" \
+     -H "Content-Type: application/json" \
+     -d '{"removeLabelIds":["INBOX","Label_81"]}'
+   ```
+   Get token first: exchange refresh token via `https://oauth2.googleapis.com/token`
+   Refresh token stored in MEMORY.md under gog OAuth section.
+4. Present next email
+
+**When NOT to suggest merge:**
+- If the only match is a very old thread (>30 days) — just surface as context, don't button it
+- If the subject/sender match is weak — skip; only suggest when it's clearly the same conversation
+- If the email IS the start of a new topic with that sender — don't force-merge
+
 ### Presenting Emails
 - **ONE EMAIL PER MESSAGE** — never batch/bulk multiple emails together
 - Extract ALL available data (amount, due date, account number, etc.)
