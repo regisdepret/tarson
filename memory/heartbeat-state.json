@@ -3,11 +3,5 @@
     "email": 1772027000,
     "calendar": null,
     "weather": null
-  },
-  "inbox_pending_morning": [
-    {"id": "19c923ca64045a30", "from": "Venterra", "subject": "Office Closure Friday Feb 27", "source": "gmail"},
-    {"id": "19c92345db442831", "from": "Venterra", "subject": "Update to Resident Support Contacts (Lennox)", "source": "gmail"},
-    {"id": "19c922137015bdbb", "from": "Cultura Builder", "subject": "Atualizações da comunidade 24/02", "source": "gmail"},
-    {"id": "meta_ads_new", "from": "Meta for Business", "subject": "Meta ads receipt (Account 260320710)", "source": "gmail"}
-  ]
+  }
 }
