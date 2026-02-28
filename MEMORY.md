@@ -60,6 +60,7 @@ These are laws, not suggestions.
   2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
   3. Presenting emails that should be auto-deleted per rules
   4. Not extracting OneDrive memory photos before deletion
+  5. **Forgetting `--client tarson` on gog commands** — EVERY gog command needs this flag or it hits the deleted old client and fails. No exceptions. (re-learned 2026-02-28)
 - **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches Gmail inbox, filters out Tracking label client-side, uses `--max=50` to avoid pagination cutoff. Returns only emails that need treatment.
 - **Gmail Access:** Uses `gog` CLI with OAuth (GOG_KEYRING_PASSWORD=1234), NOT Maton API
 - **Interaction Flow:**
@@ -71,12 +72,14 @@ These are laws, not suggestions.
   6. NO confirmation messages between emails - keep flow smooth
 - **Data Extraction:** Always decode HTML to extract amounts, due dates, account numbers
 - **Trigger:** System cron (external crontab) at :30 every hour calls `openclaw system event --mode now`
-- **Gmail Commands:**
-  - Track: `gog gmail thread modify <id> --add Label_81 --remove UNREAD --force` *(KEEP IN INBOX — changed 2026-02-21)*
-  - Delete: `gog gmail thread modify <id> --add TRASH --remove INBOX --force` *(must use thread modify — batch modify only hits one message in multi-message threads)*
-  - Archive: `gog gmail thread modify <id> --remove INBOX --force`
+- **Gmail Commands (ALWAYS include `--client tarson --account regis.depret@gmail.com`):**
+  - Track: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --add Label_81 --remove UNREAD --force` *(KEEP IN INBOX)*
+  - Delete: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --add TRASH --force` *(thread modify only — batch only hits one message)*
+  - Archive: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --remove INBOX --force`
+  - Read: `gog gmail thread get <id> --client tarson --account regis.depret@gmail.com --json`
   - **NEVER use `batch modify` for delete/archive** — only use `thread modify`
   - **Critical:** Use `thread modify` for threads with multiple messages
+  - **⚠️ Tasks API:** `gog tasks list` also needs `--client tarson` — try it if seeing deleted_client errors
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
 - **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)
@@ -380,12 +383,14 @@ Never leave dead buttons in the chat. No exceptions.
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
-## Open Items to Follow Up (updated 2026-02-27)
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Was due Feb 27, Regis snoozed to **Feb 28**. Still not confirmed complete. Ask Regis to close it or confirm status next session.
-- **GA Annual Registration — Lucid Services LLC**: Task now exists (`eHpRZzhIRHltYUgtMGJqcQ`) due Apr 1. ✅ No longer orphaned. Surface proactively ~Mar 15.
-- **XP Investimentos — Informe de Rendimentos 2025**: Archived Feb 27. Regis needs to log in to XP, download the PDF, and send it to T&F Associates for tax filing. Surface this next session.
-- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. They acknowledged receipt, will follow up. Monitor for their reply.
-- **Crown Terrace quotes** (due Mar 3): Marc Teitelman (Heritage) and Brooks Yadon (OLS) still haven't replied as of end of day Feb 27. Follow up Monday if no reply over weekend.
+## Open Items to Follow Up (updated 2026-02-28)
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due TODAY (Feb 28). Still not confirmed complete — Regis has been busy all morning, not yet surfaced directly. **Surface at next opportunity.**
+- **GA Annual Registration — Lucid Services LLC**: Task exists (`eHpRZzhIRHltYUgtMGJqcQ`) due Apr 1. Surface proactively ~Mar 15.
+- **XP Investimentos — Informe de Rendimentos 2025**: Regis needs to log in to XP, download the PDF, send to T&F Associates. Not yet surfaced today. **Surface at next opportunity.**
+- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for their reply.
+- **Crown Terrace quotes** (due Mar 3): Marc Teitelman (Heritage) and Brooks Yadon (OLS) still outstanding as of Sat AM. Google CC brief confirmed GLM $3,874.47 vs Luxury $3,999.70 in hand. Follow up Monday if no reply.
+- **A Plus website go-live**: Supposed to happen this weekend — Dan not yet pinged. **Surface at next opportunity.**
+- **gog Tasks API**: `gog tasks list` fails with deleted_client. Try `--client tarson` flag next time — not yet tested on Tasks endpoint.
 
 ## Nubank Account Closed (2026-02-27)
 - Regis permanently closed his Brazilian Nubank account.
