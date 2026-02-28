@@ -1,34 +1,20 @@
 {
   "lastChecks": {
-    "email": 1740762180,
+    "email": 1740778203,
     "calendar": 1740731802,
     "weather": null
   },
   "pendingInbox": [],
   "inboxSession": {
-    "introMessageId": "3074",
+    "introMessageId": "3100",
     "status": "awaiting_proceed",
     "emails": [
       {
-        "threadId": "19ca44daa7d93a91",
-        "from": "OneDrive",
-        "subject": "Your memories from this day",
-        "rule": "SHOW_MEMORIES",
-        "index": 0
-      },
-      {
-        "threadId": "19ca4516544b3aec",
-        "from": "USPS Informed Delivery",
-        "subject": "Your Daily Digest for Sat, 2/28 is ready to view",
-        "rule": "ANALYZE_AND_SHOW_MAIL",
-        "index": 1
-      },
-      {
-        "threadId": "19ca59484927ac8c",
-        "from": "Fale AUVP",
-        "subject": "Como ganhar a jaqueta da AUVP",
+        "threadId": "19ca61f27932d8cb",
+        "from": "Coinbase (info@mail.coinbase.com)",
+        "subject": "Get more from your trades with recurring buys",
         "rule": "SUMMARIZE",
-        "index": 2
+        "index": 0
       }
     ],
     "currentIndex": 0

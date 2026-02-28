@@ -79,7 +79,7 @@ These are laws, not suggestions.
   - Read: `gog gmail thread get <id> --client tarson --account regis.depret@gmail.com --json`
   - **NEVER use `batch modify` for delete/archive** — only use `thread modify`
   - **Critical:** Use `thread modify` for threads with multiple messages
-  - **⚠️ Tasks API:** `gog tasks list` also needs `--client tarson` — try it if seeing deleted_client errors
+  - **⚠️ Tasks API:** `gog tasks list` FAILS even with `--client tarson` — confirmed broken 2026-02-28. No working client for Tasks. Cannot check TARSON-Tracking via gog during heartbeats. Regis needs to re-authorize.
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
 - **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)
@@ -390,7 +390,7 @@ Never leave dead buttons in the chat. No exceptions.
 - **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for their reply.
 - **Crown Terrace quotes** (due Mar 3): Marc Teitelman (Heritage) and Brooks Yadon (OLS) still outstanding as of Sat AM. Google CC brief confirmed GLM $3,874.47 vs Luxury $3,999.70 in hand. Follow up Monday if no reply.
 - **A Plus website go-live**: Supposed to happen this weekend — Dan not yet pinged. **Surface at next opportunity.**
-- **gog Tasks API**: `gog tasks list` fails with deleted_client. Try `--client tarson` flag next time — not yet tested on Tasks endpoint.
+- **gog Tasks API**: `gog tasks list` fails with deleted_client EVEN with `--client tarson`. Confirmed broken 2026-02-28. Completely inaccessible via gog. Regis needs to re-authorize OAuth for Tasks scope.
 
 ## Nubank Account Closed (2026-02-27)
 - Regis permanently closed his Brazilian Nubank account.
