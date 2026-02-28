@@ -380,9 +380,18 @@ Never leave dead buttons in the chat. No exceptions.
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
-## Open Items to Follow Up (added 2026-02-26)
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Feb 27 — Regis said handled manually but never clicked Complete. Next session: ask Regis to confirm so task can be closed.
-- **GA Annual Registration — Lucid Services LLC**: Due Apr 1. Email deleted (Regis's choice) without creating a task. No tracking task exists as of Feb 26. Should surface again ~Mar 15 as a proactive reminder.
+## Open Items to Follow Up (updated 2026-02-27)
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Was due Feb 27, Regis snoozed to **Feb 28**. Still not confirmed complete. Ask Regis to close it or confirm status next session.
+- **GA Annual Registration — Lucid Services LLC**: Task now exists (`eHpRZzhIRHltYUgtMGJqcQ`) due Apr 1. ✅ No longer orphaned. Surface proactively ~Mar 15.
+- **XP Investimentos — Informe de Rendimentos 2025**: Archived Feb 27. Regis needs to log in to XP, download the PDF, and send it to T&F Associates for tax filing. Surface this next session.
+- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. They acknowledged receipt, will follow up. Monitor for their reply.
+- **Crown Terrace quotes** (due Mar 3): Marc Teitelman (Heritage) and Brooks Yadon (OLS) still haven't replied as of end of day Feb 27. Follow up Monday if no reply over weekend.
+
+## Nubank Account Closed (2026-02-27)
+- Regis permanently closed his Brazilian Nubank account.
+- Confirmation email received Feb 27 from Andre S. (support agent), archived.
+- PDF `conta-cancelada.pdf` (cancellation declaration) is in Gmail archive for records.
+- Protocol: n/a (support ticket via Nubank's contact system).
 
 ## GA Annual Registration Rule Behavior (2026-02-26)
 - Rule `CHECK_THEN_CREATE_TASK` was not followed — Regis chose Delete instead of Archive+Task
