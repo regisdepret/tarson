@@ -1,7 +1,17 @@
 {
   "lastChecks": {
-    "email": 1772242892,
+    "email": 1740739803,
     "calendar": 1772191403,
     "weather": null
-  }
+  },
+  "pendingInbox": [
+    {
+      "id": "19ca34256dd368b6",
+      "threadId": "19ca34256dd368b6",
+      "from": "Bank of America",
+      "subject": "Reminder: Your recurring payment to Eliel Batista Moreira will occur tomorrow",
+      "date": "2026-02-28 02:58",
+      "note": "Pending triage — held during quiet hours (4:30 AM)"
+    }
+  ]
 }
