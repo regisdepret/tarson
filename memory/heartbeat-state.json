@@ -1,17 +1,36 @@
 {
   "lastChecks": {
-    "email": 1740739803,
-    "calendar": 1772191403,
+    "email": 1740762180,
+    "calendar": 1740731802,
     "weather": null
   },
-  "pendingInbox": [
-    {
-      "id": "19ca34256dd368b6",
-      "threadId": "19ca34256dd368b6",
-      "from": "Bank of America",
-      "subject": "Reminder: Your recurring payment to Eliel Batista Moreira will occur tomorrow",
-      "date": "2026-02-28 02:58",
-      "note": "Pending triage — held during quiet hours (4:30 AM)"
-    }
-  ]
+  "pendingInbox": [],
+  "inboxSession": {
+    "introMessageId": "3074",
+    "status": "awaiting_proceed",
+    "emails": [
+      {
+        "threadId": "19ca44daa7d93a91",
+        "from": "OneDrive",
+        "subject": "Your memories from this day",
+        "rule": "SHOW_MEMORIES",
+        "index": 0
+      },
+      {
+        "threadId": "19ca4516544b3aec",
+        "from": "USPS Informed Delivery",
+        "subject": "Your Daily Digest for Sat, 2/28 is ready to view",
+        "rule": "ANALYZE_AND_SHOW_MAIL",
+        "index": 1
+      },
+      {
+        "threadId": "19ca59484927ac8c",
+        "from": "Fale AUVP",
+        "subject": "Como ganhar a jaqueta da AUVP",
+        "rule": "SUMMARIZE",
+        "index": 2
+      }
+    ],
+    "currentIndex": 0
+  }
 }
