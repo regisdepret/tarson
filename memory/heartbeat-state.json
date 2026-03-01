@@ -1,22 +1,38 @@
 {
   "lastChecks": {
-    "email": 1740778203,
+    "email": 1740804833,
     "calendar": 1740731802,
     "weather": null
   },
-  "pendingInbox": [],
-  "inboxSession": {
-    "introMessageId": "3100",
-    "status": "awaiting_proceed",
-    "emails": [
-      {
-        "threadId": "19ca61f27932d8cb",
-        "from": "Coinbase (info@mail.coinbase.com)",
-        "subject": "Get more from your trades with recurring buys",
-        "rule": "SUMMARIZE",
-        "index": 0
-      }
-    ],
-    "currentIndex": 0
-  }
+  "pendingInbox": [
+    {
+      "threadId": "19ca71cf13c98268",
+      "from": "Bank of America",
+      "subject": "You've added SARAH POUBEL JUNGER as a Zelle recipient",
+      "date": "2026-02-28 20:56",
+      "note": "New Zelle recipient added — held during quiet hours"
+    },
+    {
+      "threadId": "19ca71d1e55faa6a",
+      "from": "Bank of America",
+      "subject": "Zelle payment of $30.00 to SARAH POUBEL JUNGER has been sent",
+      "date": "2026-02-28 20:56",
+      "note": "Zelle $30 sent after our last session — held during quiet hours"
+    },
+    {
+      "threadId": "19ca76b3f6284e49",
+      "from": "Coinbase",
+      "subject": "$50 Bitcoin bonus offer",
+      "date": "2026-02-28 22:22",
+      "note": "Coinbase promo — held during quiet hours"
+    },
+    {
+      "threadId": "19ca8010616a3c7f",
+      "from": "Homethrive",
+      "subject": "Introducing Homethrive. You can care smarter.",
+      "date": "2026-03-01 01:06",
+      "note": "Eldercare service promo — held during quiet hours"
+    }
+  ],
+  "inboxSession": null
 }

@@ -383,13 +383,14 @@ Never leave dead buttons in the chat. No exceptions.
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
-## Open Items to Follow Up (updated 2026-02-28)
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due TODAY (Feb 28). Still not confirmed complete — Regis has been busy all morning, not yet surfaced directly. **Surface at next opportunity.**
+## Open Items to Follow Up (updated 2026-02-28 evening)
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Was due Feb 28 — **OVERDUE.** Regis said "handled manually" Feb 26 but never clicked Complete. Never directly surfaced Sat (busy day). **Surface Sunday morning — ask Regis to confirm + close.**
 - **GA Annual Registration — Lucid Services LLC**: Task exists (`eHpRZzhIRHltYUgtMGJqcQ`) due Apr 1. Surface proactively ~Mar 15.
-- **XP Investimentos — Informe de Rendimentos 2025**: Regis needs to log in to XP, download the PDF, send to T&F Associates. Not yet surfaced today. **Surface at next opportunity.**
+- **XP Investimentos — Informe de Rendimentos 2025**: Regis needs to log in to XP, download PDF, send to T&F Associates. Not addressed today. **Surface Sunday morning.**
 - **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for their reply.
-- **Crown Terrace quotes** (due Mar 3): Marc Teitelman (Heritage) and Brooks Yadon (OLS) still outstanding as of Sat AM. Google CC brief confirmed GLM $3,874.47 vs Luxury $3,999.70 in hand. Follow up Monday if no reply.
-- **A Plus website go-live**: Supposed to happen this weekend — Dan not yet pinged. **Surface at next opportunity.**
+- **Crown Terrace** (pickup Mar 3 — 2 days!): GLM $3,874.47 vs Luxury $3,999.70 in hand. Marc Teitelman (Heritage) + Brooks Yadon (OLS) still outstanding. Decision needed ASAP. **Surface Sunday morning.**
+- **A Plus website go-live**: Was "this weekend" — Dan never pinged today. Check if it launched. **Surface Sunday morning.**
+- **Amazon Kerasal Nail Patches** (Order #111-6281225-2454650): Scheduled delivery today (Feb 28). Likely arrived.
 - **gog Tasks API**: `gog tasks list` fails with deleted_client EVEN with `--client tarson`. Confirmed broken 2026-02-28. Completely inaccessible via gog. Regis needs to re-authorize OAuth for Tasks scope.
 
 ## Nubank Account Closed (2026-02-27)
