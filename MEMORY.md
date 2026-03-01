@@ -112,6 +112,13 @@ These are laws, not suggestions.
 - **Full lifecycle:** Email → Track (Label_81 + INBOX) → Task → Complete → Remove Label_81 + Remove INBOX
 - This replaces the old loose coupling where some tracked emails had no tasks
 - **IMPORTANT:** Don't leave orphan emails in Tracking after task completion!
+- **🔴 Payment receipt = close task immediately during inbox zero (learned 2026-03-01):** When a payment receipt email (Zego, BofA, etc.) confirms a payment that matches an open BILL task, complete that task ON THE SPOT during inbox zero processing. Do NOT wait until a separate task review. Connect the dots in real time — receipt in → task out.
+
+## SABESP/Serasa Rule (learned 2026-03-01)
+- **Serasa silence = old accumulated debt likely resolved.** If Serasa stops communicating, close old task.
+- **Direct SABESP email = new single miss by Natalino.** Track separately; close when next statement shows clear.
+- Keep only ONE active SABESP task at a time. Close old when new arrives.
+- Goal: get Regis's name off account 640419135001.
 
 ## Fragment Capture Workflow
 - **List:** TARSON - Fragments (ID: R0NIanRDd3NpbFNZSFVzRA)
