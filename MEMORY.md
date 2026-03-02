@@ -79,7 +79,8 @@ These are laws, not suggestions.
   - Read: `gog gmail thread get <id> --client tarson --account regis.depret@gmail.com --json`
   - **NEVER use `batch modify` for delete/archive** — only use `thread modify`
   - **Critical:** Use `thread modify` for threads with multiple messages
-  - **⚠️ Tasks API:** `gog tasks list` FAILS even with `--client tarson` — confirmed broken 2026-02-28. No working client for Tasks. Cannot check TARSON-Tracking via gog during heartbeats. Regis needs to re-authorize.
+  - **✅ Tasks API:** Working again as of 2026-03-02 after gog re-authorization. Use `gog tasks add <listId> --title "..." --notes "..." --client tarson --account regis.depret@gmail.com`. Re-auth fixed the deleted_client issue.
+- **track_email.sh fallback (2026-03-02):** When script fails at task detection ("No new task ID detected"), fall back to: (1) `gog gmail thread modify <id> --add Label_81 --remove UNREAD --client tarson --account ...` then (2) `gog tasks add dDQyYU42X00zUzVRQm0zQw --title "[CAT] ..." --notes "source: gmail:<id>\nlink: ..." --client tarson --account ...`
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
 - **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)
@@ -395,10 +396,11 @@ Never leave dead buttons in the chat. No exceptions.
 - **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Snoozed to Mar 7. Regis said "handled manually" but never clicked Complete.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
 - **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates.
-- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for reply.
+- **AUVP Capital — CNR Light (Protocol 00632330)**: Task `cUF5QXUyRGx3LXNDa1YxRw` created 2026-03-02. Needs W-8BEN filled + signed (non-US tax resident). Regis accidentally emailed AUVP instead of T&F accountant (Thaymy). Action: contact Thaymy at T&F → fill W-8BEN → send to fale@auvpcapital.com.br.
 - **A Plus website go-live**: Was "this weekend" (Feb 28) — unknown if launched. Dan never confirmed.
 - **Delta $200 Flight Credit**: Earned by hitting $10K on Delta SkyMiles Gold Amex. Tracked as task `TEprMkNDTzFTYzhlVEthWg`. Use within ~12 months. Current miles: 135,088.
-- **gog OAuth**: Was broken (deleted OAuth client) — **FIXED 2026-03-02 ~06:20 AM** via `gog auth login --client tarson --account regis.depret@gmail.com` with SSH tunnel. gog fully operational. `gog tasks` still broken separately.
+- **Code.org $11.02**: Declined by Amex fraud detection (2026-03-02 3:18 PM), Regis confirmed legit. May need to retry purchase.
+- **gog OAuth + Tasks**: **FULLY FIXED 2026-03-02** — re-authorized via SSH tunnel. Both `gog gmail` and `gog tasks add` operational with `--client tarson`.
 
 ## Nubank Account Closed (2026-02-27)
 - Regis permanently closed his Brazilian Nubank account.
