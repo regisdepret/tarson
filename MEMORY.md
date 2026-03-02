@@ -390,15 +390,15 @@ Never leave dead buttons in the chat. No exceptions.
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
-## Open Items to Follow Up (updated 2026-02-28 evening)
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Was due Feb 28 — **OVERDUE.** Regis said "handled manually" Feb 26 but never clicked Complete. Never directly surfaced Sat (busy day). **Surface Sunday morning — ask Regis to confirm + close.**
-- **GA Annual Registration — Lucid Services LLC**: Task exists (`eHpRZzhIRHltYUgtMGJqcQ`) due Apr 1. Surface proactively ~Mar 15.
-- **XP Investimentos — Informe de Rendimentos 2025**: Regis needs to log in to XP, download PDF, send to T&F Associates. Not addressed today. **Surface Sunday morning.**
-- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for their reply.
-- **Crown Terrace** (pickup Mar 3 — 2 days!): GLM $3,874.47 vs Luxury $3,999.70 in hand. Marc Teitelman (Heritage) + Brooks Yadon (OLS) still outstanding. Decision needed ASAP. **Surface Sunday morning.**
-- **A Plus website go-live**: Was "this weekend" — Dan never pinged today. Check if it launched. **Surface Sunday morning.**
-- **Amazon Kerasal Nail Patches** (Order #111-6281225-2454650): Scheduled delivery today (Feb 28). Likely arrived.
-- **gog Tasks API**: `gog tasks list` fails with deleted_client EVEN with `--client tarson`. Confirmed broken 2026-02-28. Completely inaccessible via gog. Regis needs to re-authorize OAuth for Tasks scope.
+## Open Items to Follow Up (updated 2026-03-02)
+- **Crown Terrace** (pickup TOMORROW Mar 3 🚨): All 4 quotes in. **GLM is clear winner** — $3,874.47, exact spec, delivery included. Heritage/OLS quoted wrong products. Decision pending. Place order with Clint ASAP.
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Snoozed to Mar 7. Regis said "handled manually" but never clicked Complete.
+- **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
+- **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates.
+- **AUVP Capital — Request #00632330**: Task `bHN0TVgxWnZ1SVo1eXFGaQ` created Feb 27. Monitoring for reply.
+- **A Plus website go-live**: Was "this weekend" (Feb 28) — unknown if launched. Dan never confirmed.
+- **Delta $200 Flight Credit**: Earned by hitting $10K on Delta SkyMiles Gold Amex. Tracked as task `TEprMkNDTzFTYzhlVEthWg`. Use within ~12 months. Current miles: 135,088.
+- **gog OAuth**: Was broken (deleted OAuth client) — **FIXED 2026-03-02 ~06:20 AM** via `gog auth login --client tarson --account regis.depret@gmail.com` with SSH tunnel. gog fully operational. `gog tasks` still broken separately.
 
 ## Nubank Account Closed (2026-02-27)
 - Regis permanently closed his Brazilian Nubank account.
