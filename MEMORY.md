@@ -392,8 +392,29 @@ Never leave dead buttons in the chat. No exceptions.
 ## Tools & Apps
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
-## Open Items to Follow Up (updated 2026-03-02)
-- **Crown Terrace** (pickup TODAY Mar 3 🚨): All 4 quotes in. **GLM is clear winner** — $3,874.47, exact spec, delivery included. Heritage/OLS quoted wrong products. Decision pending as of last night. Place order with Clint ASAP when Regis wakes up.
+## Jobber Task Assignment Workflow (established 2026-03-03)
+When a Jobber "Task Assignment" email arrives:
+1. **Apple Calendar** → add event to "Tucano" calendar on MacMini via `ssh regis@192.168.5.31 osascript`
+2. **Google Calendar** → `gog calendar create primary` — ⚠️ NEEDS RE-AUTH first (calendar scope missing from tarson client — same SSH tunnel process as gog re-auth)
+3. **Track** → `track_email.sh track <id> WORK "Jobber: <address> — <time> (<client>)"`
+4. **Note:** Jobber email body is all tracking URLs — job details (client, time, address) come from daily notes or Regis directly
+- Apple Calendar "Tucano" calendar confirmed working on MacMini ✅
+- Google Calendar pending re-auth with `calendar` scope added to tarson client
+
+## OneDrive Memories Emails (updated 2026-03-03)
+- Emails from `photos@onedrive.com` contain only inline UI icons (logo, calendar icon) — NOT actual photos
+- Actual memories are behind a "View all memories" link on OneDrive (requires browser)
+- Attachments in the email are 226×48, 40×40, 20×20 px — all UI elements, not photos
+- Present as a simple notification card with Delete button and "View on OneDrive" note
+- Do NOT attempt to download/display "photos" from this email — there are none
+
+## Google CC "Your Day Ahead" Emails
+- Sent from `regis.depret+cc@gmail.com` (Google's experimental AI productivity agent)
+- Daily briefing email — content is mostly blank/minimal in text form (HTML-heavy)
+- Low signal, treat as informational noise → Delete
+
+## Open Items to Follow Up (updated 2026-03-03 9:33 AM)
+- **Crown Terrace** (pickup TODAY Mar 3 🚨): OLS updated quote confirmed ($3,511.92, Origins 6 corrected). GLM $3,874.47 still safest. Decision still pending as of 9:33 AM — Regis likely making calls now.
 - **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Snoozed to Mar 7. Regis said "handled manually" but never clicked Complete.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
 - **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates.
@@ -402,6 +423,8 @@ Never leave dead buttons in the chat. No exceptions.
 - **Delta $200 Flight Credit**: Earned by hitting $10K on Delta SkyMiles Gold Amex. Tracked as task `TEprMkNDTzFTYzhlVEthWg`. Use within ~12 months. Current miles: 135,088.
 - **Code.org $11.02**: Declined by Amex fraud detection (2026-03-02 3:18 PM), Regis confirmed legit. May need to retry purchase.
 - **gog OAuth + Tasks**: **FULLY FIXED 2026-03-02** — re-authorized via SSH tunnel. Both `gog gmail` and `gog tasks add` operational with `--client tarson`.
+- **Google Calendar scope**: ⚠️ `tarson` client missing `calendar` scope — needed for Jobber workflow. Re-auth with same SSH tunnel process, adding `calendar` to services. Pending since 2026-03-03.
+- **Google Play $19.99**: Google One (2TB) auto-renewed Mar 3 — routine, delete on next inbox pass.
 
 ## gog OAuth Re-Authorization Procedure (2026-03-02)
 If `gog` fails with "deleted_client" or similar OAuth error:

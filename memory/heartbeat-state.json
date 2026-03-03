@@ -1,16 +1,23 @@
 {
   "lastChecks": {
-    "email": 1741001403,
+    "email": 1741016400,
     "calendar": 1740731802,
     "weather": null
   },
-  "pendingInbox": [
-    {"threadId": "19cb2165bec5a8ca", "from": "Kraken", "subject": "You bought BTC", "date": "2026-03-03 00:05"},
-    {"threadId": "19cb1698f8bbb36d", "from": "LinkedIn", "subject": "Your win 🏆", "date": "2026-03-02 20:56"},
-    {"threadId": "19cb126facc3589f", "from": "Bank of America", "subject": "Withdrawal over limit", "date": "2026-03-02 19:44"},
-    {"threadId": "19cb106daa02d667", "from": "Cultura Builder", "subject": "Community updates 02/03", "date": "2026-03-02 19:09"},
-    {"threadId": "19cb0d32c6f2f167", "from": "Jobber", "subject": "Task Assignment (Tucano)", "date": "2026-03-02 18:12"},
-    {"threadId": "19cb0cc4df1e2c36", "from": "Tucano Stones", "subject": "Re: Website updates", "date": "2026-03-02 ~18:00"}
-  ],
-  "inboxSession": null
+  "inboxSession": {
+    "introMsgId": "3404",
+    "pendingEmails": [
+      {"threadId": "19cb442b972f3133", "from": "Jobber", "subject": "Jobber Summit starts tomorrow (online event)"},
+      {"threadId": "19cb3bf1671f0371", "from": "USPS Informed Delivery", "subject": "Daily digest Tue 3/3"},
+      {"threadId": "19cb39255be203a1", "from": "Google CC", "subject": "Your Day Ahead 03/03"},
+      {"threadId": "19cb38d8c0732ea1", "from": "Jobber", "subject": "Task assignment (details unreadable)"},
+      {"threadId": "19cb377ea98ddc0f", "from": "Google Play", "subject": "$19.99 Google One renewal"},
+      {"threadId": "19cb47f0c74eb743", "from": "Coinbase", "subject": "Crypto strategies promo"},
+      {"threadId": "19cb470b0438da7d", "from": "Granum", "subject": "Win Spring With Systems Not Chaos"},
+      {"threadId": "19cb45d75ad4422b", "from": "Coursera", "subject": "Save 40% on Coursera Plus"}
+    ],
+    "batchThreadIds": ["19cb4ff8d1c0d4ce","19cb4a499b9fe42c","19cb47f0c74eb743","19cb470b0438da7d","19cb45d75ad4422b"],
+    "currentIndex": 5,
+    "currentMsgId": "3417"
+  }
 }
