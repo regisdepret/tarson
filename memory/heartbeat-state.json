@@ -1,18 +1,16 @@
 {
   "lastChecks": {
-    "email": 1740966000,
+    "email": 1741001403,
     "calendar": 1740731802,
     "weather": null
   },
   "pendingInbox": [
-    {"threadId": "19cb1698f8bbb36d", "from": "LinkedIn", "subject": "Your win 🏆"},
-    {"threadId": "19cb126facc3589f", "from": "Bank of America", "subject": "Withdrawal over limit — $300 Coinbase (expected)"},
-    {"threadId": "19cb106daa02d667", "from": "Cultura Builder", "subject": "Community updates 02/03"},
-    {"threadId": "19cb0d32c6f2f167", "from": "Jobber", "subject": "Task: 51 Willow — Mar 4, 5 PM"},
-    {"threadId": "19cb0cc4df1e2c36", "from": "Tucano Stones", "subject": "Re: Website updates (Dan/A Plus)"},
-    {"threadId": "19cb0c2e3d7deb17", "from": "Jobber", "subject": "Task: 5015 Guilford — Mar 3, 11:30 PM (midnight?)"},
-    {"threadId": "19cb0b2f44df6b44", "from": "Google LSA", "subject": "New lead call — 5:37 PM"},
-    {"threadId": "19cb09aed7c339bd", "from": "America's Best", "subject": "Eyewear promo"}
+    {"threadId": "19cb2165bec5a8ca", "from": "Kraken", "subject": "You bought BTC", "date": "2026-03-03 00:05"},
+    {"threadId": "19cb1698f8bbb36d", "from": "LinkedIn", "subject": "Your win 🏆", "date": "2026-03-02 20:56"},
+    {"threadId": "19cb126facc3589f", "from": "Bank of America", "subject": "Withdrawal over limit", "date": "2026-03-02 19:44"},
+    {"threadId": "19cb106daa02d667", "from": "Cultura Builder", "subject": "Community updates 02/03", "date": "2026-03-02 19:09"},
+    {"threadId": "19cb0d32c6f2f167", "from": "Jobber", "subject": "Task Assignment (Tucano)", "date": "2026-03-02 18:12"},
+    {"threadId": "19cb0cc4df1e2c36", "from": "Tucano Stones", "subject": "Re: Website updates", "date": "2026-03-02 ~18:00"}
   ],
   "inboxSession": null
 }

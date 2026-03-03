@@ -393,7 +393,7 @@ Never leave dead buttons in the chat. No exceptions.
 - **Mimestream** — Gmail client for Mac/iOS. Regis signed up for iOS beta on 2026-02-24. OAuth access granted to regis.depret@gmail.com.
 
 ## Open Items to Follow Up (updated 2026-03-02)
-- **Crown Terrace** (pickup TOMORROW Mar 3 🚨): All 4 quotes in. **GLM is clear winner** — $3,874.47, exact spec, delivery included. Heritage/OLS quoted wrong products. Decision pending. Place order with Clint ASAP.
+- **Crown Terrace** (pickup TODAY Mar 3 🚨): All 4 quotes in. **GLM is clear winner** — $3,874.47, exact spec, delivery included. Heritage/OLS quoted wrong products. Decision pending as of last night. Place order with Clint ASAP when Regis wakes up.
 - **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Snoozed to Mar 7. Regis said "handled manually" but never clicked Complete.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
 - **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates.
