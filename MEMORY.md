@@ -399,7 +399,8 @@ When a Jobber "Task Assignment" email arrives:
 3. **Track** → `track_email.sh track <id> WORK "Jobber: <address> — <time> (<client>)"`
 4. **Note:** Jobber email body is all tracking URLs — job details (client, time, address) come from daily notes or Regis directly
 - Apple Calendar "Tucano" calendar confirmed working on MacMini ✅
-- Google Calendar pending re-auth with `calendar` scope added to tarson client
+- Google Calendar ✅ FIXED 2026-03-03 — `gog calendar create primary --client tarson` works
+- Both calendars now fully operational for Jobber workflow
 
 ## OneDrive Memories Emails (updated 2026-03-03)
 - Emails from `photos@onedrive.com` contain only inline UI icons (logo, calendar icon) — NOT actual photos
@@ -413,18 +414,25 @@ When a Jobber "Task Assignment" email arrives:
 - Daily briefing email — content is mostly blank/minimal in text form (HTML-heavy)
 - Low signal, treat as informational noise → Delete
 
-## Open Items to Follow Up (updated 2026-03-03 9:33 AM)
-- **Crown Terrace** (pickup TODAY Mar 3 🚨): OLS updated quote confirmed ($3,511.92, Origins 6 corrected). GLM $3,874.47 still safest. Decision still pending as of 9:33 AM — Regis likely making calls now.
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Snoozed to Mar 7. Regis said "handled manually" but never clicked Complete.
+## Open Items to Follow Up (updated 2026-03-03 5:33 PM)
+- **Crown Terrace** ✅ RESOLVED 2026-03-03: OLS (Brooks Yadon) won — $3,511.92, Quote #QUO58703, Origins 6 Aspen/Cheswick. ORDER task created in TARSON-Tracking (WVU1ZDg4cFNsdUIwVTBHbA). Monitor delivery.
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Regis said "handled manually" but never clicked Complete. XP Investimentos doc still unaddressed — pending T&F for now. Presented in tracking review at 5 PM, awaiting Regis response.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
-- **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates.
-- **AUVP Capital — CNR Light (Protocol 00632330)**: Task `cUF5QXUyRGx3LXNDa1YxRw` created 2026-03-02. Needs W-8BEN filled + signed (non-US tax resident). Regis accidentally emailed AUVP instead of T&F accountant (Thaymy). Action: contact Thaymy at T&F → fill W-8BEN → send to fale@auvpcapital.com.br.
-- **A Plus website go-live**: Was "this weekend" (Feb 28) — unknown if launched. Dan never confirmed.
+- **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates (linked to T&F tax task above).
+- **AUVP Capital — CNR Light (Protocol 00632330)**: Task `cUF5QXUyRGx3LXNDa1YxRw`. Needs W-8BEN filled + signed (non-US tax resident). Regis included Thaymy (T&F) in the AUVP thread intentionally. Action: Thaymy fills/signs W-8BEN → send to fale@auvpcapital.com.br. In tracking queue — will surface shortly.
+- **A Plus website go-live**: ✅ Task closed 2026-03-03 during zero tracking. Dan/Leo coordinating; assumed launched or in final hands.
 - **Delta $200 Flight Credit**: Earned by hitting $10K on Delta SkyMiles Gold Amex. Tracked as task `TEprMkNDTzFTYzhlVEthWg`. Use within ~12 months. Current miles: 135,088.
 - **Code.org $11.02**: Declined by Amex fraud detection (2026-03-02 3:18 PM), Regis confirmed legit. May need to retry purchase.
 - **gog OAuth + Tasks**: **FULLY FIXED 2026-03-02** — re-authorized via SSH tunnel. Both `gog gmail` and `gog tasks add` operational with `--client tarson`.
-- **Google Calendar scope**: ⚠️ `tarson` client missing `calendar` scope — needed for Jobber workflow. Re-auth with same SSH tunnel process, adding `calendar` to services. Pending since 2026-03-03.
-- **Google Play $19.99**: Google One (2TB) auto-renewed Mar 3 — routine, delete on next inbox pass.
+- **Google Calendar scope**: ✅ **FIXED 2026-03-03** — re-authed with `calendar` scope, Calendar API enabled in tarson-488614 project. `gog calendar create primary` now works.
+- **Amex credit limit increased**: Acct ...771002 → **$29,000** (effective Mar 3, 2026). Email archived.
+- **5 PM inbox pending** (intro msg 3494): 2× Google security alerts (safe, expected from Calendar re-auth), Amex credit limit email, Uphold 0.296 BAT. Regis hasn't tapped Proceed yet.
+
+## Telegram Inline Button UX (established 2026-03-03)
+- **Vertical stacking**: Each button in its own sub-array — `[[btn1], [btn2], [btn3]]` NOT `[[btn1, btn2, btn3]]`
+- **Icon-only labels**: Use icons (✅🗑️📎💤⏭️) to prevent text truncation on mobile
+- **Short callback_data**: Must be ≤64 bytes — use short codes (`tr_tax_done`, `t_cd_N`) + look up full IDs from heartbeat-state.json
+- **Delete button messages**: Always delete the Telegram callback message after an action (no exceptions)
 
 ## gog OAuth Re-Authorization Procedure (2026-03-02)
 If `gog` fails with "deleted_client" or similar OAuth error:
