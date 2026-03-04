@@ -414,7 +414,7 @@ When a Jobber "Task Assignment" email arrives:
 - Daily briefing email — content is mostly blank/minimal in text form (HTML-heavy)
 - Low signal, treat as informational noise → Delete
 
-## Open Items to Follow Up (updated 2026-03-03 9:33 PM)
+## Open Items to Follow Up (updated 2026-03-04 1:33 PM)
 - **Crown Terrace ORDER** (`WVU1ZDg4cFNsdUIwVTBHbA`): OLS SO#186606, $3,511.92 confirmed. Email tracked (gmail:19cb627f31afd1f0). Monitor pickup/delivery.
 - **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Kept open — XP Investimentos Informe de Rendimentos 2025 still not sent to T&F. Regis needs to log in to xp.com.br, download PDF, send to T&F Associates.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. File at sos.ga.gov ~$50 — ignore scam mailers (Georgia Business Filing Center).
@@ -424,7 +424,10 @@ When a Jobber "Task Assignment" email arrives:
 - **Google Gemini reinstatement** (`NEZpNkk5UXp3S2FPemNvYQ`): Appeal sent Feb 26, no response. Watching.
 - **Novo SSN** (`RkhJWlNjanN2TlJCZEI0MQ`): Still pending (open since Feb 22).
 - **Jobber onboarding** (`YzdyWlFfU2xqQkExY0dUUg`): Partially done; complete the in-app checklist.
+- **Amex replacement card** (`eDJyZnQ2ZWlPcE5QYkdDYw`): Delivered Mar 4. Card is at Leo's — task reopened as "[ACTION] pick up at Leo's". Email tracked (gmail:19cb9513c066fc97).
 - **Amex credit limit increased**: Acct ...771002 → **$29,000** (Mar 3, 2026). Email deleted (noted for records).
+- **A Plus Power Cleaning — GA + Ads linked**: Google Analytics (520896040) ↔ Google Ads (636-765-4010) linked Mar 4 by apluspowercleaning@gmail.com. Dan getting the ads setup going.
+- **Google Ads Customer Match API** (`LVBrQ0VfX2szcVM5OUVKdg`): WATCHING — must migrate to Data Manager API after Apr 1, 2026 for Customer Match uploads. Tucano Customer ID: 689-337-2350. No active Customer Match usage currently.
 - **gog OAuth + Tasks**: FULLY FIXED 2026-03-02. **Google Calendar**: FIXED 2026-03-03 (calendar scope added, tarson-488614). Both `gog gmail`, `gog tasks`, and `gog calendar` operational.
 
 ## Telegram Inline Button UX (established 2026-03-03)
