@@ -414,19 +414,18 @@ When a Jobber "Task Assignment" email arrives:
 - Daily briefing email — content is mostly blank/minimal in text form (HTML-heavy)
 - Low signal, treat as informational noise → Delete
 
-## Open Items to Follow Up (updated 2026-03-03 5:33 PM)
-- **Crown Terrace** ✅ RESOLVED 2026-03-03: OLS (Brooks Yadon) won — $3,511.92, Quote #QUO58703, Origins 6 Aspen/Cheswick. ORDER task created in TARSON-Tracking (WVU1ZDg4cFNsdUIwVTBHbA). Monitor delivery.
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Regis said "handled manually" but never clicked Complete. XP Investimentos doc still unaddressed — pending T&F for now. Presented in tracking review at 5 PM, awaiting Regis response.
-- **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. Do it at sos.ga.gov for ~$50 — scam mailers arriving (Georgia Business Filing Center) trying to charge extra.
-- **XP Investimentos — Informe de Rendimentos 2025**: Still unaddressed. Log in to xp.com.br, download PDF, send to T&F Associates (linked to T&F tax task above).
-- **AUVP Capital — CNR Light (Protocol 00632330)**: Task `cUF5QXUyRGx3LXNDa1YxRw`. Needs W-8BEN filled + signed (non-US tax resident). Regis included Thaymy (T&F) in the AUVP thread intentionally. Action: Thaymy fills/signs W-8BEN → send to fale@auvpcapital.com.br. In tracking queue — will surface shortly.
-- **A Plus website go-live**: ✅ Task closed 2026-03-03 during zero tracking. Dan/Leo coordinating; assumed launched or in final hands.
-- **Delta $200 Flight Credit**: Earned by hitting $10K on Delta SkyMiles Gold Amex. Tracked as task `TEprMkNDTzFTYzhlVEthWg`. Use within ~12 months. Current miles: 135,088.
-- **Code.org $11.02**: Declined by Amex fraud detection (2026-03-02 3:18 PM), Regis confirmed legit. May need to retry purchase.
-- **gog OAuth + Tasks**: **FULLY FIXED 2026-03-02** — re-authorized via SSH tunnel. Both `gog gmail` and `gog tasks add` operational with `--client tarson`.
-- **Google Calendar scope**: ✅ **FIXED 2026-03-03** — re-authed with `calendar` scope, Calendar API enabled in tarson-488614 project. `gog calendar create primary` now works.
-- **Amex credit limit increased**: Acct ...771002 → **$29,000** (effective Mar 3, 2026). Email archived.
-- **5 PM inbox pending** (intro msg 3494): 2× Google security alerts (safe, expected from Calendar re-auth), Amex credit limit email, Uphold 0.296 BAT. Regis hasn't tapped Proceed yet.
+## Open Items to Follow Up (updated 2026-03-03 9:33 PM)
+- **Crown Terrace ORDER** (`WVU1ZDg4cFNsdUIwVTBHbA`): OLS SO#186606, $3,511.92 confirmed. Email tracked (gmail:19cb627f31afd1f0). Monitor pickup/delivery.
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Kept open — XP Investimentos Informe de Rendimentos 2025 still not sent to T&F. Regis needs to log in to xp.com.br, download PDF, send to T&F Associates.
+- **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. File at sos.ga.gov ~$50 — ignore scam mailers (Georgia Business Filing Center).
+- **AUVP Capital — CNR Light** (`cUF5QXUyRGx3LXNDa1YxRw`): Waiting on Thaymy (T&F) to fill/sign W-8BEN → send to fale@auvpcapital.com.br.
+- **Calendly support ticket** (`WFZiVmxaQ2VybEJnSUp1dA`): Regis waiting for reply from Calendly re: tucanostones.com. Email in inbox with Label_81 (gmail:19cb62868222015c).
+- **Delta $200 Flight Credit** (`TEprMkNDTzFTYzhlVEthWg`): Use within ~12 months. Miles: 135,088.
+- **Google Gemini reinstatement** (`NEZpNkk5UXp3S2FPemNvYQ`): Appeal sent Feb 26, no response. Watching.
+- **Novo SSN** (`RkhJWlNjanN2TlJCZEI0MQ`): Still pending (open since Feb 22).
+- **Jobber onboarding** (`YzdyWlFfU2xqQkExY0dUUg`): Partially done; complete the in-app checklist.
+- **Amex credit limit increased**: Acct ...771002 → **$29,000** (Mar 3, 2026). Email deleted (noted for records).
+- **gog OAuth + Tasks**: FULLY FIXED 2026-03-02. **Google Calendar**: FIXED 2026-03-03 (calendar scope added, tarson-488614). Both `gog gmail`, `gog tasks`, and `gog calendar` operational.
 
 ## Telegram Inline Button UX (established 2026-03-03)
 - **Vertical stacking**: Each button in its own sub-array — `[[btn1], [btn2], [btn3]]` NOT `[[btn1, btn2, btn3]]`
