@@ -1,35 +1,14 @@
 {
   "lastChecks": {
-    "email": 1741035600,
+    "email": 1741058403,
     "calendar": 1741035600,
     "weather": null
   },
-  "inboxSession": {
-    "introMsgId": "3494",
-    "pendingEmails": [
-      {"threadId": "19cb59e1e70019af", "from": "American Express", "subject": "Credit limit increased to $29,000 — acct ...771002"},
-      {"threadId": "19cb5ad768c529d6", "from": "Uphold", "subject": "0.296 BAT from Brave Rewards"}
-    ],
-    "currentIndex": 0
-  },
+  "inboxSession": null,
   "pendingInbox": [],
   "trackingReview": {
-    "currentTaskId": "N01xZXJnRmF4dEhEWHBGXw",
-    "currentIndex": 5,
-    "currentMsgId": "3499",
-    "shortCodeMap": {
-      "tax_done": "N01xZXJnRmF4dEhEWHBGXw",
-      "tax_keep": "N01xZXJnRmF4dEhEWHBGXw"
-    },
-    "remainingTasks": [
-      "Mi1TYlc2M01BTTFEQm5WYw",
-      "TGZqSGFmZnZCR0lzVmMyYg",
-      "cUF5QXUyRGx3LXNDa1YxRw",
-      "TEprMkNDTzFTYzhlVEthWg",
-      "NEZpNkk5UXp3S2FPemNvYQ",
-      "RkhJWlNjanN2TlJCZEI0MQ",
-      "YzdyWlFfU2xqQkExY0dUUg",
-      "WVU1ZDg4cFNsdUIwVTBHbA"
-    ]
+    "status": "complete",
+    "completedAt": "2026-03-03T22:40:00Z",
+    "summaryMsgId": "3520"
   }
 }
