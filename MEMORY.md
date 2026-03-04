@@ -414,9 +414,9 @@ When a Jobber "Task Assignment" email arrives:
 - Daily briefing email — content is mostly blank/minimal in text form (HTML-heavy)
 - Low signal, treat as informational noise → Delete
 
-## Open Items to Follow Up (updated 2026-03-04 1:33 PM)
+## Open Items to Follow Up (updated 2026-03-04 5:33 PM)
 - **Crown Terrace ORDER** (`WVU1ZDg4cFNsdUIwVTBHbA`): OLS SO#186606, $3,511.92 confirmed. Email tracked (gmail:19cb627f31afd1f0). Monitor pickup/delivery.
-- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Kept open — XP Investimentos Informe de Rendimentos 2025 still not sent to T&F. Regis needs to log in to xp.com.br, download PDF, send to T&F Associates.
+- **T&F Associates tax task** (`N01xZXJnRmF4dEhEWHBGXw`): Due Mar 7. Two docs still needed: (1) XP Investimentos — log in to xp.com.br, download Informe de Rendimentos 2025 PDF; (2) Coinbase 2025 tax document — notification arrived Mar 4, email deleted, doc available at coinbase.com. Both need to be sent to T&F Associates.
 - **GA Annual Registration — Lucid Services LLC**: Task `eHpRZzhIRHltYUgtMGJqcQ` due Apr 1. Surface ~Mar 15. File at sos.ga.gov ~$50 — ignore scam mailers (Georgia Business Filing Center).
 - **AUVP Capital — CNR Light** (`cUF5QXUyRGx3LXNDa1YxRw`): Waiting on Thaymy (T&F) to fill/sign W-8BEN → send to fale@auvpcapital.com.br.
 - **Calendly support ticket** (`WFZiVmxaQ2VybEJnSUp1dA`): Regis waiting for reply from Calendly re: tucanostones.com. Email in inbox with Label_81 (gmail:19cb62868222015c).
