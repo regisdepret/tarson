@@ -429,6 +429,7 @@ When a Jobber "Task Assignment" email arrives:
 - **A Plus Power Cleaning — GA + Ads linked**: Google Analytics (520896040) ↔ Google Ads (636-765-4010) linked Mar 4 by apluspowercleaning@gmail.com. Dan getting the ads setup going.
 - **Google Ads Customer Match API** (`LVBrQ0VfX2szcVM5OUVKdg`): WATCHING — must migrate to Data Manager API after Apr 1, 2026 for Customer Match uploads. Tucano Customer ID: 689-337-2350. No active Customer Match usage currently.
 - **gog OAuth + Tasks**: FULLY FIXED 2026-03-02. **Google Calendar**: FIXED 2026-03-03 (calendar scope added, tarson-488614). Both `gog gmail`, `gog tasks`, and `gog calendar` operational.
+- **OpenClaw version**: Updated to **v2026.3.2** on Mar 4, 2026 (via `npm install -g openclaw@latest --prefix ~/.npm-global`, then gateway restart). Previous: v2026.2.24. Update method for npm installs: `nohup npm install -g openclaw@latest --prefix /home/regis/.npm-global > /tmp/openclaw-update.log 2>&1 &` then `gateway restart`.
 
 ## Telegram Inline Button UX (established 2026-03-03)
 - **Vertical stacking**: Each button in its own sub-array — `[[btn1], [btn2], [btn3]]` NOT `[[btn1, btn2, btn3]]`
