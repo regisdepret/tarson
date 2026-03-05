@@ -424,7 +424,7 @@ When a Jobber "Task Assignment" email arrives:
 - **Google Gemini reinstatement** (`NEZpNkk5UXp3S2FPemNvYQ`): Appeal sent Feb 26, no response. Watching.
 - **Novo SSN** (`RkhJWlNjanN2TlJCZEI0MQ`): Still pending (open since Feb 22).
 - **Jobber onboarding** (`YzdyWlFfU2xqQkExY0dUUg`): Partially done; complete the in-app checklist.
-- **Amex replacement card** (`eDJyZnQ2ZWlPcE5QYkdDYw`): Delivered Mar 4. Card is at Leo's — task reopened as "[ACTION] pick up at Leo's". Email tracked (gmail:19cb9513c066fc97).
+- **Amex replacement card**: ✅ CLOSED Mar 5. Card picked up from Leo's, task completed, email archived.
 - **Amex credit limit increased**: Acct ...771002 → **$29,000** (Mar 3, 2026). Email deleted (noted for records).
 - **A Plus Power Cleaning — GA + Ads linked**: Google Analytics (520896040) ↔ Google Ads (636-765-4010) linked Mar 4 by apluspowercleaning@gmail.com. Dan getting the ads setup going.
 - **Google Ads Customer Match API** (`LVBrQ0VfX2szcVM5OUVKdg`): WATCHING — must migrate to Data Manager API after Apr 1, 2026 for Customer Match uploads. Tucano Customer ID: 689-337-2350. No active Customer Match usage currently.
