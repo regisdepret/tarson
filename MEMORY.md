@@ -431,6 +431,12 @@ When a Jobber "Task Assignment" email arrives:
 - **gog OAuth + Tasks**: FULLY FIXED 2026-03-02. **Google Calendar**: FIXED 2026-03-03 (calendar scope added, tarson-488614). Both `gog gmail`, `gog tasks`, and `gog calendar` operational.
 - **OpenClaw version**: Updated to **v2026.3.2** on Mar 4, 2026 (via `npm install -g openclaw@latest --prefix ~/.npm-global`, then gateway restart). Previous: v2026.2.24. Update method for npm installs: `nohup npm install -g openclaw@latest --prefix /home/regis/.npm-global > /tmp/openclaw-update.log 2>&1 &` then `gateway restart`.
 
+## Procedure Compliance — Critical Lesson (2026-03-05)
+- **Root cause of failures:** Referencing procedure files without reading them. Relying on compressed MEMORY.md summaries instead of the actual rules.
+- **Fix applied:** `HEARTBEAT.md` rewritten to embed all rules inline — heartbeat hard rules, inbox zero flow, email auto-rule table, resolution workflow. No external references for critical behavior.
+- **The rule:** If I need to read a file to follow a procedure, I will skip it when under load. Rules must be IN the file I am guaranteed to read.
+- **Regis's standard:** "The files are already written. Why did you stop following them?" — answer: I stopped reading them. That's the only reason.
+
 ## Telegram Inline Button UX (established 2026-03-03)
 - **Vertical stacking**: Each button in its own sub-array — `[[btn1], [btn2], [btn3]]` NOT `[[btn1, btn2, btn3]]`
 - **Icon-only labels**: Use icons (✅🗑️📎💤⏭️) to prevent text truncation on mobile
