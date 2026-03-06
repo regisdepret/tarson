@@ -37,7 +37,7 @@ bash scripts/inbox_fetch_all.sh
 
 ## STEP 3 — Tasks (if >2h since last check)
 ```bash
-GOG_KEYRING_PASSWORD=1234 gog tasks list dDQyYU42X00zUzVRQm0zQw --client tarson --account regis.depret@gmail.com --plain
+GOG_KEYRING_PASSWORD=1234 gog tasks list dDQyYU42X00zUzVRQm0zQw --client tarson --account regis.depret@gmail.com --plain --max=100
 ```
 **Report ONLY:**
 - 🔴 **CRITICAL** — past due → notify immediately
