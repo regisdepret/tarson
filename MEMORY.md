@@ -443,6 +443,12 @@ When a Jobber "Task Assignment" email arrives:
 - **Short callback_data**: Must be ≤64 bytes — use short codes (`tr_tax_done`, `t_cd_N`) + look up full IDs from heartbeat-state.json
 - **Delete button messages**: Always delete the Telegram callback message after an action (no exceptions)
 
+## gog tasks list — Always Use --max=100 (2026-03-06)
+- Default page limit is 20 — too low for TARSON-Tracking which has 30+ tasks
+- **Always append `--max=100`** to every `gog tasks list` command, interactive or scripted
+- Without it, tasks beyond position 20 are silently invisible (e.g., [TAX] T&F Associates was missed)
+- HEARTBEAT.md updated. Scripts already use --max=100.
+
 ## gog OAuth Re-Authorization Procedure (2026-03-02)
 If `gog` fails with "deleted_client" or similar OAuth error:
 1. Run: `GOG_KEYRING_PASSWORD=1234 gog auth login --account regis.depret@gmail.com --client tarson`
