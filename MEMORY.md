@@ -437,6 +437,11 @@ When a Jobber "Task Assignment" email arrives:
 - **The rule:** If I need to read a file to follow a procedure, I will skip it when under load. Rules must be IN the file I am guaranteed to read.
 - **Regis's standard:** "The files are already written. Why did you stop following them?" — answer: I stopped reading them. That's the only reason.
 
+## Heartbeat Auto-Delete Rule (2026-03-07)
+- **Auto-delete emails during heartbeat**: The inbox zero auto-rule table embedded in HEARTBEAT.md (Kraken deposits, Duolingo, "no events scheduled", etc.) applies SILENTLY even during heartbeat. Do not count these toward the reported email count.
+- **No-repeat rule (#4)**: If an email was already flagged in the previous 1–2 heartbeats and the user hasn't acted, do NOT re-report it. Only report net-new emails requiring attention.
+- **Correct heartbeat flow**: fetch → apply auto-deletes silently → subtract already-flagged emails → report only new actionable count → HEARTBEAT_OK if nothing new.
+
 ## Telegram Inline Button UX (established 2026-03-03)
 - **Vertical stacking**: Each button in its own sub-array — `[[btn1], [btn2], [btn3]]` NOT `[[btn1, btn2, btn3]]`
 - **Icon-only labels**: Use icons (✅🗑️📎💤⏭️) to prevent text truncation on mobile
