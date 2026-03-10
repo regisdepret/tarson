@@ -36,12 +36,29 @@ See `SCRIPTS.md` for full list.
 - **GPU:** Intel Corporation Alder Lake-N [UHD Graphics] (Integrated)
 - **Whisper (Transcription):** The installed version does not support acceleration on the integrated Intel GPU. It will run on the CPU only.
 
-## gog (Google Workspace CLI) - Gmail
-- **Keyring Password:** `1234` (set via `GOG_KEYRING_PASSWORD` env var)
-- **Account:** `regis.depret@gmail.com`
-- **Trash emails (delete):** `GOG_KEYRING_PASSWORD=1234 gog gmail batch modify <ids> --account regis.depret@gmail.com --add TRASH --force`
-- **Archive emails:** `GOG_KEYRING_PASSWORD=1234 gog gmail batch modify <ids> --account regis.depret@gmail.com --remove INBOX --force`
-- **Note:** `batch delete` (permanent) requires broader OAuth scope; use `--add TRASH` instead
+## gws (Google Workspace CLI) - Gmail & Tasks
+- **CLI:** Official Google Workspace CLI (v0.9.1)
+- **Binary:** `/home/regis/.npm-global/bin/gws`
+- **Credentials:** `~/.config/gws/credentials.json`
+- **Env var:** `GOOGLE_WORKSPACE_CLI_CREDENTIALS_FILE=$HOME/.config/gws/credentials.json` (set in `~/.bashrc`)
+- **Scopes:** gmail.modify, tasks, calendar, drive, spreadsheets
+
+### Gmail Commands
+- **Trash emails:** `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"addLabelIds":["TRASH"]}'`
+- **Archive emails:** `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"removeLabelIds":["INBOX"]}'`
+- **Search threads:** `gws gmail users threads list --params '{"userId":"me","q":"in:inbox","maxResults":50}'`
+- **Get thread details:** `gws gmail users threads get --params '{"userId":"me","id":"<THREAD_ID>","format":"full"}'`
+
+### Tasks Commands
+- **List tasks:** `gws tasks tasks list --params '{"tasklist":"<LIST_ID>","maxResults":100,"showCompleted":false}'`
+- **Add task:** `gws tasks tasks insert --params '{"tasklist":"<LIST_ID>"}' --json '{"title":"...","notes":"...","due":"2026-03-14T00:00:00.000Z"}'`
+- **Complete task:** `gws tasks tasks patch --params '{"tasklist":"<LIST_ID>","task":"<TASK_ID>"}' --json '{"status":"completed"}'`
+- **Delete task:** `gws tasks tasks delete --params '{"tasklist":"<LIST_ID>","task":"<TASK_ID>"}'`
+
+### Migration Notes
+- Migrated from `gog` CLI (third-party) to `gws` (Google official) on 2026-03-10
+- No more `GOG_KEYRING_PASSWORD` needed
+- Simpler syntax: `gws <service> <resource> <method> --params '...'`
 
 ## iCloud Mail (IMAP)
 - **Email:** `regis.depret@me.com`

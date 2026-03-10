@@ -2,6 +2,13 @@
 
 This file contains the foundational principles, established systems, and key learnings that define my operation as TARSON.
 
+## 🔄 MIGRATION NOTICE (2026-03-10)
+**All workspace scripts migrated from `gog` CLI to `gws` CLI (Google official)**
+- Old: `GOG_KEYRING_PASSWORD=1234 gog gmail ... --client tarson --account regis.depret@gmail.com`
+- New: `gws gmail users threads list --params '{"userId":"me",...}'`
+- See `TOOLS.md` for full gws command reference
+- All historical references to `gog` commands below should be translated to `gws` equivalents when used
+
 ## ⚡ PRIME DIRECTIVE: Externalization
 > **"I don't want you to remember what is pending — I want you to know that pending items are on tab X in app Y."**
 
@@ -60,9 +67,8 @@ These are laws, not suggestions.
   2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
   3. Presenting emails that should be auto-deleted per rules
   4. Not extracting OneDrive memory photos before deletion
-  5. **Forgetting `--client tarson` on gog commands** — EVERY gog command needs this flag or it hits the deleted old client and fails. No exceptions. (re-learned 2026-02-28)
-- **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches Gmail inbox, filters out Tracking label client-side, uses `--max=50` to avoid pagination cutoff. Returns only emails that need treatment.
-- **Gmail Access:** Uses `gog` CLI with OAuth (GOG_KEYRING_PASSWORD=1234), NOT Maton API
+- **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches Gmail inbox, filters out Tracking label client-side. Returns only emails that need treatment.
+- **Gmail Access:** Uses `gws` CLI with OAuth (credentials in `~/.config/gws/credentials.json`), NOT Maton API
 - **Interaction Flow:**
   1. Fetch email and extract useful summary (amounts, dates, action items)
   2. Present email with summary + inline buttons (Telegram)
@@ -72,15 +78,13 @@ These are laws, not suggestions.
   6. NO confirmation messages between emails - keep flow smooth
 - **Data Extraction:** Always decode HTML to extract amounts, due dates, account numbers
 - **Trigger:** System cron (external crontab) at :30 every hour calls `openclaw system event --mode now`
-- **Gmail Commands (ALWAYS include `--client tarson --account regis.depret@gmail.com`):**
-  - Track: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --add Label_81 --remove UNREAD --force` *(KEEP IN INBOX)*
-  - Delete: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --add TRASH --force` *(thread modify only — batch only hits one message)*
-  - Archive: `gog gmail thread modify <id> --client tarson --account regis.depret@gmail.com --remove INBOX --force`
-  - Read: `gog gmail thread get <id> --client tarson --account regis.depret@gmail.com --json`
-  - **NEVER use `batch modify` for delete/archive** — only use `thread modify`
-  - **Critical:** Use `thread modify` for threads with multiple messages
-  - **✅ Tasks API:** Working again as of 2026-03-02 after gog re-authorization. Use `gog tasks add <listId> --title "..." --notes "..." --client tarson --account regis.depret@gmail.com`. Re-auth fixed the deleted_client issue.
-- **track_email.sh fallback (2026-03-02):** When script fails at task detection ("No new task ID detected"), fall back to: (1) `gog gmail thread modify <id> --add Label_81 --remove UNREAD --client tarson --account ...` then (2) `gog tasks add dDQyYU42X00zUzVRQm0zQw --title "[CAT] ..." --notes "source: gmail:<id>\nlink: ..." --client tarson --account ...`
+- **Gmail Commands (using gws CLI):**
+  - Track: `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"addLabelIds":["Label_81"],"removeLabelIds":["UNREAD"]}'` *(KEEP IN INBOX)*
+  - Delete: `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"addLabelIds":["TRASH"]}'`
+  - Archive: `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"removeLabelIds":["INBOX"]}'`
+  - Read: `gws gmail users threads get --params '{"userId":"me","id":"<THREAD_ID>","format":"full"}'`
+  - **Tasks API:** `gws tasks tasks insert --params '{"tasklist":"<LIST_ID>"}' --json '{"title":"...","notes":"...","due":"2026-03-14T00:00:00.000Z"}'`
+- **track_email.sh fallback:** When script fails at task detection ("No new task ID detected"), fall back to: (1) Apply label with gws, then (2) Create task manually with gws (see TOOLS.md for current syntax)
 - **iCloud:** No longer checked — forwards to Gmail (changed 2026-02-21)
 - **Tracking Label:** Gmail = Label_81
 - **INBOX = source of truth. Track = Label_81 + INBOX, always.** If an email has Label_81 but is NOT in INBOX → restore it immediately (`--add INBOX`). Regis only sees what's in inbox — if it's not there, it doesn't exist for him. (rule hardened 2026-02-21)

@@ -37,7 +37,7 @@ bash scripts/inbox_fetch_all.sh
 
 ## STEP 3 — Tasks (if >2h since last check)
 ```bash
-GOG_KEYRING_PASSWORD=1234 gog tasks list dDQyYU42X00zUzVRQm0zQw --client tarson --account regis.depret@gmail.com --plain --max=100
+gws tasks tasks list --params '{"tasklist":"dDQyYU42X00zUzVRQm0zQw","maxResults":100,"showCompleted":false}'
 ```
 **Report ONLY:**
 - 🔴 **CRITICAL** — past due → notify immediately
@@ -98,8 +98,8 @@ The full email rules live in `rules/inbox_zero.md`. Key rules embedded here:
 7. Repeat until done → send `"✅ Inbox zero."`
 
 ### Button Callback Formats
-- `del_<threadId>` → `gog gmail thread modify <id> --add TRASH --client tarson --account regis.depret@gmail.com --force`
-- `arc_<threadId>` → `gog gmail thread modify <id> --remove INBOX --client tarson --account regis.depret@gmail.com --force`
+- `del_<threadId>` → `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"addLabelIds":["TRASH"]}'`
+- `arc_<threadId>` → `gws gmail users threads modify --params '{"userId":"me","id":"<THREAD_ID>"}' --json '{"removeLabelIds":["INBOX"]}'`
 - `trk_<threadId>` → `bash scripts/track_email.sh track <id> <CATEGORY> "<title>"`
 - `del2_<id1>_<id2>` → trash both threads
 - Track = **Label_81 + INBOX stays** (never remove INBOX when tracking)
@@ -114,6 +114,6 @@ The full email rules live in `rules/inbox_zero.md`. Key rules embedded here:
 
 ## RESOLUTION WORKFLOW (when completing a task)
 1. Add to task notes: `RESOLVED: YYYY-MM-DD — <what was done>`
-2. Mark task complete: `gog tasks done <listId> <taskId> --client tarson --account regis.depret@gmail.com --force`
+2. Mark task complete: `gws tasks tasks patch --params '{"tasklist":"<LIST_ID>","task":"<TASK_ID>"}' --json '{"status":"completed"}'`
 3. Clean up email: remove Label_81 + remove INBOX
 4. If complex: create `memory/resolutions/YYYY-MM-DD-topic.md`
