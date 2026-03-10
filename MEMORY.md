@@ -479,6 +479,31 @@ When `track_email.sh` fails with "Could not identify newly created task":
 - PDF `conta-cancelada.pdf` (cancellation declaration) is in Gmail archive for records.
 - Protocol: n/a (support ticket via Nubank's contact system).
 
+## gws CLI — Auth & Key Notes (2026-03-10)
+`gog` is RETIRED. All Google Workspace operations use `gws` (Google's official CLI).
+- Binary: `/home/regis/.npm-global/bin/gws` (v0.9.1)
+- Credentials: `~/.config/gws/credentials.json` (type: `authorized_user`)
+- Env var: `GOOGLE_WORKSPACE_CLI_CREDENTIALS_FILE=$HOME/.config/gws/credentials.json` (in `~/.bashrc`)
+- GCP project: `tarson-488614` (same as old gog), OAuth client reused
+- Scopes: gmail.modify, tasks, calendar, drive, spreadsheets, userinfo.email
+- **Re-auth procedure (if token expires):**
+  1. `gws auth login -s gmail,tasks,calendar,drive,sheets --no-open` → starts listener, prints URL + port
+  2. Regis opens URL in browser, approves, copies the `http://localhost:<port>/?code=...` URL
+  3. Kill the gws listener process
+  4. `curl -X POST https://oauth2.googleapis.com/token -d "code=<CODE>&client_id=REDACTED_CLIENT_ID&client_secret=REDACTED_CLIENT_SECRET&redirect_uri=http://localhost:<PORT>&grant_type=authorization_code"`
+  5. Write response to `~/.config/gws/credentials.json` with `"type":"authorized_user"` field added
+- **inbox_fetch_all.sh performance note:** Uses threads list → threads get (format=full) per thread. ~30-60s for 9 emails. Acceptable.
+
+## Tana Knowledge Graph — Planned Integration (2026-03-10)
+- Regis wants to use Tana (tana.inc) as human-facing knowledge graph layer
+- Input API: write-only POST to `https://europe-west1-tagr-prod.cloudfunctions.net/addToNodeV2`
+- Token: get from app.tana.inc → Settings → API Tokens
+- **Architecture:** Google Tasks = TARSON machine queue | Tana = human knowledge graph (parallel, not replacement)
+- **Phase 1:** Build `scripts/tana_push.sh` — push tracked emails + tasks to Tana INBOX as nodes
+- **Phase 2:** `#Job` supertag schema — link jobs → quotes → orders → suppliers → emails
+- Regis joined Tana Community Slack on 2026-03-10
+- No read API yet (on roadmap) — TARSON can only push, not query
+
 ## GA Annual Registration Rule Behavior (2026-02-26)
 - Rule `CHECK_THEN_CREATE_TASK` was not followed — Regis chose Delete instead of Archive+Task
 - Going forward: if no task exists, suggest "Delete + remind later" button in addition to "Archive + Create Task"
