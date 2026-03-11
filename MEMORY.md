@@ -551,6 +551,22 @@ Templates (rule-based, not agentic):
 Rule engine classifies → template → AI for content only (not structure/buttons)
 Status: design complete, implementation queued after dashboard
 
+## TARSON Graph — Status-Driven Node Architecture (proposed 2026-03-11)
+Regis proposed replacing the email→task dual-node pattern with a unified model:
+- **Every node can have `status` + `due_date`** → makes any node an action item (no separate "task" type needed)
+- **Hierarchy via edges** (`part_of`, `child_of`) → determines project vs task vs sub-task
+- **Eliminates duplication**: email node + task node for same thing becomes ONE enriched node
+- **Dashboard task view** = filter `WHERE status IS NOT NULL AND status != 'done'`
+- **Decision: rebuild schema** while graph is small (59 nodes). Add `status`/`due_date` to node schema, migrate existing task→email pairs to single nodes.
+- **Next step:** Schema redesign + API update on Oracle + dashboard filter update
+
+## TARSON Graph — Enrichment (2026-03-11)
+- Ran `scripts/enrich_graph.py` — edges grew from 19 → 46
+- All 17 email nodes renamed with real Gmail subjects
+- Calendar events linked: Mojitos→task, birthdays/anniversaries→person_regis, webinars→company_tucano
+- Orphaned tasks anchored: SABESP/JMJ/Bon Jovi→person_regis; Jobber/GA Reg/Crown Terrace→company_tucano
+- Crown Terrace order→job_crown_terrace (part_of edge)
+
 ## Graph Dashboard UI Decision (2026-03-10)
 Cards + columns layout (NOT D3 force graph). D3 is impractical for 30+ nodes.
 Card shows: type icon, badge, title, tags (max 3), key field (amount/due/client), source deep link.
