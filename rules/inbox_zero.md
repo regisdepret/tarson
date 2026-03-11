@@ -402,5 +402,27 @@ SUBJECT: "Annual Registration" -> ACTION: CHECK_THEN_CREATE_TASK
 # Rule: Group, count, notify, then suggest bulk deletion. Low priority.
 FROM: no-reply@mailmais.com.br -> ACTION: BATCH_DELETE
 
+# Jobber - Payment Received
+# Story: A client paid an invoice. This is a trigger to act: confirm delivery, follow up, request Google review, close job.
+# Rule: Auto-process without asking. Extract client name, invoice #, amount. Create graph node (type: job) with
+#       fields {invoice, client, amount, status:"paid", paid_date, source_system:"jobber"}.
+#       Create Google Task in TARSON-Tracking: "[ACTION] Invoice #XXXX paid — follow up with <Client>"
+#       with notes linking to gmail thread. Apply Label_81. Archive email (do NOT delete — payment record).
+#       Show informational card to user (no buttons needed): "💰 Invoice #XXXX — <Client> — $X,XXX.XX PAID. Task created, node added to graph."
+FROM: noreply@getjobber.com, SUBJECT: "A Payment of" -> ACTION: AUTO_PROCESS_JOBBER_PAYMENT
+
+# Jobber - Invoice Sent / Other Notifications
+# Story: Other Jobber notifications (invoice sent, job scheduled, etc.) — informational.
+# Rule: Summarize and present for user decision.
+FROM: noreply@getjobber.com -> ACTION: SUMMARIZE
+
+# --- FUTURE: Full Jobber Integration ---
+# TODO: When Jobber webhook/API integration is built, expand AUTO_PROCESS_JOBBER_PAYMENT to:
+#   - Pull full job details from Jobber API (line items, address, assigned crew)
+#   - Auto-link graph node to existing client (person) and job site (place) nodes
+#   - Create subtasks: "Confirm delivery", "Request Google review", "Close job in Jobber"
+#   - Update job status in Jobber directly via API
+# Marked: 2026-03-10
+
 # Default Catch-All
 DEFAULT -> ACTION: SUMMARIZE

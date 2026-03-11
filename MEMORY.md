@@ -508,3 +508,57 @@ When `track_email.sh` fails with "Could not identify newly created task":
 - Rule `CHECK_THEN_CREATE_TASK` was not followed — Regis chose Delete instead of Archive+Task
 - Going forward: if no task exists, suggest "Delete + remind later" button in addition to "Archive + Create Task"
 - The state of Georgia SOS filing can be done at sos.ga.gov for ~$50; do NOT use GA Filing Services (third-party paid service)
+
+## TARSON Graph System — Oracle Cloud (deployed 2026-03-10)
+**Live at:** `http://129.213.125.244/graph/`
+**Architecture:** FastAPI + SQLite + D3.js, running as `tarson` Linux user, Apache reverse proxy
+- No Docker — systemd service `tarson-graph.service`, isolated via dedicated user
+- SQLite: `/home/tarson/graph/db/graph.db`
+- Daily backups: `/home/tarson/graph/backups/` (2 AM cron)
+- **SSH:** `ssh oracle` from ubuntoris (key: `/home/regis/Coding/ssh-key-2025-03-26.key`)
+- **Client:** `scripts/graph.py` on ubuntoris → calls `http://129.213.125.244/graph/api`
+- **Future:** when TARSON migrates to Oracle, `graph.py` switches to direct SQLite (same architecture, no HTTP hop)
+- **Node types:** email, task, event, note, url, file, image, audio, person, company, place, job, quote, order, product, bill, payment, invoice
+- **Relations:** source_of, part_of, assigned_to, references, fulfills, located_at, closes, owns, has_job
+- graph.py CLI: `add`, `link`, `query`, `get`, `search`, `stats` subcommands
+
+## Oracle Cloud Server — Key Facts (2026-03-10)
+- IP: `129.213.125.244`, user: `ubuntu`, hostname: `ubuviboris`
+- SSH alias: `oracle` (in ~/.ssh/config on ubuntoris)
+- OS: Ubuntu 24.04, Apache2, PostgreSQL 16, PHP 8.3
+- Disk: 45GB, ~12GB free as of Mar 10
+- Other active projects: moltbot, tradebotis, telegram_caller, personalboris, php-hub-sync
+- Port 9090 already used by existing Python service — TARSON graph uses 8766
+
+## Communication Channel — Final Decision (2026-03-10)
+**Telegram is the permanent primary channel for TARSON.** No migration to WhatsApp or iMessage.
+- Reasons: inline callback buttons, headless REST API, free, no approval, proven working
+- iMessage: Mac-only, no bot API. WhatsApp: phone tethered, 3-button limit, Meta approval required.
+
+## Future: Jobber API Integration (marked 2026-03-10)
+- When Jobber webhook/API is available: expand payment auto-processing to pull full job details, auto-link graph nodes (client, job site, crew), create subtasks (deliver, review request, close job), update Jobber status directly
+- Current rule (inbox_zero.md): Jobber payment emails → auto-create graph node + Google Task + archive, show informational card
+- Jobber payment rule is LIVE as of 2026-03-10 in rules/inbox_zero.md
+
+## Systematic Inbox Zero Architecture (designed 2026-03-10, not yet built)
+Templates (rule-based, not agentic):
+- `PAYMENT_RECEIVED` (Jobber, BofA, Zego) → auto-process: node + task + archive, informational card only
+- `BILL_DUE` → Track/Archive/Delete buttons
+- `NEWSLETTER` → AI 2-line summary + Delete/Save/Unsubscribe
+- `TRACKING_UPDATE` (Label_81 already) → Complete+Archive / View Task / Delete
+- `SECURITY` → "It was me → Delete" / "Not me → Alert"
+- `DEFAULT` → AI 1-line + Track/Archive/Delete/[Ask TARSON]
+Rule engine classifies → template → AI for content only (not structure/buttons)
+Status: design complete, implementation queued after dashboard
+
+## Graph Dashboard UI Decision (2026-03-10)
+Cards + columns layout (NOT D3 force graph). D3 is impractical for 30+ nodes.
+Card shows: type icon, badge, title, tags (max 3), key field (amount/due/client), source deep link.
+Click → slide-in detail panel with fields + edges + linked nodes.
+Dark theme default. Tag sidebar for filtering. Sort by updated_at desc.
+
+## Graph Sync Cron — Oracle Cloud (decided 2026-03-10)
+Sync cron runs on Oracle as `tarson` user, NOT ubuntoris. Daily at 3 AM.
+Scripts in /home/tarson/graph/scripts/. API calls to http://127.0.0.1:8766 (localhost).
+gws credentials copied to /home/tarson/.config/gws/credentials.json.
+Log: /home/tarson/graph/logs/sync.log
