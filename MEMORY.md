@@ -551,14 +551,28 @@ Templates (rule-based, not agentic):
 Rule engine classifies → template → AI for content only (not structure/buttons)
 Status: design complete, implementation queued after dashboard
 
-## TARSON Graph — Status-Driven Node Architecture (proposed 2026-03-11)
-Regis proposed replacing the email→task dual-node pattern with a unified model:
-- **Every node can have `status` + `due_date`** → makes any node an action item (no separate "task" type needed)
-- **Hierarchy via edges** (`part_of`, `child_of`) → determines project vs task vs sub-task
-- **Eliminates duplication**: email node + task node for same thing becomes ONE enriched node
-- **Dashboard task view** = filter `WHERE status IS NOT NULL AND status != 'done'`
-- **Decision: rebuild schema** while graph is small (59 nodes). Add `status`/`due_date` to node schema, migrate existing task→email pairs to single nodes.
-- **Next step:** Schema redesign + API update on Oracle + dashboard filter update
+## TARSON Graph — Email-as-Task Architecture (finalized 2026-03-11)
+- **Email IS the task. One node only.** No separate task node created when an email is tracked.
+- When an email gets tracked: its existing TARSON node is **enriched in place** (PATCH) with `status=open`, `due_date`, `#Tracking` + category tags
+- Original email title/subject is **preserved** — never renamed to `[CATEGORY] ...`
+- `[CATEGORY]` prefix lives only in Google Tasks, not in TARSON
+- **`push_tracked_email()`** in `push_to_graph.py`: looks up node by `source=gmail:<thread_id>`, patches if found, creates if not
+- **`track_email.sh`** now calls `push_to_graph.py --track-email` as Step 7 after Google Task creation
+- **Retroactive sync**: `scripts/sync_tasks_to_graph.py` — synced 42 Google Tasks → TARSON graph (total 91 nodes after cleanup)
+- **Due date extraction**: `_parse_due_from_title()` parses dates like "Mar 15", "due Mar 19" from titles; 10 nodes patched
+
+## TARSON Graph — Chrome Browser Relay (connected 2026-03-11)
+- Chrome installed on ubuntoris; launched with `DISPLAY=:0 google-chrome`
+- Extension at `~/.openclaw/browser/chrome-extension/` loaded via `chrome://extensions` → Load unpacked
+- Gateway token: `c0c9ac643b5fb3ab07fe010c71251d9e2723aad92d15775e`
+- Relay port: 18792; validation uses HMAC-SHA256(`openclaw-extension-relay-v1:<port>`, token)
+- **Status: working** — can screenshot and interact with TARSON live via `browser(profile="chrome")`
+
+## TARSON UI Fixes (2026-03-11)
+- **Sticky column header**: Chrome sticky on `<thead>` uses table-top as reference (bug). Fix: moved headers to `.gl-col-header` div (CSS grid) outside `<table>`. Sticky now correct.
+- **Tag colors**: Deterministic hash-based palette (8 colors), `tagColor()` in app.js
+- **Contrast**: Tags, timestamps, previews, headers all brightened
+- **Never delete nodes without confirmation** — lesson from this session
 
 ## TARSON Graph — Enrichment (2026-03-11)
 - Ran `scripts/enrich_graph.py` — edges grew from 19 → 46
