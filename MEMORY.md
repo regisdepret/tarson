@@ -592,3 +592,116 @@ Sync cron runs on Oracle as `tarson` user, NOT ubuntoris. Daily at 3 AM.
 Scripts in /home/tarson/graph/scripts/. API calls to http://127.0.0.1:8766 (localhost).
 gws credentials copied to /home/tarson/.config/gws/credentials.json.
 Log: /home/tarson/graph/logs/sync.log
+
+## TARSON Graph Phase 1 & 2 — FULLY DEPLOYED (2026-03-11)
+
+### Phase 1: Schema Redesign (Claude Code `dawn-ocean`, ~7:22 AM)
+**Major architecture change — status-driven nodes instead of type-based separation:**
+- Added `status` + `due_date` fields to ALL node types (not just tasks)
+- Removed D3 force-directed graph entirely (impractical for 30+ nodes)
+- New UI: **Inbox** (urgency-grouped) | **Table** (sortable/filterable) | **Kanban** (drag columns)
+- Detail slide-in panel for editing, viewing relations
+- Dark theme (#0f0f1a background, #7c3aed accent), high contrast fixes applied
+- Data migration: 22 task nodes → `status="open"`, 17 merged into email nodes (email IS task)
+- Final state: 42 nodes (down from 59), 22 with status fields
+
+**Key architectural insight (Regis's proposed model, now confirmed):**
+- Every node can have a `status` field → makes it actionable
+- Hierarchy defined by edges (`part_of`, `child_of`) → eliminates artificial task vs email distinction
+- Example: Crown Terrace job with order + quote nodes all in one hierarchy, no duplication
+- "Email node with status=waiting" replaces the old "email + task pair" pattern
+
+### Phase 2: Dashboard & CRUD (Claude Code `tidal-crest`, ~8:19 AM)
+- **Left sidebar:** supertags (📥 Inbox | 📧 Email | ✅ Tasks | 📅 Calendar | 🗂️ Fragments) with badge counts auto-refreshing
+- **Full CRUD:** Quick Capture modal, inline edit, delete with confirmation, edge management
+- **New API endpoints:** GET /api/supertags, POST /api/capture, cascade DELETE
+- **Keyboard shortcuts:** ⌘K (command palette), N (new), Esc (close), ? (help)
+- **UX:** Toast notifications, recently viewed list, breadcrumbs, row dividers
+- **Sticky headers:** Fixed column headers (not using `<thead>` sticky due to browser quirks)
+- **Tag colors:** Deterministic color palette — hash of tag name always produces same color
+- **Mobile responsiveness:** Injected mid-build; status unconfirmed (need to verify on Safari/Chrome mobile)
+
+**CSS Issues Fixed:**
+- Tags invisible (dark text on dark bg) → now bright (#a78bfa)
+- List view text contrast improved (timestamps, preview, titles)
+- Table headers, keys, vals brightened for readability
+
+### Phase 3 Ideas (Not Yet Built)
+- Telegram → graph capture (send URL/voice/image to TARSON → auto-classifies → pushes to dashboard)
+- Whisper transcription for voice fragments
+- Email → graph node creation triggered during inbox zero
+
+### Current Blockers
+- 🔑 **Anthropic API key expired** — AI capture endpoint returns 401. Regis promised to provide new key from console.anthropic.com. Oracle is configured correctly (systemd EnvironmentFile + .env file in place) — just needs valid key. Reminder set for 8 PM Mar 11.
+- 📱 **Mobile responsiveness** — tidal-crest session last seen running ~10:33 AM Mar 11; unconfirmed if mobile CSS deployed
+
+**Live at:** `http://129.213.125.244/graph/` (requires internet access to Oracle IP)
+
+---
+
+## Google Tasks ↔ TARSON Graph Integration (2026-03-11)
+
+### Architecture Decision: Email IS Task
+**Fundamental rule:** An email that is tracked becomes ONE enriched node, NOT two separate nodes.
+- When an email is tracked: `track_email.sh` creates Google Task AND calls `push_to_graph.py`
+- `push_to_graph.py` checks if node already exists (source = `gmail:<thread_id>`)
+  - If found: **PATCH** in place — add status/due_date/tags while preserving original title
+  - If not found: create new node
+- [CATEGORY] prefix lives only in Google Tasks title, NOT in TARSON graph node title
+- The original email subject is preserved in TARSON (human-readable, not tagged)
+
+### Integration Scripts
+- **`scripts/push_to_graph.py`** — POST to `/api/nodes` with `source`, enriches existing node if found
+  - New function: `push_tracked_email()` — called by track_email.sh after task creation
+  - Helper: `_parse_due_from_title()` — extracts dates from email subject (e.g., "Mar 15", "due Mar 19")
+- **`scripts/track_email.sh`** — Step 7 added: call `push_to_graph.py` after task creation
+- **`scripts/sync_tasks_to_graph.py`** — Retroactive sync of Google Tasks → graph nodes
+  - Also uses improved `extract_due_from_title()` for tasks missing `due` field
+  - Deduplication: match by `source: gmail:<thread_id>` only (fuzzy matching produces false positives)
+
+### Retroactive Sync Result (Mar 11)
+- 42 new nodes added to graph
+- 22 already existed (from enrich_graph.py run earlier)
+- Total after cleanup: 91 nodes
+- **Key lesson:** Never delete nodes without confirmation. Regis rejected my auto-dedup of 12 duplicate nodes without asking. Always show list first, ask permission, then delete.
+
+### Due Date Extraction
+10 nodes had dates buried in titles but missing `due_date` field. All patched via `extract_due_from_title()` logic:
+- Parses "Mar 15", "due Mar 19", "deadline: April 1", etc.
+- Handles 2-digit (assumed 2026) and full-year formats
+- Used in both task sync and email tracking
+
+---
+
+## Chrome Browser Relay — CONFIRMED WORKING (2026-03-11)
+
+### Setup
+- Chrome installed on ubuntoris (same machine as OpenClaw gateway)
+- Launched with `DISPLAY=:0 google-chrome ...`
+- Extension loaded from `~/.openclaw/browser/chrome-extension/`
+- Gateway token: `c0c9ac643b5fb3ab07fe010c71251d9e2723aad92d15775e` (matches `gateway.auth.token` in openclaw.json)
+- Extension relay: listening on port 18792, bound to 127.0.0.1
+
+### Relay Validation
+- Uses HMAC-SHA256 of `openclaw-extension-relay-v1:<port>` with gateway token as key
+- Status: **Connected and working** — confirmed via screenshot of TARSON inbox on Mar 11 PM
+
+### Browser Automation Capability
+- Can now use `browser(profile="chrome")` to control Chrome tabs, take screenshots, interact with web UIs
+- Useful for TARSON graph manipulation, inbox zero email display, etc.
+
+---
+
+## Lesson: Never Auto-Delete Nodes (2026-03-11)
+Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
+**Rule:** Always show the list, explain the dedup logic, ask for confirmation, THEN delete.
+- Reason: dedup is heuristic; false positives exist (e.g., SO186606 vs SO180213 — different bills, same supplier)
+- The sync script's dedup by source+title is correct; the issue was unclear deletion policy
+
+---
+
+## Next Steps (As of 2026-03-11 PM)
+1. 🔑 **Anthropic API key** — Regis will provide. Update `/home/tarson/graph/.env`, restart service.
+2. 📱 **Mobile responsiveness** — verify tidal-crest CSS deployed to Oracle
+3. 🎯 **Telegram → graph capture** — Phase 3 idea; not yet scoped
+4. 📊 **Regis's "zero tracking review"** — check if Phase 2 deployment requires TARSON to re-evaluate tracking rules or task organization
