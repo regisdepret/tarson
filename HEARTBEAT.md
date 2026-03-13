@@ -6,7 +6,7 @@
 ## HEARTBEAT — HARD RULES (Non-negotiable)
 
 1. **OBSERVE AND REPORT ONLY** — never delete, archive, modify, or create tasks during a heartbeat
-2. **QUIET HOURS: 21:00–08:00 EST** (Sundays: quiet until 09:00) — reply `HEARTBEAT_OK` unless CRITICAL
+2. **QUIET HOURS: 21:00–06:30 EST** (Sundays: quiet until 09:00) — reply `HEARTBEAT_OK` unless CRITICAL
 3. **No email subjects** — report count only; email details are Inbox Zero's job
 4. **No repeating** — don't re-report something already flagged in the last 2 heartbeats
 5. **Update state** — always write `memory/heartbeat-state.json` after each check
@@ -17,7 +17,7 @@
 ```bash
 cat memory/heartbeat-state.json 2>/dev/null || echo '{"lastChecks":{"email":0,"tasks":0}}'
 ```
-Skip a check if it ran <1h ago (email) or <2h ago (tasks).
+Skip a check if it ran <30min ago (email) or <2h ago (tasks).
 
 ---
 
