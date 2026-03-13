@@ -25,7 +25,9 @@ Skip a check if it ran <1h ago (email) or <2h ago (tasks).
 ```bash
 bash scripts/inbox_fetch_all.sh
 ```
-**Report format (if >0 emails):** `"📧 X unread emails"`
+**Report format (if >0 emails):** Send `"📧 X unread emails"` with inline buttons **[Proceed] [Snooze]**
+- `proceed_inbox` → user clicked Proceed → start Inbox Zero flow immediately
+- `snooze_inbox` → user clicked Snooze → do nothing, check again next heartbeat
 **DO NOT list subjects. DO NOT process. DO NOT delete.**
 
 ### Email Auto-Ignore Rules (apply silently — never report these)
