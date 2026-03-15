@@ -97,6 +97,14 @@ These are laws, not suggestions.
   - Every suggestion needs an actionable button
   - For newsletters: summarize key points so user gets value without reading
   - Offer one-click unsubscribe when List-Unsubscribe header exists
+  - **TARSON Graph push is mandatory (added 2026-03-15):** Any time I create a QC job, track an email, complete a WATCHING task, or process a significant event → ALWAYS call `push_to_graph.py` with the appropriate node data. This is not optional. Graph = source of truth alongside Google Tasks.
+  - QC job created → push type=job, status=open, source=gmail:<tid>
+  - WATCHING task completed → push type=note, status=done, source=youtube:<id> or url:<...>
+  - Email tracked → push type enrichment (source=gmail:<tid>, status=open)
+- **Task presentation buttons (mandatory, added 2026-03-15):** When presenting any task for review, ALWAYS include 4 inline buttons in 2×2 layout:
+    - Row 1: `✅ Done / Delete` | `📥 Done / Archive`
+    - Row 2: `📅 Set Due Date` | `👁 Keep Tracking`
+    - Stacked 2×2 so text is fully visible on mobile
 
 ## Tracking System
 - **Source of Truth:** Google Tasks → TARSON - Tracking list (ID: dDQyYU42X00zUzVRQm0zQw)
