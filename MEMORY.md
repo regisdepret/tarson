@@ -716,14 +716,24 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Active Quote Control Jobs (as of 2026-03-27)
+## Active Quote Control Jobs (as of 2026-03-28)
 
 ### Corbin Job — 18"×18"×2" Crab Orchard step treads, 35-40 pcs, pickup next week
 - **Luxury Landscape:** ✅ $1,467.89 (cheapest so far) — tracked QC gmail:19d2f80eefe8bd2a
-- **GLM:** ✅ $1,492.12 — tracked QC
+- **GLM:** ✅ $1,492.12 — new overnight quote #DU0001071018 arrived Mar 28 (may supersede) — needs review
 - **Heritage (Marc Teitelman):** ✅ $1,498.00 — Quote #0025832025, 35× 18"×18" Tan tread 2"-3" — ⚠️ quoted "Tan" not "Crab Orchard" — confirm with Regis
 - **OLS:** ⏳ Still waiting
 - Anchor thread: gmail:19d2f729d5ace933
+
+### Argonne Job — 700 sqft Techo Bloc Blu60 Smooth Shale Grey, pickup Apr 1-3
+- **GLM (Clint):** ✅ WINNER — 700.92 SF @ $5.40/sqft = $4,049.92 (tax inc)
+- **Heritage (Marc):** ✅ $5,143.49 (tax inc)
+- **Luxury Landscape (Paul):** ❌ Wrong color quote (Greyed Nickel, not Shale Grey) — disqualified
+- Task: bUlLLU1sQjFpUm1WUUJXaA | LL wrong color task: MkpaYWRCcFNUaGg0YUVCeA
+
+### Grand Litchfield Job — 675 sqft Belgard Dimensions 18 Avondale
+- **OLS (Brooks):** ✅ WINNER — 675 SF @ $5.35/sqft = $3,963.35 (exp Apr 24) — QUO60624
+- **Heritage:** $3,953.17 | **GLM:** $4,021.11 (exp Mar 31) | **LL:** short qty
 
 ### Harleston Job — COMPLETED/CLOSED (was Mar 23 pickup)
 - GLM won at $1,492.12 — pickup was Mon Mar 23
@@ -736,11 +746,15 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-27)
-- 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. ~5 days left. Task exists.
-- 🌐 **apluspowercleaning.com redirect fix** — Google is validating (re-crawling). WATCHING.
+## Open Action Items (as of 2026-03-28)
+- 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task SHZk8mEC6U9Mj04W.
+- 🏠 **Champions Green April 2026 rent** — $1,959.67 due Apr 1. Task M0I0c2UwbGFOVW5USTExNw.
+- 📅 **Jobber Kickoff Call** — Mar 31, 3-4PM PDT with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA.
+- 🌐 **apluspowercleaning.com redirect fix** — Google re-crawling (WATCHING).
 - 💒 **Casamento Luciana** — happened Mar 20 ✅
-- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — was due Mar 26, still in tracking
+- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — was due Mar 26, Regis said "keep tracking"
+- 📦 **Amazon Kerasal Nighttime Renewal** — delivered Mar 27 10PM ✅ (task can be closed)
+- 🔑 **GitHub Claude app permission update** — task bG54UGRmb0lob3hlYWpubA (installation #93272305)
 
 ---
 
