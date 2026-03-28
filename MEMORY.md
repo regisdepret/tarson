@@ -716,14 +716,17 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Active Quote Control Jobs (as of 2026-03-20)
+## Active Quote Control Jobs (as of 2026-03-27)
 
-### Harleston Job
-- **Suppliers:** Heritage, Luxury Landscape, GLM, OLS — pickup Mon Mar 23
-- **GLM:** ✅ $1,492.12 (cheapest) — 160 blocks $5.90, 50 caps $6.89, 8 corners $13.25
-- **Luxury Landscape:** ✅ $1,526.99 — Quote #2603-127986, expires Jun 18
-- **Heritage, OLS:** ⏳ Still waiting as of Mar 20
-- GLM is cheapest by ~$35 so far
+### Corbin Job — 18"×18"×2" Crab Orchard step treads, 35-40 pcs, pickup next week
+- **Luxury Landscape:** ✅ $1,467.89 (cheapest so far) — tracked QC gmail:19d2f80eefe8bd2a
+- **GLM:** ✅ $1,492.12 — tracked QC
+- **Heritage (Marc Teitelman):** ✅ $1,498.00 — Quote #0025832025, 35× 18"×18" Tan tread 2"-3" — ⚠️ quoted "Tan" not "Crab Orchard" — confirm with Regis
+- **OLS:** ⏳ Still waiting
+- Anchor thread: gmail:19d2f729d5ace933
+
+### Harleston Job — COMPLETED/CLOSED (was Mar 23 pickup)
+- GLM won at $1,492.12 — pickup was Mon Mar 23
 
 ### Thompson Job — Bluestone (600 sqft paving + 40 lnft edge)
 - **OLS/Brooks:** ✅ Only complete quote — $12,556.76 (Thermal $10.10/sqft or NC $8.55/sqft, treads $16.40/sqft)
@@ -733,11 +736,11 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-20 evening)
-- 📞 **Google Local Services call** — potential customer called at 2:10 PM Mar 20. ACTION needed.
-- 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task created.
+## Open Action Items (as of 2026-03-27)
+- 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. ~5 days left. Task exists.
 - 🌐 **apluspowercleaning.com redirect fix** — Google is validating (re-crawling). WATCHING.
 - 💒 **Casamento Luciana** — happened Mar 20 ✅
+- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — was due Mar 26, still in tracking
 
 ---
 
