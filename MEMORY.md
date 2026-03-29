@@ -746,15 +746,18 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-28)
+## Open Action Items (as of 2026-03-28 evening)
 - 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task SHZk8mEC6U9Mj04W.
 - 🏠 **Champions Green April 2026 rent** — $1,959.67 due Apr 1. Task M0I0c2UwbGFOVW5USTExNw.
 - 📅 **Jobber Kickoff Call** — Mar 31, 3-4PM PDT with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA.
-- 🌐 **apluspowercleaning.com redirect fix** — Google re-crawling (WATCHING).
+- 🌐 **apluspowercleaning.com redirect fix** — Google VALIDATING fixes now ✅ (as of Mar 28 noon)
 - 💒 **Casamento Luciana** — happened Mar 20 ✅
-- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — was due Mar 26, Regis said "keep tracking"
-- 📦 **Amazon Kerasal Nighttime Renewal** — delivered Mar 27 10PM ✅ (task can be closed)
+- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — past due Mar 26, keep tracking
+- 📦 **Amazon Kerasal Nighttime Renewal** — delivered Mar 27 10PM ✅
 - 🔑 **GitHub Claude app permission update** — task bG54UGRmb0lob3hlYWpubA (installation #93272305)
+- 📞 **Lead: Lance Bradley** — called Tucano via AnswerConnect Mar 26, has questions — task created Mar 28
+- 🔐 **GoDaddy sign-in on admin@tucanostones.com** — fwd by Leo, likely his own login — confirm
+- 💰 **Jobber Quote #5104 — $13,076.00 APPROVED** by Nicolae Butoiu (Mar 28 ~5PM) — CONVERT TO JOB in Jobber
 
 ---
 
