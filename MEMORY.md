@@ -746,21 +746,22 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-28 evening)
+## Open Action Items (as of 2026-03-29 afternoon)
 - 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task SHZk8mEC6U9Mj04W.
 - 🏠 **Champions Green April 2026 rent** — $1,959.67 due Apr 1. Task M0I0c2UwbGFOVW5USTExNw.
-- 📅 **Jobber Kickoff Call** — Mar 31, 3-4PM PDT with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA.
-- 🌐 **apluspowercleaning.com redirect fix** — Google VALIDATING fixes now ✅ (as of Mar 28 noon)
-- 💒 **Casamento Luciana** — happened Mar 20 ✅
+- 📅 **Jobber Kickoff Call** — Mar 31, 6PM EDT (= 3PM PDT) with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA. Zoom: https://getjobber.zoom.us/j/86973472761
+- 💼 **Convert Jobber Quote #5104 to job** — $13,076.00, Nicolae Butoiu. Task S1RrdXc1cDhIeEFHNWVzLQ, due Mar 31.
+- 🌐 **apluspowercleaning.com redirect fix** — Google VALIDATING 404 fixes (60 pages). As of Mar 28.
 - 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — past due Mar 26, keep tracking
-- 📦 **Amazon Kerasal Nighttime Renewal** — delivered Mar 27 10PM ✅
 - 🔑 **GitHub Claude app permission update** — task bG54UGRmb0lob3hlYWpubA (installation #93272305)
 - 📞 **Lead: Lance Bradley** — called Tucano via AnswerConnect Mar 26, has questions — task created Mar 28
-- 🔐 **GoDaddy sign-in on admin@tucanostones.com** — fwd by Leo, likely his own login — confirm
-- 💰 **Jobber Quote #5104 — $13,076.00 APPROVED** by Nicolae Butoiu (Mar 28 ~5PM) — CONVERT TO JOB in Jobber
+- 💧 **SABESP R$114,70 overdue** — Natalino, account 640419135001, due 20/03/2026. Task czBnZEtPcHRVZWprTjJRRg.
 
 ---
 
 ## Lesson: One Email at a Time (reinforced 2026-03-19)
 On Mar 19 batch-deleted 4 emails without presenting them one-by-one. Regis called it out.
 Rule is absolute: present one email → wait for button click → execute → next. No batching, no shortcuts.
+
+## Lesson: IGNORE ≠ DELETE (reinforced 2026-03-29)
+Regis explicitly corrected me for auto-deleting Coinbase recurring buy emails. The rule says IGNORE — that means leave them in inbox, don't present, don't delete. Only delete what the rulebook **explicitly** says to delete. When in doubt, present to the user. Over-applying rules is as bad as not following them.
