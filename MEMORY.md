@@ -746,16 +746,26 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-29 afternoon)
+## Open Action Items (as of 2026-03-30 AM)
 - 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task SHZk8mEC6U9Mj04W.
 - 🏠 **Champions Green April 2026 rent** — $1,959.67 due Apr 1. Task M0I0c2UwbGFOVW5USTExNw.
-- 📅 **Jobber Kickoff Call** — Mar 31, 6PM EDT (= 3PM PDT) with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA. Zoom: https://getjobber.zoom.us/j/86973472761
+- 📅 **Jobber Kickoff Call** — Mar 31, 6PM EDT with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA. Zoom: https://getjobber.zoom.us/j/86973472761
 - 💼 **Convert Jobber Quote #5104 to job** — $13,076.00, Nicolae Butoiu. Task S1RrdXc1cDhIeEFHNWVzLQ, due Mar 31.
 - 🌐 **apluspowercleaning.com redirect fix** — Google VALIDATING 404 fixes (60 pages). As of Mar 28.
-- 📦 **FedEx #889934118791** — Package from Sabrina Correa de Souza (NYC) — past due Mar 26, keep tracking
 - 🔑 **GitHub Claude app permission update** — task bG54UGRmb0lob3hlYWpubA (installation #93272305)
 - 📞 **Lead: Lance Bradley** — called Tucano via AnswerConnect Mar 26, has questions — task created Mar 28
-- 💧 **SABESP R$114,70 overdue** — Natalino, account 640419135001, due 20/03/2026. Task czBnZEtPcHRVZWprTjJRRg.
+- 💧 **SABESP R$114,70** — [WATCHING] Natalino, account 640419135001. Task czBnZEtPcHRVZWprTjJRRg. Tracking for Natalino's response only — NOT urgency-based.
+- 💳 **AmEx Delta SkyMiles Gold** — Total balance $4,729.93 | Min due $80.93 by Apr 19, 2026.
+- ✅ **FedEx #889934118791** — COMPLETED Mar 30. Package from Sabrina arrived.
+
+## Quote Control — Roswell Street Job (as of 2026-03-30)
+- **GLM:** 🏆 WINNER — $3,037.53 (720 sqft Belgard D6 Cheswick, quote #DU0001066826, IN STOCK)
+- **Heritage:** $3,782.67 — $745 more, not chosen
+- Pickup: Mar 30/31 — status of order placement unknown as of 08:27 EDT Mar 30
+
+## Fragment Open (2026-03-30)
+- **Google Colab + VS Code + Claude** — task a1NrVVJqNmtGcGtMeHFMNA
+- Analysis done: Colab MCP Server (Mar 2026) lets Claude drive notebooks. Good for prototyping/ML sandboxing. Bad for production. Regis said "not yet" on actioning — fragment stays open.
 
 ---
 
