@@ -759,6 +759,17 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
+## Lesson: Coinbase Recurring Buys = IGNORE ONLY (hardened 2026-03-29)
+Regis called out that auto-deleting Coinbase recurring buy emails was wrong.
+Rule `no-reply@info.coinbase.com` + `"Your recurring buy for"` = **IGNORE** means:
+- Do NOT delete
+- Do NOT present
+- Leave in inbox as-is
+Only delete what the rulebook **explicitly** says to delete. When in doubt → present to user.
+This is different from `noreply@kraken.com` + `"You bought BTC"` which IS an explicit AUTO-DELETE.
+
+---
+
 ## Lesson: One Email at a Time (reinforced 2026-03-19)
 On Mar 19 batch-deleted 4 emails without presenting them one-by-one. Regis called it out.
 Rule is absolute: present one email → wait for button click → execute → next. No batching, no shortcuts.
