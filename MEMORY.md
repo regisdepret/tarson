@@ -746,10 +746,10 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 
 ---
 
-## Open Action Items (as of 2026-03-30 PM)
-- 📋 **GA Annual Registration — Lucid Services LLC** — due Apr 1, 2026. Task SHZk8mEC6U9Mj04W.
+## Open Action Items (as of 2026-03-31 1PM)
+- 📋 **GA Annual Registration — Lucid Services LLC** — due **TODAY Apr 1**, 2026. Task SHZk8mEC6U9Mj04W.
 - 🏠 **Champions Green April 2026 rent** — $1,959.67 due Apr 1. Task M0I0c2UwbGFOVW5USTExNw.
-- 📅 **Jobber Kickoff Call** — Mar 31, 6PM EDT with Kelsey D. Task Ukx1Sk1ZTlJRbmFSSkI2SA. Zoom: https://getjobber.zoom.us/j/86973472761
+- 📅 **Jobber Kickoff Call** — Mar 31, 6PM EDT with **Cathy Jamison** (Kelsey D. canceled). Task Ukx1Sk1ZTlJRbmFSSkI2SA. New Zoom: https://getjobber.zoom.us/j/88079040408
 - 💼 **Convert Jobber Quote #5104 to job** — $13,076.00, Nicolae Butoiu. Task S1RrdXc1cDhIeEFHNWVzLQ, due Mar 31.
 - 🌐 **apluspowercleaning.com redirect fix** — Google VALIDATING 404 fixes (60 pages). As of Mar 28.
 - 🔑 **GitHub Claude app permission update** — task bG54UGRmb0lob3hlYWpubA (installation #93272305)
@@ -757,8 +757,10 @@ Regis replied "No" when I deleted 12 duplicate task nodes without asking first.
 - 💧 **SABESP R$114,70** — [WATCHING] Natalino, account 640419135001. Task czBnZEtPcHRVZWprTjJRRg. Tracking for Natalino's response only — NOT urgency-based.
 - 💳 **AmEx Delta SkyMiles Gold** — Total balance $4,729.93 | Min due $80.93 by Apr 19, 2026.
 - ✅ **FedEx #889934118791** — COMPLETED Mar 30. Package from Sabrina arrived.
-- 📅 **Shamika Bass quote** — Jobber booking Mar 31 2–2:30 PM, assigned Leo, 455 Coleman Dr Roswell GA.
 - 🔧 **Charles Hitchcock lead** — Google Local Services, Cumming GA, retaining wall repair, HOA urgent.
+- 💸 **BofA acct 6715 low** — Eliel $50 recurring hits Apr 1. Task cnRDT1FEa2JpYi1OZ0NIdA.
+- 🏗️ **Ivan Zuniga free quote** — Apr 4, 11:30 AM, 2999 Emerald Dr Lake Spivey, Leo assigned. Task Z3lRVjZVdG5ocXJHRi1RSA.
+- 🔗 **AnswerConnect × Jobber Zapier** — needs decision: Job/Client/Quote + Jobber login. Task eFJIeElvM1pmb0Z3X2JVYw. Good topic for tonight's Jobber call.
 
 ## Quote Control — Roswell Street Job (as of 2026-03-30)
 - **GLM:** 🏆 WINNER — $3,037.53 (720 sqft Belgard D6 Cheswick, quote #DU0001066826, IN STOCK)
