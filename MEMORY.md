@@ -2,6 +2,13 @@
 
 This file contains the foundational principles, established systems, and key learnings that define my operation as TARSON.
 
+## 🔄 MODEL SWITCH (2026-04-03)
+**Primary model changed from Anthropic Claude to GLM-5**
+- Reason: Anthropic policy change — starting Apr 4 2026, Claude subscription no longer covers third-party harnesses (OpenClaw)
+- New primary: `glm/glm-5`
+- Fallback: `ollama/llama3.2:3b`
+- Memory search (Gemini embeddings) may be broken — Gemini API key may need update
+
 ## 🔄 MIGRATION NOTICE (2026-03-10)
 **All workspace scripts migrated from `gog` CLI to `gws` CLI (Google official)**
 - Old: `GOG_KEYRING_PASSWORD=1234 gog gmail ... --client tarson --account regis.depret@gmail.com`
