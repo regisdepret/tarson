@@ -494,13 +494,14 @@ When `track_email.sh` fails with "Could not identify newly created task":
 - PDF `conta-cancelada.pdf` (cancellation declaration) is in Gmail archive for records.
 - Protocol: n/a (support ticket via Nubank's contact system).
 
-## gws CLI — Auth & Key Notes (2026-03-10)
+## gws CLI — Auth & Key Notes (2026-03-10, updated 2026-04-16)
 `gog` is RETIRED. All Google Workspace operations use `gws` (Google's official CLI).
 - Binary: `/home/regis/.npm-global/bin/gws` (v0.9.1)
 - Credentials: `~/.config/gws/credentials.json` (type: `authorized_user`)
 - Env var: `GOOGLE_WORKSPACE_CLI_CREDENTIALS_FILE=$HOME/.config/gws/credentials.json` (in `~/.bashrc`)
 - GCP project: `tarson-488614` (same as old gog), OAuth client reused
 - Scopes: gmail.modify, tasks, calendar, drive, spreadsheets, userinfo.email
+- **Warning (Apr 16):** Token cache decryption failing with "Decryption failed. Credentials may have been created on a different machine." — if this persists, run `gws auth logout` then `gws auth login -s gmail,tasks,calendar,drive,sheets` to re-auth
 - **Re-auth procedure (if token expires):**
   1. `gws auth login -s gmail,tasks,calendar,drive,sheets --no-open` → starts listener, prints URL + port
   2. Regis opens URL in browser, approves, copies the `http://localhost:<port>/?code=...` URL
@@ -797,3 +798,24 @@ Rule is absolute: present one email → wait for button click → execute → ne
 
 ## Lesson: IGNORE ≠ DELETE (reinforced 2026-03-29)
 Regis explicitly corrected me for auto-deleting Coinbase recurring buy emails. The rule says IGNORE — that means leave them in inbox, don't present, don't delete. Only delete what the rulebook **explicitly** says to delete. When in doubt, present to the user. Over-applying rules is as bad as not following them.
+
+---
+
+## Lesson: Escalate Overdue Bills Aggressively (learned 2026-04-15)
+Honda Financial bill (acct 0177, due Apr 6) went 9 days overdue before resolution.
+- Tracked Apr 3 with due date set correctly
+- Became overdue Apr 7 but not flagged as CRITICAL in heartbeats
+- Finally resolved Apr 15 when user marked it done
+- **Rule:** 🔴 CRITICAL in heartbeat means "past due" — any task with `due` in the past should be flagged immediately
+- The task had a `due` date; I should have flagged it as CRITICAL the first heartbeat after Apr 6
+- Fix: Ensure heartbeat task check compares `due` date against current date, not just "today"
+
+---
+
+## Pattern: Alexa Auto-Orders (discovered 2026-04-16)
+Alexa can automatically order items when supplies are low (e.g., printer ink detected as low by HP printer).
+- Amazon email subject: "An Order has been placed for HP DeskJet 2700 series"
+- Email indicates: "Alexa noticed printer was low on black ink and auto-ordered"
+- **Tracking approach:** Treat like any other Amazon order — create task with order number, delivery date, and item details
+- This is automated household behavior, not a manual purchase by Regis
+- Note: This is the first observed instance (HP 67 Black Ink, $22.20, order #114-9382005-5603413)

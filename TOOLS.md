@@ -60,6 +60,13 @@ See `SCRIPTS.md` for full list.
 - No more `GOG_KEYRING_PASSWORD` needed
 - Simpler syntax: `gws <service> <resource> <method> --params '...'`
 
+### Known Issue (2026-04-16)
+- **Decryption warning:** `failed to decrypt token cache (/home/regis/.config/gws/token_cache.json): Decryption failed`
+  - Commands still execute successfully despite the warning
+  - Likely caused by credentials created on different machine
+  - Fix (if needed): `gws auth logout && gws auth login`
+  - Status: Monitoring, not blocking operations
+
 ## iCloud Mail (IMAP)
 - **Email:** `regis.depret@me.com`
 - **App-specific password:** `ovay-iihc-mwgf-dnjf`
