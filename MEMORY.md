@@ -74,6 +74,7 @@ These are laws, not suggestions.
   2. Not checking for rule-based auto-actions (Maisfy, OneDrive, etc.)
   3. Presenting emails that should be auto-deleted per rules
   4. Not extracting OneDrive memory photos before deletion
+  5. **Message tool validation bug (2026-04-16):** The `message` tool's `delete` action incorrectly requires a `buttons` parameter per validation. This prevents button message deletion after callbacks. Workaround: Proceed with next email despite failed button deletion. (Tool definition issue, not user error)
 - **Unified Fetch Script:** `scripts/inbox_fetch_all.sh` - fetches Gmail inbox, filters out Tracking label client-side. Returns only emails that need treatment.
 - **Gmail Access:** Uses `gws` CLI with OAuth (credentials in `~/.config/gws/credentials.json`), NOT Maton API
 - **Interaction Flow:**
@@ -795,6 +796,12 @@ This is different from `noreply@kraken.com` + `"You bought BTC"` which IS an exp
 ## Lesson: One Email at a Time (reinforced 2026-03-19)
 On Mar 19 batch-deleted 4 emails without presenting them one-by-one. Regis called it out.
 Rule is absolute: present one email → wait for button click → execute → next. No batching, no shortcuts.
+
+## Lesson: User Actions May Be Delayed (learned 2026-04-16)
+User clicked delete button twice after "Inbox zero" was already announced. First click executed action on presented email. Second attempt on already-processed email also executed (trashed archived email). This can cause multiple inbox zero declarations and unexpected actions.
+- **Rule:** Be prepared for delayed user actions after completion
+- Button messages may be clicked even after the session appears done
+- Validate state before executing actions (check if email already processed)
 
 ## Lesson: IGNORE ≠ DELETE (reinforced 2026-03-29)
 Regis explicitly corrected me for auto-deleting Coinbase recurring buy emails. The rule says IGNORE — that means leave them in inbox, don't present, don't delete. Only delete what the rulebook **explicitly** says to delete. When in doubt, present to the user. Over-applying rules is as bad as not following them.
