@@ -817,6 +817,20 @@ Honda Financial bill (acct 0177, due Apr 6) went 9 days overdue before resolutio
 - The task had a `due` date; I should have flagged it as CRITICAL the first heartbeat after Apr 6
 - Fix: Ensure heartbeat task check compares `due` date against current date, not just "today"
 
+## Lesson: Task Due Date Timestamp Comparison (learned 2026-04-19)
+HP 67 Black Ink task (due 2026-04-19T00:00:00.000Z) was overdue but not caught by heartbeat.
+- Task due: 2026-04-19T00:00:00.000Z = April 19, 00:00 UTC = April 18, 20:00 EDT (Saturday 8 PM)
+- Current time: 2026-04-19T13:58:00.000Z = April 19, 13:58 UTC = April 19, 09:58 EDT (Sunday 9:58 AM)
+- Task was ~14 hours overdue but heartbeat query didn't flag it
+- **Root cause:** Heartbeat query compared only date part (`split("T")[0] < "2026-04-19"`) which treats "2026-04-19T00:00:00.000Z" as NOT < "2026-04-19"
+- **Correct heartbeat query:**
+  ```bash
+  gws tasks tasks list --params '{"tasklist":"dDQyYU42X00zUzVRQm0zQw","maxResults":100,"showCompleted":false}' 2>/dev/null | jq --arg now "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" -r '.items[] | select(.due != null and .due < $now) | "\(.title) - \(.due)"'
+  ```
+- **Rule:** Always compare FULL timestamp (including time) against current UTC timestamp to detect overdue tasks
+- Google Tasks stores due dates as `YYYY-MM-DDTHH:mm:ss.sssZ` (always 00:00:00.000Z for date-only tasks)
+- A task with due date "2026-04-19T00:00:00.000Z" becomes overdue the moment it's April 19 in UTC, NOT April 20
+
 ---
 
 ## Pattern: Alexa Auto-Orders (discovered 2026-04-16)
