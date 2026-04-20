@@ -840,3 +840,15 @@ Alexa can automatically order items when supplies are low (e.g., printer ink det
 - **Tracking approach:** Treat like any other Amazon order — create task with order number, delivery date, and item details
 - This is automated household behavior, not a manual purchase by Regis
 - Note: This is the first observed instance (HP 67 Black Ink, $22.20, order #114-9382005-5603413)
+
+---
+
+## Lesson: Heartbeat Log Inconsistency (observed 2026-04-20)
+Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat log entries:
+- Multiple entries with chronologically out-of-order timestamps (e.g., 15:30 appearing after 17:00 entries)
+- Duplicate or overlapping heartbeat entries suggesting parallel processes
+- Contradictory information (e.g., 0 unread at 15:30, then 7 unread at 13:02 which is earlier)
+- Possible causes: race condition between multiple cron jobs, file corruption, or process interruption
+- **Rule:** When reviewing daily memory files, be aware that log entries may not be in perfect chronological order
+- **Rule:** Cross-reference timestamps and look for logical inconsistencies when analyzing activity patterns
+- **Action needed:** Investigate heartbeat cron configuration to ensure no overlapping scheduled jobs
