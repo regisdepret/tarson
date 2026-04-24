@@ -863,3 +863,14 @@ Throughout 2026-04-23, the `memory/heartbeat-state.json` file repeatedly contain
 - **Rule:** Always validate timestamp sanity in heartbeat-state.json before using it to determine if checks should run
 - **Rule:** If timestamp is in the future (>1 hour from current time), reset it to current time before proceeding with checks
 - **Action needed:** Investigate root cause of corruption - may require file locking or atomic write operations to prevent race conditions
+
+## Lesson: Heartbeat State File Timestamp Corruption (observed 2026-04-23)
+Throughout 2026-04-23, the `memory/heartbeat-state.json` file repeatedly contained future timestamps, causing heartbeat checks to incorrectly skip email and task checks.
+- Corruption pattern: Timestamps set to future dates (e.g., April 26, April 27) when actual date was April 23
+- First occurrence: 06:30 EDT (heartbeat corrected timestamp from future to current)
+- Recurring pattern: Multiple heartbeats throughout day (11:32, 11:57, 14:29, 15:03, 16:30) all encountered and corrected corrupted future timestamps
+- Root cause unknown: May be race condition between parallel heartbeat processes, file write corruption, or process interruption
+- Current workaround: Heartbeat checks now always validate and correct future timestamps before use
+- **Rule:** Always validate timestamp sanity in heartbeat-state.json before using it to determine if checks should run
+- **Rule:** If timestamp is in the future (>1 hour from current time), reset it to current time before proceeding with checks
+- **Action needed:** Investigate root cause of corruption - may require file locking or atomic write operations to prevent race conditions
