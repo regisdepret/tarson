@@ -888,3 +888,34 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 - May require file locking mechanisms (flock) to prevent race conditions
 - May require atomic write operations (write to temp file, then move)
 - Review cron job configuration to ensure no overlapping scheduled jobs
+
+---
+
+## Lesson: Task Due Dates Must Be in `due` Field (observed 2026-04-29)
+
+**Issue:** Task deadlines embedded in titles are not detected by heartbeat queries, causing overdue tasks to never be flagged.
+
+**Discovery:**
+- Google Ads API migration task created 2026-03-04 from email about Apr 1 deadline
+- Task title: "[WORK] Google Ads API migration (by Apr 1)"
+- Task has NO `due` date set in Google Tasks (due field is null)
+- Heartbeat query checks `.due < now` → this task never flags as overdue
+- Result: Task is 28+ days overdue but never reported in heartbeats
+
+**Root Cause:**
+- Email tracking (`track_email.sh`) extracts dates from subject lines but may not set Google Tasks `due` field
+- Task created from email with deadline in subject → deadline not captured in system
+- Heartbeat only checks the `due` field, not the title
+
+**Rules:**
+- Task deadlines MUST be set in the Google Tasks `due` field, not just in the title
+- When tracking an email with a deadline, extract and set the `due` field (not just put it in the title)
+- Use `extract_due_from_title()` helper function to parse dates from subjects and set `due` field
+- Verify critical tasks have `due` dates set (query: tasks with [CATEGORY] prefix but null `due`)
+
+**Fix for Existing Task:**
+- Google Ads API migration task needs `due` date set to 2026-04-01T00:00:00.000Z
+- Or close the task if deadline was missed and no longer relevant
+
+**Related:**
+- Lesson: Task Due Date Timestamp Comparison (learned 2026-04-19) — always compare FULL timestamp including time
