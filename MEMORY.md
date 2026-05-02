@@ -919,3 +919,39 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 
 **Related:**
 - Lesson: Task Due Date Timestamp Comparison (learned 2026-04-19) — always compare FULL timestamp including time
+
+---
+
+## Lesson: Heartbeat Gaps Indicate System Issues (observed 2026-04-30)
+
+**Issue:** Missing heartbeat checks for extended periods indicate cron job failures, system downtime, or network connectivity problems.
+
+**Discovery (April 30):**
+- 6-hour gap detected: No heartbeat checks between 11:30 and 17:30
+- Expected checks at: 12:30, 13:30, 14:30, 15:30, 16:30 (5 missed checks)
+- System resumed normal operation at 17:30
+- No user impact reported, but potential for missed critical notifications
+
+**Possible Causes:**
+1. Cron job configuration error or service failure
+2. System reboot or downtime during gap period
+3. Network connectivity issues preventing heartbeat prompt delivery
+4. Process crash or timeout without restart
+5. Resource exhaustion (CPU, memory, disk space)
+
+**Detection Method:**
+- Review daily memory files (memory/YYYY-MM-DD.md) for time gaps in heartbeat entries
+- Compare expected check times (every hour on :30) vs actual logged checks
+- Check system logs: `/var/log/syslog`, `/var/log/cron.log`, `journalctl -u cron`
+
+**Rules:**
+- Investigate any gap >2 hours without heartbeat checks
+- Review cron job configuration: `crontab -l` and system crontab (`/etc/crontab`, `/etc/cron.d/`)
+- Verify cron service status: `systemctl status cron`
+- Check for overlapping jobs that may cause conflicts
+- Monitor system resources during gap periods
+
+**Action Required:**
+- Set up monitoring to alert when heartbeat gaps exceed 2 hours
+- Implement heartbeat health check that self-reports missed checks
+- Review and document cron job dependencies and failure recovery procedures
