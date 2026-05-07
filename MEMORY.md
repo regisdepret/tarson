@@ -855,39 +855,51 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 
 ## Lesson: Heartbeat State File Timestamp Corruption (observed 2026-04-23, ongoing)
 
-**Issue:** The `memory/heartbeat-state.json` file repeatedly contains future timestamps, causing heartbeat checks to incorrectly skip email and task checks.
+**Issue:** The `memory/heartbeat-state.json` file repeatedly contains corrupted timestamps, causing heartbeat checks to malfunction.
 
-**Corruption Pattern:**
+**Corruption Patterns:**
+
+**Pattern 1: Future Timestamps (April 2026)**
 - Timestamps set to future dates (e.g., April 26, 27 when actual date was April 23-29)
 - Future dates range from 1-3 days ahead of actual date
 - Causes heartbeat to skip checks because it thinks "last check was in the future"
 
+**Pattern 2: Past Timestamps (May 2026)**
+- Timestamps jumping ~365 days into the past (e.g., 2025-05-06 when actual date was 2026-05-06)
+- **May 6, 2026:** 3+ occurrences detected (12:34, 16:06, 16:08)
+- Pattern changed: Now occurring throughout the day, not just at 06:30
+- Self-corrects automatically on next heartbeat (timestamp validation reset to current time)
+
 **Timeline:**
-- **April 23:** 6+ occurrences (06:30, 11:32, 11:57, 14:29, 15:03, 16:30)
-- **April 28:** 1 occurrence at 06:30 (first heartbeat after 06:30 quiet hours end)
-- **April 29:** 1 occurrence at 06:30 (first heartbeat of the day)
-- **Pattern:** Occurs primarily at first heartbeat of the day (06:30) after quiet hours
+- **April 23:** 6+ occurrences (06:30, 11:32, 11:57, 14:29, 15:03, 16:30) — future timestamps
+- **April 28:** 1 occurrence at 06:30 — future timestamp (first heartbeat after quiet hours)
+- **April 29:** 1 occurrence at 06:30 — future timestamp (first heartbeat of the day)
+- **May 6:** 3+ occurrences (12:34, 16:06, 16:08) — past timestamps (~365 days back)
 
 **Root Cause Hypotheses:**
-1. Race condition between parallel heartbeat processes
-2. File write corruption during heartbeat execution
+1. Race condition between parallel heartbeat processes (multiple cron jobs overlapping)
+2. File write corruption during heartbeat execution (non-atomic writes)
 3. Process interruption during state file update
 4. Date/time system issue at boot/first heartbeat after quiet hours
+5. File system timing issue (clock skew, NTP sync problems)
 
 **Current Workaround:**
 - Heartbeat checks now always validate timestamp sanity before use
 - If timestamp is in the future (>1 hour from current time), reset to current time
+- If timestamp is in the past (>1 hour before current time), reset to current time
 - Implemented in HEARTBEAT.md STEP 1
 
 **Rules:**
 - Always validate timestamp sanity in heartbeat-state.json before using it to determine if checks should run
 - If timestamp is in the future (>1 hour from current time), reset it to current time before proceeding with checks
+- If timestamp is in the distant past (>1 hour before current time), reset it to current time before proceeding with checks
 
 **Action Needed:**
-- Investigate root cause of corruption
+- Investigate root cause of corruption (pattern changed in May, suggests different underlying issue)
 - May require file locking mechanisms (flock) to prevent race conditions
 - May require atomic write operations (write to temp file, then move)
 - Review cron job configuration to ensure no overlapping scheduled jobs
+- Monitor for recurrence and document any pattern changes
 
 ---
 
