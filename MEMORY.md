@@ -967,3 +967,54 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 - Set up monitoring to alert when heartbeat gaps exceed 2 hours
 - Implement heartbeat health check that self-reports missed checks
 - Review and document cron job dependencies and failure recovery procedures
+
+---
+
+## Lesson: State File Corruption Pattern Changed AGAIN (observed 2026-05-07)
+
+**Issue:** The `memory/heartbeat-state.json` timestamp corruption pattern has changed for the third time, indicating an evolving or multi-faceted root cause.
+
+**Pattern Evolution:**
+1. **April 23-29:** Future timestamps (1-3 days ahead) — occurred at 06:30 and random times
+2. **May 6:** Past timestamps (~365 days into the past) — 3+ occurrences throughout the day
+3. **May 7:** **NEW PATTERN** — Future timestamps (77 minutes ahead) — 4 occurrences at random times
+
+**May 7 Occurrences:**
+- 12:34 EDT — timestamp 77 minutes in the future (auto-corrected)
+- 16:06 EDT — timestamp 77 minutes in the future (auto-corrected)
+- 16:08 EDT — timestamp 77 minutes in the future (auto-corrected)
+- 17:33 EDT — timestamp 77 minutes in the future (auto-corrected)
+
+**Key Observations:**
+- Frequency INCREASED: 4 occurrences in 8 hours (vs 3+ in 24 hours on May 6)
+- Pattern changed: Future timestamps again, but exactly 77 minutes ahead (not 1-3 days like April)
+- Occurs at random times throughout day (not just at 06:30)
+- Self-corrects automatically via timestamp validation in HEARTBEAT.md
+- No new occurrences since 13:31 EDT on May 7 (may have stabilized)
+
+**Root Cause Hypotheses (Updated):**
+1. **Race condition:** Multiple cron jobs overlapping (e.g., backup + heartbeat + memory review)
+2. **File write corruption:** Non-atomic writes during concurrent access
+3. **Time synchronization issue:** NTP sync causing clock adjustments
+4. **Timezone handling bug:** EDT vs UTC conversion error (77 minutes = 1:17 — suspicious)
+5. **Python/Node process interference:** Multiple processes writing to same file
+
+**Rules:**
+- Always validate timestamp sanity before use (already implemented in HEARTBEAT.md)
+- If timestamp is in the future (>1 hour ahead), reset to current time
+- If timestamp is in the distant past (>1 hour before), reset to current time
+- Monitor for recurrence and document any pattern changes
+- **NEW:** Investigate if 77-minute offset correlates with any timezone or DST calculation
+
+**Action Required:**
+- Implement file locking mechanism (flock) to prevent race conditions
+- Use atomic write operations (write to temp file, then move)
+- Review cron job configuration for overlapping jobs
+- Check system time sync logs: `timedatectl status`, `journalctl -u systemd-timesyncd`
+- Monitor for further pattern changes or recurrence
+- Consider switching to a more robust state storage mechanism (e.g., SQLite) if issue persists
+
+**Current Status:**
+- May 7, 13:31: Last occurrence detected
+- May 8, 06:30: No new occurrences (as of backup completion)
+- System self-healing via timestamp validation is working, but root cause remains unknown
