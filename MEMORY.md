@@ -1018,3 +1018,96 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 - May 7, 13:31: Last occurrence detected
 - May 8, 06:30: No new occurrences (as of backup completion)
 - System self-healing via timestamp validation is working, but root cause remains unknown
+
+---
+
+## Pattern: User Engagement with Inbox Zero (observed 2026-05-17)
+
+**Observation:** User actively processes emails when prompted with inline buttons.
+
+**May 17 Example:**
+- Morning: 11 unread emails in inbox
+- After 09:30 notification: User processed 6 emails (YouVersion 2x, Kraken, Google Calendar, etc.)
+- By 13:30: Inbox down to 4 emails (excellent progress)
+- By 15:32: 3 new emails arrived (American Express, Kraken security alert, OneDrive)
+- By 18:30: 1 new Tucano Stones proposal arrived (already tracked)
+- Evening: Stable at 8 unread emails
+
+**Key Insights:**
+- User responds well to "📧 X unread emails" notifications with [Proceed] [Snooze] buttons
+- When user clicks [Snooze], emails continue to accumulate in inbox
+- When user clicks [Proceed], inbox cleanup is rapid and effective
+- New emails continue arriving throughout the day (Jobber leads, security alerts, marketing)
+
+**Rules:**
+- Send inbox count notification only when emails exceed threshold and last check >30min ago
+- Provide clear action buttons: [Proceed] to start Inbox Zero, [Snooze] to defer
+- Don't repeat notifications if count hasn't changed ("no repeating" rule)
+- Auto-ignore rules reduce noise (Coinbase recurring buys, Duolingo, Google Calendar "no events")
+
+---
+
+## Pattern: Meeting Workflow for Tucano Stones (observed 2026-05-19)
+
+**Observation:** Tucano Stones meeting invitations arrive via email and should be tracked for attendance/action.
+
+**May 19 Example:**
+- Meeting invitation received at 07:50 EDT: "Tucano Stones: Invitation: Meeting Red Level J. Kovarik @ Tue May 19, 2026"
+- Meeting time: 11:00-12:00 EDT (same day)
+- During quiet hours (Sundays until 09:00), notification was suppressed
+- Meeting needs to be tracked for follow-up action (notes, tasks from discussion)
+
+**Key Insights:**
+- Meeting invitations should be treated as high-priority (due same day or next)
+- During quiet hours, meeting invitations still need to be flagged (even if notification suppressed)
+- After meeting, extract action items and create tasks
+
+**Rules:**
+- When meeting invitation detected, create task with due date = meeting date
+- If meeting is today/tomorrow, flag as 🔴 CRITICAL in next heartbeat
+- During quiet hours, still track meeting in task system but defer notification until after 09:00
+- After meeting completion, add meeting notes to task and mark complete
+
+---
+
+## Pattern: Security Alert Handling (observed 2026-05-17)
+
+**Observation:** Security alerts from financial services (Kraken) need immediate user verification.
+
+**May 17 Example:**
+- 12:25 PM EDT: Kraken sent "A new device has signed in to your account"
+- Alert remained in inbox unverified throughout day
+- Multiple heartbeat checks flagged this as needing review
+- By May 18 morning: Still unverified
+
+**Key Insights:**
+- Security alerts should be prioritized above routine email processing
+- User verification needed to confirm legitimate device sign-in or take action
+- Security alerts can arrive at any time (not during predictable hours)
+
+**Rules:**
+- When security alert detected, immediately flag as 🔴 CRITICAL in heartbeat report
+- Don't auto-delete or ignore security alerts under any circumstances
+- Include "⚠️ SECURITY:" prefix in heartbeat alerts for visibility
+- Track security alerts with explicit reminder to verify legitimacy
+
+---
+
+## Pattern: Duplicate Task Creation (observed 2026-05-18)
+
+**Observation:** When tracking emails with similar subjects, duplicate tasks can be created.
+
+**May 18 Example:**
+- 2 duplicate tasks: "Soft 404 errors on tucanostones.com" (both due May 18)
+- Tasks were created separately from two different emails
+- Both became critical on same day (May 18)
+
+**Key Insights:**
+- Email threads about the same issue may appear separately in inbox
+- Tracking each email separately creates duplicate tasks
+- User needs to consolidate related tasks or understand why duplicates exist
+
+**Rules:**
+- When presenting duplicate tasks for review, explicitly flag them: "2 duplicate tasks detected"
+- Consider using thread merge procedure for related emails
+- Ask user if tasks should be merged before marking as critical
