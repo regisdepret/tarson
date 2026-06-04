@@ -841,6 +841,37 @@ Alexa can automatically order items when supplies are low (e.g., printer ink det
 - This is automated household behavior, not a manual purchase by Regis
 - Note: This is the first observed instance (HP 67 Black Ink, $22.20, order #114-9382005-5603413)
 
+**From June 3:**
+- Inbox flow got stuck - AMC order presented twice with no user action
+- Multiple heartbeat notifications sent but user didn't engage
+- 4 emails in inbox: AMC (pending), Woot (pending), Home Depot receipt (pending), Champions Green pet reminder (pending)
+- User seems busy or overwhelmed
+
+**From June 2:**
+- User processed emails effectively throughout the day (8→10→4→3)
+- [Proceed] [Snooze] workflow working well
+- No critical issues
+- Backup system working correctly
+
+**Key observations for MEMORY.md:**
+
+1. **Inbox Zero Flow Stuck Pattern** - When presented emails don't get user action, the flow freezes. Multiple heartbeat notifications keep reminding about the same emails but don't break the deadlock. This is a UX issue.
+
+2. **Auto-deletions working** - OneDrive memory emails being auto-trashed per rules
+
+3. **Backup system reliable** - Working correctly
+
+---
+
+## Lesson: Inbox Zero Flow Stuck Pattern (observed 2026-06-03)
+When an email is presented with buttons but the user doesn't take action:
+- The entire inbox zero flow freezes at that point
+- Subsequent heartbeat checks send notifications about the same email count
+- User may be busy or away from Telegram
+- Multiple notifications about the same emails can feel annoying
+- **Consideration:** After 3+ hours of no action, consider auto-archiving low-priority emails or changing notification strategy
+- **Rule:** Don't spam notifications for the same email count multiple times (respect "no repeating" rule from HEARTBEAT.md)
+
 ---
 
 ## Lesson: Heartbeat Log Inconsistency (observed 2026-04-20)
