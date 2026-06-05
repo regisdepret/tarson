@@ -13,6 +13,18 @@
 
 ---
 
+## STEP 0 — Load Context (MANDATORY)
+```bash
+# Read today's memory file (create if needed)
+TODAY=$(date +"%Y-%m-%d")
+YESTERDAY=$(date -d "yesterday" +"%Y-%m-%d")
+cat memory/${TODAY}.md 2>/dev/null || echo "# ${TODAY}\n" > memory/${TODAY}.md
+cat memory/${YESTERDAY}.md 2>/dev/null || true
+```
+**Purpose:** Gain continuity across heartbeat sessions. See AGENTS.md startup rules.
+
+---
+
 ## STEP 1 — Check State
 ```bash
 cat memory/heartbeat-state.json 2>/dev/null || echo '{"lastChecks":{"email":0,"tasks":0}}'

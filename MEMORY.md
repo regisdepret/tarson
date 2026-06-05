@@ -1124,6 +1124,34 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 
 ---
 
+## Pattern: Procedure Startup Gap (observed 2026-06-05)
+
+**Observation:** Heartbeats do not check memory context at startup, but AGENTS.md requires it.
+
+**June 5 Example:**
+- Morning (06:30): No memory files read before responding
+- AGENTS.md rule: "Every Session: Read SOUL.md, USER.md, memory/YYYY-MM-DD.md (today + yesterday)"
+- HEARTBEAT.md rule: "Read HEARTBEAT.md... Do not infer or repeat old tasks from prior chats"
+- Today's memory file (2026-06-05.md) didn't exist at first 09:58 check
+- Procedure gap: Heartbeats lack context about recent events without reading memory
+
+**Key Insights:**
+- Heartbeats are autonomous sessions that still need context
+- Reading memory files enables continuity across heartbeat sessions
+- Without memory context, heartbeats may miss recent patterns or decisions
+
+**Rules:**
+- Heartbeats MUST read today's and yesterday's memory files (if they exist)
+- Start heartbeat with: read today's memory, read yesterday's memory, then check heartbeat-state.json
+- Add memory-read step to HEARTBEAT.md procedure (reference AGENTS.md)
+- Example: `bash scripts/read_recent_memory.sh` to batch read both files
+
+**Reference:**
+- AGENTS.md startup rules
+- HEARTBEAT.md procedure (needs amendment)
+
+---
+
 ## Pattern: Duplicate Task Creation (observed 2026-05-18)
 
 **Observation:** When tracking emails with similar subjects, duplicate tasks can be created.
