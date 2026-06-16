@@ -1170,3 +1170,37 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 - When presenting duplicate tasks for review, explicitly flag them: "2 duplicate tasks detected"
 - Consider using thread merge procedure for related emails
 - Ask user if tasks should be merged before marking as critical
+
+---
+
+## Pattern: Heartbeat No-Repeat Rule Prevents Notification Fatigue (observed 2026-06-16)
+
+**Observation:** The heartbeat system's rule #4 ("no repeating") effectively prevents spam while maintaining awareness of critical items.
+
+**June 16 Example:**
+- **06:30 AM:** Detected 13 unread emails + CRITICAL task (Google meeting due June 12, 4 days past due). Sent notification.
+- **07:02 AM:** Detected 12 unread emails. Sent notification (count changed).
+- **07:30 AM:** Detected 2 unread emails + CRITICAL task. Did NOT repeat CRITICAL notification (within 2-heartbeat window from 06:30 AM).
+- **08:01 AM:** Detected 3 unread emails. Sent notification (count changed). CRITICAL task already flagged.
+- **08:30 AM:** Detected 4 unread emails. Did NOT send notification (pending from 08:01 AM).
+
+**Auto-deletes working correctly:**
+- Google Calendar "Daily Agenda" email → AUTO-DELETE (subject pattern match)
+- Kraken "You bought BTC" email → AUTO-DELETE (sender + subject pattern match)
+- Only 11 emails were presented to user (13 - 2 auto-deleted)
+
+**Key Insights:**
+- Rule #4 (no repeating) is essential for preventing notification fatigue
+- Heartbeat window logic (2-heartbeat window for tasks, no window for email count changes) works as designed
+- Auto-deletes apply silently, reducing inbox noise without user action
+- Critical tasks are tracked continuously but only flagged when appropriate
+
+**Rules:**
+- Respect rule #4 strictly: don't re-report items already flagged in the last 1-2 heartbeats
+- Auto-deletes reduce noise and should be applied before counting emails for notification
+- Critical tasks should be tracked but not repeatedly flagged unless they turn newly critical
+- Email count notifications should only be sent when count changes (not every heartbeat)
+
+**Related:**
+- HEARTBEAT.md rule #4: "No repeating — don't re-report something already flagged in the last 2 heartbeats"
+- Inbox zero auto-rule table in HEARTBEAT.md (Kraken, Duolingo, Google Calendar, etc.)
