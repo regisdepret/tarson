@@ -1326,3 +1326,29 @@ Review of 2026-04-19.md revealed significant inconsistencies in the heartbeat lo
 - Heartbeat-state.json tracks last checks, but doesn't track snooze actions (needs extension)
 
 ---
+
+## Pattern: Friday Low-Volume Days (observed 2026-06-26)
+
+**Observation:** Fridays can be particularly low-volume for email traffic, with minimal accumulation throughout the day.
+
+**Context:**
+- June 26, 2026 (Friday): Email count went from 24 at 6:30 AM to 29 at 8:00 PM (only 5 new emails in 13.5 hours)
+- This is much lower than typical weekday accumulation
+- User still processes in batches, but at 8:00 PM rather than midday
+
+**Key insights:**
+- Low email volume is not a system error — it's normal daily variation
+- Friday evenings may be common batch-processing times (user finishing week's inbox)
+- Heartbeat monitoring still works correctly even on low-volume days
+- Task stability persists (39-42 open items, no critical tasks)
+
+**Rules:**
+- Don't assume low email count = system failure
+- Friday evening (8:00 PM) is a valid processing window
+- Batch timing varies by user schedule and day of week
+
+**Related:**
+- MEMORY.md "Overnight Sleep Gap and Resume" pattern (for Saturday morning resume behavior)
+- HEARTBEAT.md rule #4: "No repeating" — prevents notification spam during low-volume periods
+
+---
