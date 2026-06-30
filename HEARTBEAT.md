@@ -9,7 +9,8 @@
 2. **QUIET HOURS: 21:00–06:30 EST** (Sundays: quiet until 09:00) — reply `HEARTBEAT_OK` unless CRITICAL
 3. **No email subjects** — report count only; email details are Inbox Zero's job
 4. **No repeating** — don't re-report something already flagged in the last 2 heartbeats
-5. **Update state** — always write `memory/heartbeat-state.json` after each check
+5. **Snooze persistence** — extend no-repeat window to 4-6 hours when user clicks Snooze
+6. **Update state** — always write `memory/heartbeat-state.json` after each check
 
 ---
 
